@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #0000FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.arena_tickets_purchasing_system.Admin.AdminTeamRosterController">
+    <children>
+        <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
+            <children>
+                <Text fill="#faf5f5" layoutX="704.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Матчи">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Text>
+            </children>
+        </AnchorPane>
+        <TableView fx:id="table" layoutY="278.0" prefHeight="600.0" prefWidth="1550.0">
+            <columns>
+                <TableColumn fx:id="passportName" prefWidth="125.59997254610062" text="ФИО" />
+                <TableColumn fx:id="roleOfPlayer" prefWidth="180.8000030517578" text="Амплуа" />
+                <TableColumn fx:id="jerseyNumb" prefWidth="160.0" text="Номер джерси" />
+                <TableColumn fx:id="nationalityOfPlayer" prefWidth="168.800048828125" text="Страна" />
+            <TableColumn fx:id="ageOfPlayer" prefWidth="177.5999755859375" text="Возраст, количество лет" />
+            <TableColumn fx:id="heightOfPlayer" prefWidth="151.199951171875" text="Рост, см" />
+            <TableColumn fx:id="weightOfPlayer" prefWidth="140.80010986328125" text="Вес, кг" />
+                <TableColumn fx:id="seasonsInTeam" prefWidth="229.5999755859375" text="Количество сезонов в команде" />
+                <TableColumn fx:id="seasonsInLeague" prefWidth="215.199951171875" text="Количество сезонов в лиге" />
+            </columns>
+        </TableView>
+        <AnchorPane layoutY="207.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Button fx:id="addPlayer" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#addPlayer" prefHeight="36.0" prefWidth="100.0" text="Добавить" />
+                <Button fx:id="delPlayer" layoutX="127.0" layoutY="17.0" mnemonicParsing="false" onAction="#delPlayerFromTable" prefHeight="36.0" prefWidth="100.0" text="Удалить" />
+                <Button fx:id="updateInfo" layoutX="240.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="36.0" prefWidth="100.0" text="Обновить" />
+                <Button fx:id="sortPlayers" layoutX="353.0" layoutY="18.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" text="Сортировать" />
+            </children>
+        </AnchorPane>
+        <Button fx:id="exitButton" layoutX="1364.0" layoutY="24.0" mnemonicParsing="false" onAction="#backToAdminHomePage" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Выход">
+            <font>
+                <Font name="Bodoni MT Black Italic" size="18.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
