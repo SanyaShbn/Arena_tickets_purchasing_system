@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #0000FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController">
+    <children>
+        <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
+         <children>
+            <Text fill="#faf5f5" layoutX="704.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Матчи">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Text>
+         </children>
+        </AnchorPane>
+      <TableView fx:id="table" layoutY="278.0" prefHeight="600.0" prefWidth="1550.0">
+        <columns>
+            <TableColumn fx:id="idMatch" prefWidth="125.59997254610062" text="ID Матча" />
+            <TableColumn fx:id="dateMatch" prefWidth="270.0" text="Дата матча" />
+            <TableColumn fx:id="timeMatch" prefWidth="270.0" text="Время матча" />
+            <TableColumn fx:id="opponentTeam" prefWidth="313.5999755859375" text="Команда-соперник" />
+            <TableColumn fx:id="amountTickets" prefWidth="285.60003662109375" text="Количество билетов в продаже" />
+            <TableColumn fx:id="typeMatch" prefWidth="283.2000732421875" text="Тип матча" />
+        </columns>
+      </TableView>
+      <AnchorPane layoutY="207.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Button fx:id="addMatch" layoutX="40.0" layoutY="17.0" mnemonicParsing="false" onAction="#addMatch" prefHeight="36.0" prefWidth="100.0" text="Добавить" />
+            <Button fx:id="delMatch" layoutX="180.0" layoutY="17.0" mnemonicParsing="false" onAction="#delMatchFromTable" prefHeight="36.0" prefWidth="100.0" text="Удалить" />
+            <Button fx:id="updateInfo" layoutX="320.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="36.0" prefWidth="100.0" text="Обновить" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="exitButton" layoutX="1364.0" layoutY="24.0" mnemonicParsing="false" onAction="#backToAdminHomePage" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Выход">
+         <font>
+            <Font name="Bodoni MT Black Italic" size="18.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>
