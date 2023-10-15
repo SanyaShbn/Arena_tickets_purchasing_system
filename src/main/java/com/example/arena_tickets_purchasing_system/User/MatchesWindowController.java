@@ -1,7 +1,9 @@
 package com.example.arena_tickets_purchasing_system.User;
 
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
+import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,21 +27,17 @@ public class MatchesWindowController {
     @FXML
     private AnchorPane MainPane;
     @FXML
-    private Button BuyTicketButton;
-
-    @FXML
     private MenuButton MenuButton;
-
     @FXML
-    private TextArea SheduleTextArea;
+    private MenuItem MainMenuItem;
+    @FXML
+    private MenuItem TeamItem;
+    @FXML
+    private MenuItem TicketsItem;
 
     AnchorPane main_menu;
     @FXML
     void initialize(){
-        MenuItem main_menu_item = new MenuItem("Главная");
-        MenuItem news_item = new MenuItem("Новости");
-        MenuItem team_roster_item = new MenuItem("Команда");
-        MenuButton.getItems().addAll(main_menu_item, news_item, team_roster_item);
         FXMLLoader main_menu_loader = new FXMLLoader();
         main_menu_loader.setLocation((getClass().getResource("main_menu.fxml")));
         try {
@@ -69,11 +67,6 @@ public class MatchesWindowController {
             throw new RuntimeException(e);
         }
 
-        main_menu_item.setOnAction(event ->
-        {
-          goToNewPane(main_menu);
-        });
-
     }
     @FXML
     private void goToNewPane(Node node) {
@@ -87,4 +80,21 @@ public class MatchesWindowController {
         ft.setAutoReverse(false);
         ft.play();
     }
+    @FXML
+    private void backToMainMenu (ActionEvent some_event) {
+        goToNewPane(main_menu);
+    }
+
+    @FXML
+    private void viewUserTickets (ActionEvent some_event) {
+        MainPane.getScene().getWindow().hide();
+        new WindowsOpener("user_tickets.fxml");;
+    }
+
+    @FXML
+    private void viewTeamRoster (ActionEvent some_event) {
+        MainPane.getScene().getWindow().hide();
+        new WindowsOpener("user_roster.fxml");;
+    }
+
 }
