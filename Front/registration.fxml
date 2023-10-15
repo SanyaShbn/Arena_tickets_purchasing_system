@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.arena_tickets_purchasing_system.User.RegistrationController">
+<AnchorPane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #E0FFFF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.arena_tickets_purchasing_system.User.RegistrationController">
     <children>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #00BFFF;">
             <children>
@@ -18,7 +18,7 @@
             </children>
         </AnchorPane>
         <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте оригинальный логин" />
-        <Button fx:id="SignUpButton" layoutX="595.0" layoutY="627.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="358.0" style="-fx-background-color: #0000FF;" text="Зарегестрироваться" textFill="#f4eeee">
+        <Button fx:id="SignUpButton" layoutX="595.0" layoutY="627.0" mnemonicParsing="false" onAction="#registrationOfUser" prefHeight="85.0" prefWidth="358.0" style="-fx-background-color: #0000FF;" text="Зарегестрироваться" textFill="#f4eeee">
             <font>
                 <Font size="24.0" />
             </font>
