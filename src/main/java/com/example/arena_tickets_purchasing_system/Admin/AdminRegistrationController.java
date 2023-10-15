@@ -1,14 +1,13 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
-import com.example.arena_tickets_purchasing_system.Admin.Admin;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import com.example.arena_tickets_purchasing_system.animations.Error_shaking;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
-import javafx.scene.text.Text;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,27 +22,6 @@ public class AdminRegistrationController {
 
     @FXML
     private Button SignUpButton;
-
-    @FXML
-    void initialize() {
-
-        SignUpButton.setOnAction(event -> {
-            String login = LoginField.getText().trim();
-            String password = PasswordField.getText().trim();
-            if(!login.equals(" ") && !password.equals(" ")){
-                try {
-                    registerAdmin(login, password);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            else {
-                System.out.println("Ошибка регистрации!");
-            }
-        });
-    }
 
     private void registerAdmin(String login, String password) throws SQLException, ClassNotFoundException {
         DatabaseHandler dbHandler = new DatabaseHandler();
@@ -61,7 +39,7 @@ public class AdminRegistrationController {
         if(numb > 0){
             Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
             login_and_password_shake.executeAnimation();
-
+            new NotificationShower().showSimpleError("Ошибка регистрации!", "Логин или пароль уже используются");
         }
         else{
             dbHandler.signUpAdmins(new Admin(login,password));
@@ -71,6 +49,21 @@ public class AdminRegistrationController {
         }
 
     }
-
+    @FXML
+    private void registrationOfAdmin (ActionEvent some_event) {
+        String login = LoginField.getText().trim();
+        String password = PasswordField.getText().trim();
+        if(!LoginField.getText().isEmpty() && !PasswordField.getText().isEmpty()){
+            try {
+                registerAdmin(login, password);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            new NotificationShower().showSimpleError("Ошибка регистрации!", "Введите логин и пароль");
+        }
+    }
 }
-
