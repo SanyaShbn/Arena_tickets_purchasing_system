@@ -16,7 +16,7 @@
                   <Font name="Bodoni MT Black Italic" size="64.0" />
                </font>
             </Text>
-            <Button fx:id="SignUpButton" layoutX="1262.0" layoutY="14.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="254.0" style="-fx-background-color: #0000FF;" text="Регистрация" textFill="#fffefe">
+            <Button fx:id="SignUpButton" layoutX="1262.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAdminRegistrationPage" prefHeight="64.0" prefWidth="254.0" style="-fx-background-color: #0000FF;" text="Регистрация" textFill="#fffefe">
                <font>
                   <Font name="Bodoni MT Black" size="18.0" />
                </font>
@@ -25,7 +25,7 @@
       </AnchorPane>
       <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Логин" />
       <PasswordField fx:id="PasswordField" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Пароль" />
-      <Button fx:id="SignInButton" layoutX="654.0" layoutY="730.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="241.0" style="-fx-background-color: #0000FF;" text="Войти" textFill="#f4eeee">
+      <Button fx:id="SignInButton" layoutX="654.0" layoutY="730.0" mnemonicParsing="false" onAction="#signInAdmin" prefHeight="75.0" prefWidth="241.0" style="-fx-background-color: #0000FF;" text="Войти" textFill="#f4eeee">
          <font>
             <Font size="24.0" />
          </font>
