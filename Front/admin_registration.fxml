@@ -18,7 +18,7 @@
          </children>
       </AnchorPane>
       <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте оригинальный логин" />
-      <Button fx:id="SignUpButton" layoutX="595.0" layoutY="627.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="358.0" style="-fx-background-color: #0000FF;" text="Зарегестрироваться" textFill="#f4eeee">
+      <Button fx:id="SignUpButton" layoutX="595.0" layoutY="627.0" mnemonicParsing="false" onAction="#registrationOfAdmin" prefHeight="85.0" prefWidth="358.0" style="-fx-background-color: #0000FF;" text="Зарегестрироваться" textFill="#f4eeee">
          <font>
             <Font size="24.0" />
          </font>
