@@ -25,7 +25,7 @@
             </children>
         </AnchorPane>
         <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Логин" />
-        <PasswordField fx:id="PasswordField" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Пароль" />
+        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Пароль" />
         <Button fx:id="SignInButton" layoutX="654.0" layoutY="730.0" mnemonicParsing="false" onAction="#signInUser" prefHeight="75.0" prefWidth="241.0" style="-fx-background-color: #0000FF;" text="Войти" textFill="#f4eeee">
             <font>
                 <Font size="24.0" />
