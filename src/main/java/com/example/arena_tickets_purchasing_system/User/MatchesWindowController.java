@@ -1,12 +1,15 @@
 package com.example.arena_tickets_purchasing_system.User;
 
 import com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController;
+import com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController;
+import com.example.arena_tickets_purchasing_system.Constant;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -68,7 +71,6 @@ public class MatchesWindowController implements Initializable {
     private MenuButton OpponentMenuButton;
 
     ObservableList<AdminMatchesWindowController.Match> list_of_matches = FXCollections.observableArrayList();
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<AdminMatchesWindowController.Match> filtered_list = FXCollections.observableArrayList();
@@ -187,6 +189,12 @@ public class MatchesWindowController implements Initializable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    private void bookTickets(ActionEvent event) {
+       AdminMatchesWindowController.Match match = table.getSelectionModel().getSelectedItem();
+       new WindowsOpener("booking.fxml", match);
     }
     @FXML
     private void backToMainMenu (ActionEvent some_event) {
