@@ -38,7 +38,7 @@
       </TableView>
       <AnchorPane layoutY="215.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Button fx:id="bookTickets" layoutX="175.0" layoutY="17.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Заказать билеты" />
+            <Button fx:id="bookTickets" layoutX="175.0" layoutY="17.0" mnemonicParsing="false" onAction="#bookTickets" prefHeight="35.0" prefWidth="110.0" text="Заказать билеты" />
             <Button fx:id="updateTable" layoutX="325.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="35.0" prefWidth="110.0" text="Обновить" />
             <MenuButton fx:id="filterMatches" layoutX="25.0" layoutY="17.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Фильтр">
                <items>
