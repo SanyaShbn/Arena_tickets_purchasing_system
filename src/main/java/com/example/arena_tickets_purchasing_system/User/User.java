@@ -1,6 +1,9 @@
 package com.example.arena_tickets_purchasing_system.User;
 
-public class User {
+import java.io.*;
+import java.util.ArrayList;
+
+public class User implements Serializable{
     public String user_login;
     public String user_password;
 
@@ -26,4 +29,30 @@ public class User {
         return user_password;
     }
 
+    public void writeUserIntoFile(User user) {
+        try {
+            FileOutputStream fos = new FileOutputStream("Users.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(user);
+            oos.close();
+            fos.close();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public User readUserFromFile() {
+        User user;
+        try {
+            FileInputStream fis = new FileInputStream("Users.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            user = (User) ois.readObject();
+            ois.close();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
 }
