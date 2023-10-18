@@ -5,6 +5,7 @@ public class Constant {
     public static final String MATCHES_TABLE = "matches";
     public static final String ADMINS_TABLE = "admins";
     public static final String ADMIN_TICKETS_TABLE = "tickets";
+    public static final String USERS_TICKETS_TABLE = "users_tickets";
     public static final String PLAYERS_TABLE = "players";
     public static final String NEWS_TABLE = "news";
     public static final String MATCH_ID = "idMatches";
