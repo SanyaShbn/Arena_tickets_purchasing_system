@@ -55,6 +55,11 @@
          </font>
       </Button>
       <TextField fx:id="amountToBuy" layoutX="414.0" layoutY="169.0" prefHeight="35.0" prefWidth="304.0" promptText="Введите желаемое количество билетов для покупки" />
-      <Text layoutX="126.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество билетов в налтичии" />
+      <Text layoutX="126.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество билетов в наличии" />
+      <Button fx:id="Exit" layoutX="595.0" layoutY="17.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="42.0" prefWidth="147.0" style="-fx-background-color: #00BFFF;" text="Завершить покупку">
+         <font>
+            <Font name="Bodoni MT Black Italic" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
