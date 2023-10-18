@@ -11,4 +11,5 @@ public class Config {
     protected String dbNameForAdminTickets = "tickets";
     protected String dbNameForPlayers = "players";
     protected String dbNameForNews = "news";
+    protected String dbNameForUsersTickets = "users_tickets";
 }
