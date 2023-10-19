@@ -311,29 +311,25 @@ public class BookTicketsController {
                 new NotificationShower().showSimpleError("Внимание!", "Вы ввели недопустимое количество билетов для покупки");
             }
             else {
-                    String select = "SELECT * FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers LIKE "
-                            + "'" + User.getUser_login() + "'";
+                    String select = "SELECT * FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers =?";
                     PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(select);
+                    prStrSelect.setString(1, User.getUser_login());
                     ResultSet result = prStrSelect.executeQuery();
-                    if (result.next()) {
+                    if (result.next() && (result.getInt(3) == Ticket.getId())) {
                         int bought_tickets = result.getInt("Tickets_amount") + Integer.parseInt(users_tickets);
+                        int sector_bought_tickets = result.getInt(column_name) + Integer.parseInt(amountToBuy.getText());
                         String insert = "UPDATE " + Constant.USERS_TICKETS_TABLE + " SET Tickets_amount = " + bought_tickets
-                                + "," + column_name + " = " + amountToBuy.getText() + " WHERE LoginUsers LIKE " + "'" + User.getUser_login() + "'";
+                                + "," + column_name + " = " + sector_bought_tickets + " WHERE LoginUsers =?";
                         PreparedStatement prStrUpdate = null;
                         try {
                             prStrUpdate = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
+                            prStrUpdate.setString(1, User.getUser_login());
                             prStrUpdate.executeUpdate();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         } catch (ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         }
-                        new DatabaseHandler().updateAdminTickets(Integer.parseInt(amountToBuy.getText()), column_name, Ticket.getId());
-                        AmountLabel.setText(String.valueOf(Match.getAmount() - Integer.parseInt(amountToBuy.getText())));
-                        new NotificationShower().showSimpleNotification("Уведомление", "Покупка успешно осуществлена");
-                        amountToBuy.clear();
-                        SectorsMenuButton.setText("Сектор");
-                        allTickets.clear();
                     } else{
                     int bought_tickets = Integer.parseInt(users_tickets);
                     String insert = "INSERT INTO " + Constant.USERS_TICKETS_TABLE +
@@ -343,7 +339,7 @@ public class BookTicketsController {
                     PreparedStatement prStrInsert = null;
                     try {
                         prStrInsert = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
-                        prStrInsert.setString(1,User.getUser_login());
+                        prStrInsert.setString(1, User.getUser_login());
                         prStrInsert.setInt(2, Ticket.getId());
                         prStrInsert.setInt(3, bought_tickets);
                         prStrInsert.setInt(4, Integer.parseInt(amountToBuy.getText()));
@@ -353,14 +349,14 @@ public class BookTicketsController {
                     } catch (ClassNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
-                    new DatabaseHandler().updateAdminTickets(Integer.parseInt(amountToBuy.getText()), column_name, Ticket.getId());
-                    AmountLabel.setText(String.valueOf(Match.getAmount() - Integer.parseInt(amountToBuy.getText())));
-                    new NotificationShower().showSimpleNotification("Уведомление", "Покупка успешно осуществлена");
-                    amountToBuy.clear();
-                    SectorsMenuButton.setText("Сектор");
-                    allTickets.clear();
                 }
-
+                new DatabaseHandler().updateAdminTickets(Integer.parseInt(amountToBuy.getText()), column_name, Ticket.getId());
+                new DatabaseHandler().updateMatches(Integer.parseInt(amountToBuy.getText()), Ticket.getId());
+                AmountLabel.setText(String.valueOf(Integer.parseInt(AmountLabel.getText()) - Integer.parseInt(amountToBuy.getText())));
+                new NotificationShower().showSimpleNotification("Уведомление", "Покупка успешно осуществлена");
+                amountToBuy.clear();
+                SectorsMenuButton.setText("Сектор");
+                allTickets.clear();
             }
         } catch (NumberFormatException e) {
         new NotificationShower().showSimpleError("Внимание!", "Вы ввели недопустимое количество билетов для покупки");
