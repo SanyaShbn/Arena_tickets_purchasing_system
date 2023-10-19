@@ -165,4 +165,58 @@ public class DatabaseHandler extends Config{
         prStr.executeUpdate();
 
     }
+    public void updateAdminTickets(int amount, String column_name, int id){
+        try {
+            String select = "SELECT * FROM " + Constant.ADMIN_TICKETS_TABLE + " WHERE id_Match = "
+                    + id;
+            PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStrSelect.executeQuery();
+            if (result.next()) {
+                int updated_amount = result.getInt(2) - amount;
+                int updated_column_amount = 0;
+                switch (column_name) {
+                    case "Sector_VIP":
+                        updated_column_amount = result.getInt(3) - amount;
+                        column_name = "VIP";
+                        break;
+                    case "Sector_A":
+                        updated_column_amount = result.getInt(4) - amount;
+                        break;
+                    case "Sector_B":
+                        updated_column_amount = result.getInt(5) - amount;
+                        break;
+                    case "Sector_C":
+                        updated_column_amount = result.getInt(6) - amount;
+                        break;
+                    case "Sector_D":
+                        updated_column_amount = result.getInt(7) - amount;
+                        break;
+                    case "Sector_E":
+                        updated_column_amount = result.getInt(8) - amount;
+                        break;
+                    case "Sector_F":
+                        updated_column_amount = result.getInt(9) - amount;
+                        break;
+                    case "Sector_G":
+                        updated_column_amount = result.getInt(10) - amount;
+                        break;
+                    case "Sector_H":
+                        updated_column_amount = result.getInt(11) - amount;
+                        break;
+                    case "Sector_I":
+                        updated_column_amount = result.getInt(12) - amount;
+                        break;
+                }
+                String update = "UPDATE " + Constant.ADMIN_TICKETS_TABLE + " SET Tickets_amount = " +
+                        updated_amount + "," + column_name + " = " + updated_column_amount + " WHERE id_Match = " + id;
+                PreparedStatement prStrUpdate = null;
+                prStrUpdate = new DatabaseHandler().getDbConnection("tickets").prepareStatement(update);
+                prStrUpdate.executeUpdate();
+                }
+            } catch(SQLException e){
+                throw new RuntimeException(e);
+            } catch(ClassNotFoundException e){
+                throw new RuntimeException(e);
+        }
+    }
 }
