@@ -169,7 +169,7 @@ public class DatabaseHandler extends Config{
         try {
             String select = "SELECT * FROM " + Constant.ADMIN_TICKETS_TABLE + " WHERE id_Match = "
                     + id;
-            PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection(dbNameForAdminTickets).prepareStatement(select);
             ResultSet result = prStrSelect.executeQuery();
             if (result.next()) {
                 int updated_amount = result.getInt(2) - amount;
@@ -217,6 +217,26 @@ public class DatabaseHandler extends Config{
                 throw new RuntimeException(e);
             } catch(ClassNotFoundException e){
                 throw new RuntimeException(e);
+        }
+    }
+    public void updateMatches(int amount, int id){
+        try {
+            String select = "SELECT * FROM " + Constant.MATCHES_TABLE + " WHERE idMatches = "
+                    + id;
+            PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection(dbNameForMatches).prepareStatement(select);
+            ResultSet result = prStrSelect.executeQuery();
+            if (result.next()) {
+                int updated_amount = result.getInt(5) - amount;
+                String update = "UPDATE " + Constant.MATCHES_TABLE + " SET Tickets_amount = " +
+                        updated_amount + " WHERE idMatches = " + id;
+                PreparedStatement prStrUpdate = null;
+                prStrUpdate = new DatabaseHandler().getDbConnection(dbNameForMatches).prepareStatement(update);
+                prStrUpdate.executeUpdate();
+            }
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        } catch(ClassNotFoundException e){
+            throw new RuntimeException(e);
         }
     }
 }
