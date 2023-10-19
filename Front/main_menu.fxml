@@ -24,7 +24,7 @@
                            <items>
                               <MenuItem fx:id="MatchesItem" mnemonicParsing="false" onAction="#viewMatches" text="Матчи" />
                               <MenuItem fx:id="TeamItem" mnemonicParsing="false" onAction="#viewTeamRoster" text="Команда" />
-                              <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Билеты" />
+                              <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Мои билеты" />
                            </items></MenuButton>
                         </children>
                     </AnchorPane>
