@@ -16,7 +16,7 @@
                 <MenuButton fx:id="MenuButton" layoutX="1436.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #00BFFF;" text="Меню" textAlignment="CENTER">
                <items>
                   <MenuItem fx:id="MainMenuItem" mnemonicParsing="false" onAction="#backToMainMenu" text="Главная" />
-                  <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Билеты" />
+                  <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Мои билеты" />
                   <MenuItem fx:id="TeamItem" mnemonicParsing="false" onAction="#viewTeamRoster" text="Команда" />
                </items></MenuButton>
             <Text fill="#faf5f5" layoutX="658.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Календарь">
