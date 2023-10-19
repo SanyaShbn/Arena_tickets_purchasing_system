@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
+
 import static com.example.arena_tickets_purchasing_system.Constant.ADMIN_TICKETS_TABLE;
 import static com.example.arena_tickets_purchasing_system.Constant.MATCHES_TABLE;
 
@@ -123,51 +125,181 @@ public class BookTicketsController {
     @FXML
     private void setVIPSector (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorVIP.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setVipSector(result.getInt("VIP"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getVipSector()));
     }
     @FXML
     private void setSectorA (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorA.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorA(result.getInt("Sector_A"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorA()));
     }
     @FXML
     private void setSectorB (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorB.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorB(result.getInt("Sector_B"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorB()));
     }
     @FXML
     private void setSectorC (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorC.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorC(result.getInt("Sector_C"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorC()));
     }
     @FXML
     private void setSectorD (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorD.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorD(result.getInt("Sector_D"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorD()));
     }
     @FXML
     private void setSectorE (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorE.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorE(result.getInt("Sector_E"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorE()));
     }
     @FXML
     private void setSectorF (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorF.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorF(result.getInt("Sector_F"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorF()));
     }
     @FXML
     private void setSectorG (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorG.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorG(result.getInt("Sector_G"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorG()));
     }
     @FXML
     private void setSectorH (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorH.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorH(result.getInt("Sector_H"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorH()));
     }
     @FXML
     private void setSectorI (ActionEvent some_event) {
         SectorsMenuButton.setText(SectorI.getText());
+        String select = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + Match.getId();
+        PreparedStatement prStr = null;
+        try {
+            prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(select);
+            ResultSet result = prStr.executeQuery();
+            if (result.next()) {
+                Ticket.setSectorI(result.getInt("Sector_I"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         allTickets.setText(String.valueOf(Ticket.getSectorI()));
     }
     @FXML
@@ -179,29 +311,30 @@ public class BookTicketsController {
                 new NotificationShower().showSimpleError("Внимание!", "Вы ввели недопустимое количество билетов для покупки");
             }
             else {
-                String select = "SELECT * FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers = "
-                        + User.getUser_login();;
-                PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection( "users_tickets").prepareStatement(select);
-                ResultSet result = prStrSelect.executeQuery();
-                if(result.next()) {
-                    int bought_tickets = result.getInt("Tickets_amount") + Integer.parseInt(users_tickets);
-                    String insert = "UPDATE " + Constant.USERS_TICKETS_TABLE + " SET Tickets_amount = " + bought_tickets
-                            + "," + column_name + " = "+ amountToBuy.getText() + " WHERE LoginUsers = " + User.getUser_login();
-                    PreparedStatement prStrUpdate = null;
-                    try {
-                        prStrUpdate = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
-                        prStrUpdate.executeUpdate();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    new NotificationShower().showSimpleNotification("Уведомление", "Покупка успешно осуществлена");
-                    amountToBuy.clear();
-                    SectorsMenuButton.setText("Сектор");
-                    allTickets.clear();
-                    }
-                else{
+                    String select = "SELECT * FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers LIKE "
+                            + "'" + User.getUser_login() + "'";
+                    PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(select);
+                    ResultSet result = prStrSelect.executeQuery();
+                    if (result.next()) {
+                        int bought_tickets = result.getInt("Tickets_amount") + Integer.parseInt(users_tickets);
+                        String insert = "UPDATE " + Constant.USERS_TICKETS_TABLE + " SET Tickets_amount = " + bought_tickets
+                                + "," + column_name + " = " + amountToBuy.getText() + " WHERE LoginUsers LIKE " + "'" + User.getUser_login() + "'";
+                        PreparedStatement prStrUpdate = null;
+                        try {
+                            prStrUpdate = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
+                            prStrUpdate.executeUpdate();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                        new DatabaseHandler().updateAdminTickets(Integer.parseInt(amountToBuy.getText()), column_name, Ticket.getId());
+                        AmountLabel.setText(String.valueOf(Match.getAmount() - Integer.parseInt(amountToBuy.getText())));
+                        new NotificationShower().showSimpleNotification("Уведомление", "Покупка успешно осуществлена");
+                        amountToBuy.clear();
+                        SectorsMenuButton.setText("Сектор");
+                        allTickets.clear();
+                    } else{
                     int bought_tickets = Integer.parseInt(users_tickets);
                     String insert = "INSERT INTO " + Constant.USERS_TICKETS_TABLE +
                             "(LoginUsers,id_Match,Tickets_amount," + column_name + ")"
@@ -210,16 +343,18 @@ public class BookTicketsController {
                     PreparedStatement prStrInsert = null;
                     try {
                         prStrInsert = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
-                        prStrInsert.setString(1, User.getUser_login());
+                        prStrInsert.setString(1,User.getUser_login());
                         prStrInsert.setInt(2, Ticket.getId());
                         prStrInsert.setInt(3, bought_tickets);
                         prStrInsert.setInt(4, Integer.parseInt(amountToBuy.getText()));
                         prStrInsert.executeUpdate();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ClassNotFoundException ex) {
+                        throw new RuntimeException(ex);
                     }
+                    new DatabaseHandler().updateAdminTickets(Integer.parseInt(amountToBuy.getText()), column_name, Ticket.getId());
+                    AmountLabel.setText(String.valueOf(Match.getAmount() - Integer.parseInt(amountToBuy.getText())));
                     new NotificationShower().showSimpleNotification("Уведомление", "Покупка успешно осуществлена");
                     amountToBuy.clear();
                     SectorsMenuButton.setText("Сектор");
@@ -229,9 +364,9 @@ public class BookTicketsController {
             }
         } catch (NumberFormatException e) {
         new NotificationShower().showSimpleError("Внимание!", "Вы ввели недопустимое количество билетов для покупки");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
