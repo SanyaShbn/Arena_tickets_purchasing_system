@@ -305,6 +305,7 @@ public class BookTicketsController {
     @FXML
     private void submitChanges (ActionEvent some_event) {
         try {
+            boolean flag = false;
             String users_tickets = amountToBuy.getText();
             String column_name = "Sector_" + SectorsMenuButton.getText();
             if (Integer.parseInt(users_tickets) > Integer.parseInt(allTickets.getText()) || users_tickets.equals("0")) {
@@ -315,41 +316,47 @@ public class BookTicketsController {
                     PreparedStatement prStrSelect = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(select);
                     prStrSelect.setString(1, User.getUser_login());
                     ResultSet result = prStrSelect.executeQuery();
-                    if (result.next() && (result.getInt(3) == Ticket.getId())) {
-                        int bought_tickets = result.getInt("Tickets_amount") + Integer.parseInt(users_tickets);
-                        int sector_bought_tickets = result.getInt(column_name) + Integer.parseInt(amountToBuy.getText());
-                        String insert = "UPDATE " + Constant.USERS_TICKETS_TABLE + " SET Tickets_amount = " + bought_tickets
-                                + "," + column_name + " = " + sector_bought_tickets + " WHERE LoginUsers =?";
-                        PreparedStatement prStrUpdate = null;
-                        try {
-                            prStrUpdate = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
-                            prStrUpdate.setString(1, User.getUser_login());
-                            prStrUpdate.executeUpdate();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        } catch (ClassNotFoundException e) {
-                            throw new RuntimeException(e);
+                    while(result.next()) {
+                        if (result.getInt(3) == Ticket.getId()) {
+                            int bought_tickets = result.getInt("Tickets_amount") + Integer.parseInt(users_tickets);
+                            int sector_bought_tickets = result.getInt(column_name) + Integer.parseInt(amountToBuy.getText());
+                            String insert = "UPDATE " + Constant.USERS_TICKETS_TABLE + " SET Tickets_amount = " + bought_tickets
+                                    + "," + column_name + " = " + sector_bought_tickets + " WHERE idUsersTickets =?";
+                            PreparedStatement prStrUpdate = null;
+                            try {
+                                prStrUpdate = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
+                                prStrUpdate.setString(1, String.valueOf(result.getInt(1)));
+                                prStrUpdate.executeUpdate();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                            flag = true;
+                            break;
                         }
-                    } else{
-                    int bought_tickets = Integer.parseInt(users_tickets);
-                    String insert = "INSERT INTO " + Constant.USERS_TICKETS_TABLE +
-                            "(LoginUsers,id_Match,Tickets_amount," + column_name + ")"
-                            + "VALUES(?,?,?,?)";
+                     }
+                    if(flag != true)
+                        {
+                            int bought_tickets = Integer.parseInt(users_tickets);
+                            String insert = "INSERT INTO " + Constant.USERS_TICKETS_TABLE +
+                                    "(LoginUsers,id_Match,Tickets_amount," + column_name + ")"
+                                    + "VALUES(?,?,?,?)";
 
-                    PreparedStatement prStrInsert = null;
-                    try {
-                        prStrInsert = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
-                        prStrInsert.setString(1, User.getUser_login());
-                        prStrInsert.setInt(2, Ticket.getId());
-                        prStrInsert.setInt(3, bought_tickets);
-                        prStrInsert.setInt(4, Integer.parseInt(amountToBuy.getText()));
-                        prStrInsert.executeUpdate();
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ClassNotFoundException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
+                            PreparedStatement prStrInsert = null;
+                            try {
+                                prStrInsert = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(insert);
+                                prStrInsert.setString(1, User.getUser_login());
+                                prStrInsert.setInt(2, Ticket.getId());
+                                prStrInsert.setInt(3, bought_tickets);
+                                prStrInsert.setInt(4, Integer.parseInt(amountToBuy.getText()));
+                                prStrInsert.executeUpdate();
+                            } catch (SQLException ex) {
+                                throw new RuntimeException(ex);
+                            } catch (ClassNotFoundException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
                 new DatabaseHandler().updateAdminTickets(Integer.parseInt(amountToBuy.getText()), column_name, Ticket.getId());
                 new DatabaseHandler().updateMatches(Integer.parseInt(amountToBuy.getText()), Ticket.getId());
                 AmountLabel.setText(String.valueOf(Integer.parseInt(AmountLabel.getText()) - Integer.parseInt(amountToBuy.getText())));
