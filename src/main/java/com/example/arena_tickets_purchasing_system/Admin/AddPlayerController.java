@@ -1,6 +1,7 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 
 public class AddPlayerController {
@@ -69,13 +71,13 @@ public class AddPlayerController {
     private MenuItem winger;
 
 
-    AnchorPane back_to_admin_matches;
+    AnchorPane back_to_roster;
     @FXML
     void initialize(){
         FXMLLoader add_players_loader = new FXMLLoader();
         add_players_loader.setLocation((getClass().getResource("roster.fxml")));
         try {
-            back_to_admin_matches = add_players_loader.load();
+            back_to_roster = add_players_loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -144,14 +146,18 @@ public class AddPlayerController {
     }
     @FXML
     private void backToAdminMatches (ActionEvent event) {
-        backToPreviousPane(back_to_admin_matches);
+        backToPreviousPane(back_to_roster);
     }
     @FXML
     private void addNewPlayer (ActionEvent event) throws SQLException, ClassNotFoundException {
-        new DatabaseHandler().addNewPlayers(new AdminTeamRosterController.Player(name.getText(), role.getText(),
-                Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
-                Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
-                Integer.parseInt(seasonsInLeague.getText())));
+        try {
+            new DatabaseHandler().addNewPlayers(new AdminTeamRosterController.Player(name.getText(), role.getText(),
+                    Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
+                    Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
+                    Integer.parseInt(seasonsInLeague.getText())));
+        }catch (SQLIntegrityConstraintViolationException e){
+            new NotificationShower().showSimpleError("Внимание!", "Введённый номер джерси уже занят другим игроком");
+        }
     }
 
 }
