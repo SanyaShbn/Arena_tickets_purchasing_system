@@ -82,12 +82,12 @@ public class TeamRosterWindowController {
                 player_info.setPrefWidth(140);
                 player_info.setPrefHeight(140);
                 player_info.setLayoutX(15 + X);
+                player_info.setLayoutY(240+ Y);
                 X = X + 250;
-                if(player_info.getLayoutX() > 1400) {
-                    Y = Y + 100;
+                if(player_info.getLayoutX() > 1200) {
+                    Y = Y + 250;
                     X = 0;
                 }
-                player_info.setLayoutY(240+ Y);
                 player_info.getChildren().addAll(player_image, flag);
 
                 MainPane.getChildren().addAll(player_info, name, role , age, height, weight, numb, team, league);
