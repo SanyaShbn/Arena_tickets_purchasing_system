@@ -35,39 +35,45 @@ public class UserTicketsWindowController {
 
     @FXML
     private MenuItem TeamItem;
-
-    AnchorPane main_menu;
+    private User User = new User().readUserFromFile();
     @FXML
-    void initialize(){
-        FXMLLoader main_menu_loader = new FXMLLoader();
-        main_menu_loader.setLocation((getClass().getResource("main_menu.fxml")));
+    void initialize() {
+        String select = "SELECT * FROM " + USERS_TICKETS_TABLE + " WHERE LoginUsers =?";
+        PreparedStatement prStr = null;
         try {
-            main_menu = main_menu_loader.load();
-            String select = "SELECT * FROM " + NEWS_TABLE;
-            PreparedStatement prStr = null;
-            prStr = new DatabaseHandler().getDbConnection("news").prepareStatement(select);
+            prStr = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(select);
+            prStr.setString(1, User.getUser_login());
             ResultSet result = prStr.executeQuery();
             double Y = 0;
-
-            while (result.next() && Y < 750) {
-                TextArea news_area = new TextArea();
-                news_area.setPrefWidth(590);
-                news_area.setPrefHeight(30);
-                news_area.setLayoutX(478);
-                news_area.setLayoutY(500 + Y);
-                news_area.setText(result.getString(PUBLISHING_DATE) + " "
-                        + result.getString(PUBLISHING_TIME) + " " + result.getString(CONTESTS));
-                Y = Y + 50;
-                main_menu.getChildren().add(news_area);
+            while (result.next()) {
+                String matches_select = "SELECT * FROM " + MATCHES_TABLE + " WHERE idMatches =?";
+                PreparedStatement prStrMatch = null;
+                prStrMatch = new DatabaseHandler().getDbConnection("matches").prepareStatement(matches_select);
+                prStrMatch.setString(1, String.valueOf(result.getInt("id_Match")));
+                ResultSet result_matches = prStrMatch.executeQuery();
+                while(result_matches.next()){
+                    String sectors_info = "";
+                    if(result.getInt("Sector_VIP") > 0){
+                        sectors_info += "VIP_Сектор - " + result.getInt("Sector_VIP" + " ");
+                    }
+                    TextArea match_info = new TextArea();
+                    match_info.setPrefWidth(590);
+                    match_info.setPrefHeight(30);
+                    match_info.setLayoutX(478);
+                    match_info.setLayoutY(500 + Y);
+                    match_info.setText("Информация о билете:" + result_matches.getInt(MATCH_ID) + " "
+                            + result_matches.getString(MATCHES_DATE) + " " + result_matches.getString(MATCHES_TIME) + " " + result_matches.getString(OPP_TEAM)
+                    + " " + result_matches.getInt(TICKETS_AMOUNT) + " " + result_matches.getString(MATCH_TYPE) + "\n" + sectors_info);
+                    Y = Y + 50;
+                    MainPane.getChildren().add(match_info);
+                }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
     @FXML
     private void goToNewPane(Node node) {
@@ -82,18 +88,21 @@ public class UserTicketsWindowController {
         ft.play();
     }
     @FXML
-    private void backToMainMenu (ActionEvent some_event) {goToNewPane(main_menu);}
+    private void backToMainMenu (ActionEvent some_event) {
+        MainPane.getScene().getWindow().hide();
+        new WindowsOpener("main_menu.fxml");
+    }
 
     @FXML
     private void viewMatches (ActionEvent some_event) {
         MainPane.getScene().getWindow().hide();
-        new WindowsOpener("matches.fxml");;
+        new WindowsOpener("matches.fxml");
     }
 
     @FXML
     private void viewTeamRoster (ActionEvent some_event) {
         MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_roster.fxml");;
+        new WindowsOpener("user_roster.fxml");
     }
 
 }
