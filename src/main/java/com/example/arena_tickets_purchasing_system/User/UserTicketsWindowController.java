@@ -53,8 +53,35 @@ public class UserTicketsWindowController {
                 ResultSet result_matches = prStrMatch.executeQuery();
                 while(result_matches.next()){
                     String sectors_info = "";
-                    if(result.getInt("Sector_VIP") > 0){
-                        sectors_info += "VIP_Сектор - " + result.getInt("Sector_VIP" + " ");
+                    if(result.getInt("Sector_VIP") != 0){
+                        sectors_info += "VIP_Сектор - " + result.getInt("Sector_VIP") + " ";
+                    }
+                    if(result.getInt("Sector_A") != 0){
+                        sectors_info += "Сектор A - " + result.getInt("Sector_A") + " ";
+                    }
+                    if(result.getInt("Sector_B") != 0){
+                        sectors_info += "Сектор B - " + result.getInt("Sector_B") + " ";
+                    }
+                    if(result.getInt("Sector_C") != 0){
+                        sectors_info += "Сектор C - " + result.getInt("Sector_C") + " ";
+                    }
+                    if(result.getInt("Sector_D") != 0){
+                        sectors_info += "Сектор D - " + result.getInt("Sector_D") + " ";
+                    }
+                    if(result.getInt("Sector_E") != 0){
+                        sectors_info += "Сектор E - " + result.getInt("Sector_E") + " ";
+                    }
+                    if(result.getInt("Sector_F") != 0){
+                        sectors_info += "Сектор F - " + result.getInt("Sector_F") + " ";
+                    }
+                    if(result.getInt("Sector_G") != 0){
+                        sectors_info += "Сектор G - " + result.getInt("Sector_G") + " ";
+                    }
+                    if(result.getInt("Sector_H") != 0){
+                        sectors_info += "Сектор H - " + result.getInt("Sector_H") + " ";
+                    }
+                    if(result.getInt("Sector_I") != 0){
+                        sectors_info += "Сектор I - " + result.getInt("Sector_I") + " ";
                     }
                     TextArea match_info = new TextArea();
                     match_info.setPrefWidth(590);
@@ -63,7 +90,7 @@ public class UserTicketsWindowController {
                     match_info.setLayoutY(500 + Y);
                     match_info.setText("Информация о билете:" + result_matches.getInt(MATCH_ID) + " "
                             + result_matches.getString(MATCHES_DATE) + " " + result_matches.getString(MATCHES_TIME) + " " + result_matches.getString(OPP_TEAM)
-                    + " " + result_matches.getInt(TICKETS_AMOUNT) + " " + result_matches.getString(MATCH_TYPE) + "\n" + sectors_info);
+                    + " " + result_matches.getInt(TICKETS_AMOUNT) + " " + result_matches.getString(MATCH_TYPE) + "\n" + sectors_info + "Всего - " + result.getInt("Tickets_amount"));
                     Y = Y + 50;
                     MainPane.getChildren().add(match_info);
                 }
