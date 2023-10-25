@@ -1,5 +1,6 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -16,9 +17,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class AdminHomePageController {
 
     public static String name;
@@ -51,10 +49,10 @@ public class AdminHomePageController {
         FXMLLoader tickets_loader = new FXMLLoader();
         FXMLLoader team = new FXMLLoader();
         FXMLLoader club_news = new FXMLLoader();
-        matches_loader.setLocation((getClass().getResource("admin_matches.fxml")));
-        tickets_loader.setLocation((getClass().getResource("tickets.fxml")));
-        team.setLocation((getClass().getResource("roster.fxml")));
-        club_news.setLocation((getClass().getResource("club_news.fxml")));
+        matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
+        tickets_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("tickets.fxml"));
+        team.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
+        club_news.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
         try {
             match = matches_loader.load();
             tickets_page = tickets_loader.load();
