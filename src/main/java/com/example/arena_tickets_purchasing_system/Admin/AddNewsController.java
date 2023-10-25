@@ -45,7 +45,7 @@ public class AddNewsController {
     @FXML
     void initialize(){
         FXMLLoader add_news_loader = new FXMLLoader();
-        add_news_loader.setLocation((getClass().getResource("club_news.fxml")));
+         add_news_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
         try {
             back_to_club_news = add_news_loader.load();
         } catch (IOException e) {
