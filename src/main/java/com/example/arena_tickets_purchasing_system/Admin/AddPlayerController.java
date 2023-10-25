@@ -75,7 +75,7 @@ public class AddPlayerController {
     @FXML
     void initialize(){
         FXMLLoader add_players_loader = new FXMLLoader();
-        add_players_loader.setLocation((getClass().getResource("roster.fxml")));
+         add_players_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
         try {
             back_to_roster = add_players_loader.load();
         } catch (IOException e) {
