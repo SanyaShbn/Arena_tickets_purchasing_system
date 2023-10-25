@@ -54,7 +54,7 @@ public class AddMatchesController {
     void initialize(){
         homeRadioButton.setSelected(true);
         FXMLLoader add_matches_loader = new FXMLLoader();
-        add_matches_loader.setLocation((getClass().getResource("admin_matches.fxml")));
+       add_matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
         try {
             back_to_admin_matches = add_matches_loader.load();
         } catch (IOException e) {
