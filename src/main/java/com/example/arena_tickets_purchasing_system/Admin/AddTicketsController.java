@@ -94,7 +94,7 @@ public class AddTicketsController {
                 throw new RuntimeException(e);
             }
         FXMLLoader add_matches_loader = new FXMLLoader();
-        add_matches_loader.setLocation((getClass().getResource("tickets.fxml")));
+      admin_tickets_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("tickets.fxml"));
         try {
             back_to_admin_tickets = add_matches_loader.load();
         } catch (IOException e) {
