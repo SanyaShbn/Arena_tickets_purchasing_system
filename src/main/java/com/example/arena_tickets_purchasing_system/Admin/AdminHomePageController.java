@@ -40,7 +40,7 @@ public class AdminHomePageController {
     private Button exitButton;
 
 
-    AnchorPane match, news_page ,team_roster, tickets_page;
+    AnchorPane match, news_page ,team_roster, tickets_page, exit;
 
     @FXML
     public void initialize() {
@@ -49,15 +49,18 @@ public class AdminHomePageController {
         FXMLLoader tickets_loader = new FXMLLoader();
         FXMLLoader team = new FXMLLoader();
         FXMLLoader club_news = new FXMLLoader();
+        FXMLLoader exit_loader = new FXMLLoader();
         matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
         tickets_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("tickets.fxml"));
         team.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
         club_news.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
+        exit_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("Open_window.fxml"));
         try {
             match = matches_loader.load();
             tickets_page = tickets_loader.load();
             team_roster = team.load();
             news_page = club_news.load();
+            exit = exit_loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -86,30 +89,15 @@ public class AdminHomePageController {
 
         FadeTransition ft = new FadeTransition(Duration.millis(1500));
         ft.setNode(node);
-        ft.setFromValue(2);
-        ft.setToValue(2);
+        ft.setFromValue(1);
+        ft.setToValue(1);
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
         ft.play();
     }
-    private void closeStage() {
-        ((Stage) AdminId.getScene().getWindow()).close();
-    }
-    void loadWindow(String loc, String title) {
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource(loc));
-            Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle(title);
-            stage.setScene(new Scene(parent));
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @FXML
     private void backToOpeningWindow (ActionEvent event) {
-        exitButton.getScene().getWindow().hide();
-        new WindowsOpener("Open_window.fxml");
+        setNewPane(exit);
     }
 }
 
