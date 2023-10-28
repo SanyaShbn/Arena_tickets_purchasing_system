@@ -15,7 +15,7 @@
     <children>
         <AnchorPane layoutX="389.0" layoutY="257.0" prefHeight="587.0" prefWidth="767.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Label layoutX="164.0" layoutY="17.0" text="Редактор календаря матчей команды">
+                <Label layoutX="226.0" layoutY="14.0" text="Редактор состава команды">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -30,125 +30,125 @@
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
                 </Button>
-            <MenuButton fx:id="role" layoutX="134.0" layoutY="127.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="амплуа">
-               <items>
-                  <MenuItem fx:id="centerForward" mnemonicParsing="false" text="центральный нападающий" />
-                  <MenuItem fx:id="winger" mnemonicParsing="false" text="крайний нападающий" />
-                  <MenuItem fx:id="defenceman" mnemonicParsing="false" text="защитник" />
-                  <MenuItem fx:id="goaltender" mnemonicParsing="false" text="вратарь" />
-               </items>
-            </MenuButton>
-            <TextField fx:id="height" layoutX="134.0" layoutY="307.0" prefHeight="35.0" prefWidth="500.0" promptText="рост" />
-            <TextField fx:id="seasonsInTeam" layoutX="134.0" layoutY="397.0" prefHeight="35.0" prefWidth="500.0" promptText="количество сезонов в команде" />
-            <TextField fx:id="name" layoutX="136.0" layoutY="82.0" prefHeight="35.0" prefWidth="500.0" promptText="ФИО" />
-            <MenuButton fx:id="country" layoutX="134.0" layoutY="217.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="страна">
-               <items>
-                  <MenuItem fx:id="belarus" mnemonicParsing="false" onAction="#setBelFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/belarus.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="russia" mnemonicParsing="false" onAction="#setRusFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Russia.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="canada" mnemonicParsing="false" onAction="#setCanFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/canada.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="usa" mnemonicParsing="false" onAction="#setUSAFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Usa.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="finland" mnemonicParsing="false" onAction="#setFinFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/finland.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="sweden" mnemonicParsing="false" onAction="#setSweFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Sweden.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="czech" mnemonicParsing="false" onAction="#setCheFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Czech.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem fx:id="slovakia" mnemonicParsing="false" onAction="#setSloFlag">
-                     <graphic>
-                        <AnchorPane prefHeight="30.0" prefWidth="30.0">
-                           <children>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Slovakia.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </graphic>
-                  </MenuItem>
-               </items>
-            </MenuButton>
+                <MenuButton fx:id="role" layoutX="134.0" layoutY="127.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="амплуа">
+                    <items>
+                        <MenuItem fx:id="centerForward" mnemonicParsing="false" text="центральный нападающий" />
+                        <MenuItem fx:id="winger" mnemonicParsing="false" text="крайний нападающий" />
+                        <MenuItem fx:id="defenceman" mnemonicParsing="false" text="защитник" />
+                        <MenuItem fx:id="goaltender" mnemonicParsing="false" text="вратарь" />
+                    </items>
+                </MenuButton>
+                <TextField fx:id="height" layoutX="134.0" layoutY="307.0" prefHeight="35.0" prefWidth="500.0" promptText="рост" />
+                <TextField fx:id="seasonsInTeam" layoutX="134.0" layoutY="397.0" prefHeight="35.0" prefWidth="500.0" promptText="количество сезонов в команде" />
+                <TextField fx:id="name" layoutX="136.0" layoutY="82.0" prefHeight="35.0" prefWidth="500.0" promptText="ФИО" />
+                <MenuButton fx:id="country" layoutX="134.0" layoutY="217.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="страна">
+                    <items>
+                        <MenuItem fx:id="belarus" mnemonicParsing="false" onAction="#setBelFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/belarus.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="russia" mnemonicParsing="false" onAction="#setRusFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Russia.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="canada" mnemonicParsing="false" onAction="#setCanFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/canada.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="usa" mnemonicParsing="false" onAction="#setUSAFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Usa.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="finland" mnemonicParsing="false" onAction="#setFinFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/finland.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="sweden" mnemonicParsing="false" onAction="#setSweFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Sweden.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="czech" mnemonicParsing="false" onAction="#setCheFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Czech.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="slovakia" mnemonicParsing="false" onAction="#setSloFlag">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Slovakia.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                    </items>
+                </MenuButton>
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
