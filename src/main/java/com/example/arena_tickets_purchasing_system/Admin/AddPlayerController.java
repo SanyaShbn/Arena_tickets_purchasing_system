@@ -1,5 +1,6 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
@@ -75,7 +76,7 @@ public class AddPlayerController {
     @FXML
     void initialize(){
         FXMLLoader add_players_loader = new FXMLLoader();
-         add_players_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
+        add_players_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
         try {
             back_to_roster = add_players_loader.load();
         } catch (IOException e) {
@@ -155,8 +156,8 @@ public class AddPlayerController {
                     Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
                     Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
                     Integer.parseInt(seasonsInLeague.getText())));
-        }catch (SQLIntegrityConstraintViolationException e){
-            new NotificationShower().showSimpleError("Внимание!", "Введённый номер джерси уже занят другим игроком");
+        }catch(NumberFormatException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
     }
 
