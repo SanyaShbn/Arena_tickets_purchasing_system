@@ -2,12 +2,10 @@ package com.example.arena_tickets_purchasing_system;
 
 import com.example.arena_tickets_purchasing_system.Admin.*;
 import com.example.arena_tickets_purchasing_system.User.User;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.*;
 
 import static com.example.arena_tickets_purchasing_system.Constant.MATCHES_TABLE;
 
@@ -89,30 +87,38 @@ public class DatabaseHandler extends Config{
         return result;
     }
 
-    public void addNewMatches(AdminMatchesWindowController.Match match) throws SQLException, ClassNotFoundException{
+    public void addNewMatches(AdminMatchesWindowController.Match match) throws ClassNotFoundException{
         String insert = "INSERT INTO " + Constant.MATCHES_TABLE + "(" + Constant.MATCH_ID + "," +
                 Constant.MATCHES_DATE + "," + Constant.MATCHES_TIME + "," + Constant.OPP_TEAM + "," + Constant.TICKETS_AMOUNT +
         "," + Constant.MATCH_TYPE +  ")" + "VALUES(?,?,?,?,?,?)";
 
+        try {
+            PreparedStatement prStr = getDbConnection(dbNameForMatches).prepareStatement(insert);
+            prStr.setInt(1, match.getId());
+            prStr.setString(2, match.getDate());
+            prStr.setString(3, match.getTime());
+            prStr.setString(4, match.getOpponent());
+            prStr.setInt(5, match.getAmount());
+            prStr.setString(6, match.getType());
 
-        PreparedStatement prStr = getDbConnection(dbNameForMatches).prepareStatement(insert);
-        prStr.setInt(1, match.getId());
-        prStr.setString(2, match.getDate());
-        prStr.setString(3, match.getTime());
-        prStr.setString(4, match.getOpponent());
-        prStr.setInt(5, match.getAmount());
-        prStr.setString(6, match.getType());
-
-        prStr.executeUpdate();
+            prStr.executeUpdate();
+            new NotificationShower().showSimpleNotification("Уведомление","Матч успешно добавлен в базу данных");
+        }catch (SQLIntegrityConstraintViolationException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных. Возможно матч с введённым id уже существует");
+        }catch(NumberFormatException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }catch(SQLException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }
 
     }
 
-    public void addNewAdminTickets(AdminTicketsController.MatchTickets match_tickets) throws SQLException, ClassNotFoundException{
+    public void addNewAdminTickets(AdminTicketsController.MatchTickets match_tickets) throws ClassNotFoundException{
         String insert = "INSERT INTO " + Constant.ADMIN_TICKETS_TABLE +
                 "(id_Match,Tickets_amount,VIP,Sector_A,Sector_B,Sector_C,Sector_D,Sector_E,Sector_F,Sector_G,Sector_H,Sector_I)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
-
+       try{
         PreparedStatement prStr = getDbConnection(dbNameForAdminTickets).prepareStatement(insert);
         prStr.setInt(1, match_tickets.getId());
         prStr.setInt(2, match_tickets.getAmount());
@@ -128,34 +134,46 @@ public class DatabaseHandler extends Config{
         prStr.setInt(12, match_tickets.getSectorI());
 
         prStr.executeUpdate();
-
+        new NotificationShower().showSimpleNotification("Уведомление","Информация о билетах успешно добавлена в базу данных");
+        }catch (SQLIntegrityConstraintViolationException e){
+           new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }catch(SQLException e){
+           new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }
     }
-    public void addNewPlayers(AdminTeamRosterController.Player team_roster) throws SQLException, ClassNotFoundException{
+    public void addNewPlayers(AdminTeamRosterController.Player team_roster) throws ClassNotFoundException{
         String insert = "INSERT INTO " + Constant.PLAYERS_TABLE + "(" + Constant.PLAYER_NAME + "," +
                 Constant.ROLE + "," + Constant.JERSEY + "," + Constant.NATION + "," +
                 Constant.AGE + "," + Constant.HEIGHT + "," + Constant.WEIGHT + "," + Constant.TEAM
                 + "," + Constant.LEAGUE + ")" + "VALUES(?,?,?,?,?,?,?,?,?)";
 
-        PreparedStatement prStr = getDbConnection(dbNameForPlayers).prepareStatement(insert);
-        prStr.setString(1, team_roster.getName());
-        prStr.setString(2, team_roster.getRole());
-        prStr.setInt(3, team_roster.getNumber());
-        prStr.setString(4, team_roster.getNationality());
-        prStr.setInt(5, team_roster.getAge());
-        prStr.setInt(6, team_roster.getHeight());
-        prStr.setInt(7, team_roster.getWeight());
-        prStr.setInt(8, team_roster.getSeasonsTeam());
-        prStr.setInt(9, team_roster.getSeasonsLeague());
+        try {
+            PreparedStatement prStr = getDbConnection(dbNameForPlayers).prepareStatement(insert);
+            prStr.setString(1, team_roster.getName());
+            prStr.setString(2, team_roster.getRole());
+            prStr.setInt(3, team_roster.getNumber());
+            prStr.setString(4, team_roster.getNationality());
+            prStr.setInt(5, team_roster.getAge());
+            prStr.setInt(6, team_roster.getHeight());
+            prStr.setInt(7, team_roster.getWeight());
+            prStr.setInt(8, team_roster.getSeasonsTeam());
+            prStr.setInt(9, team_roster.getSeasonsLeague());
 
-        prStr.executeUpdate();
-
+            prStr.executeUpdate();
+        new NotificationShower().showSimpleNotification("Уведомление","Игрок успешно добавлен в базу данных");
+        }catch (SQLIntegrityConstraintViolationException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных. Возможно введённый номер джерси уже занят другим игроком");
+        } catch(SQLException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных. Возможно введённый номер джерси уже занят другим игроком");
+        }
     }
 
-    public void addNews(AdminNewsController.News news) throws SQLException, ClassNotFoundException{
+    public void addNews(AdminNewsController.News news) throws ClassNotFoundException{
         String insert = "INSERT INTO " + Constant.NEWS_TABLE + "(" + Constant.NEWS_ID + "," +
                 Constant.PUBLISHING_DATE + "," + Constant.PUBLISHING_TIME + "," + Constant.CONTESTS +  ")"
                 + "VALUES(?,?,?,?)";
 
+        try{
         PreparedStatement prStr = getDbConnection(dbNameForNews).prepareStatement(insert);
         prStr.setInt(1, news.getId());
         prStr.setString(2, news.getDate());
@@ -163,6 +181,12 @@ public class DatabaseHandler extends Config{
         prStr.setString(4, news.getContents());
 
         prStr.executeUpdate();
+            new NotificationShower().showSimpleNotification("Уведомление","Новостной пост добавлен в базу данных");
+        }catch (SQLIntegrityConstraintViolationException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных. Возможно пост с введённым id уже существует");
+        } catch(SQLException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных. Возможно пост с введённым id уже существует");
+        }
 
     }
     public void updateAdminTickets(int amount, String column_name, int id){
