@@ -1,9 +1,9 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class AddNewsController {
 
@@ -45,7 +42,7 @@ public class AddNewsController {
     @FXML
     void initialize(){
         FXMLLoader add_news_loader = new FXMLLoader();
-         add_news_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
+        add_news_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
         try {
             back_to_club_news = add_news_loader.load();
         } catch (IOException e) {
@@ -72,8 +69,12 @@ public class AddNewsController {
     }
     @FXML
     private void addNews (ActionEvent event) throws SQLException, ClassNotFoundException {
-        new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), date.getText(),
-                time.getText(), contents.getText()));
+        try {
+            new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), date.getText(),
+                    time.getText(), contents.getText()));
+        }catch(NumberFormatException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }
     }
 }
 
