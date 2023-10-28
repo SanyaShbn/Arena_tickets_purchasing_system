@@ -11,7 +11,7 @@
     <children>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
             <children>
-                <Text fill="#faf5f5" layoutX="704.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Матчи">
+                <Text fill="#faf5f5" layoutX="595.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cостав команды">
                     <font>
                         <Font size="48.0" />
                     </font>
@@ -24,9 +24,9 @@
                 <TableColumn fx:id="roleOfPlayer" prefWidth="180.8000030517578" text="Амплуа" />
                 <TableColumn fx:id="jerseyNumb" prefWidth="160.0" text="Номер джерси" />
                 <TableColumn fx:id="nationalityOfPlayer" prefWidth="168.800048828125" text="Страна" />
-            <TableColumn fx:id="ageOfPlayer" prefWidth="177.5999755859375" text="Возраст, количество лет" />
-            <TableColumn fx:id="heightOfPlayer" prefWidth="151.199951171875" text="Рост, см" />
-            <TableColumn fx:id="weightOfPlayer" prefWidth="140.80010986328125" text="Вес, кг" />
+                <TableColumn fx:id="ageOfPlayer" prefWidth="177.5999755859375" text="Возраст, количество лет" />
+                <TableColumn fx:id="heightOfPlayer" prefWidth="151.199951171875" text="Рост, см" />
+                <TableColumn fx:id="weightOfPlayer" prefWidth="140.80010986328125" text="Вес, кг" />
                 <TableColumn fx:id="seasonsInTeam" prefWidth="229.5999755859375" text="Количество сезонов в команде" />
                 <TableColumn fx:id="seasonsInLeague" prefWidth="215.199951171875" text="Количество сезонов в лиге" />
             </columns>
