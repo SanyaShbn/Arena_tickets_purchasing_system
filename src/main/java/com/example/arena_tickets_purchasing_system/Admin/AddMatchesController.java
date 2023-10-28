@@ -1,6 +1,8 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,7 +56,7 @@ public class AddMatchesController {
     void initialize(){
         homeRadioButton.setSelected(true);
         FXMLLoader add_matches_loader = new FXMLLoader();
-       add_matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
+        add_matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
         try {
             back_to_admin_matches = add_matches_loader.load();
         } catch (IOException e) {
@@ -92,6 +94,7 @@ public class AddMatchesController {
     @FXML
     private void addNewMatch (ActionEvent event) throws SQLException, ClassNotFoundException {
         String type_match; int tickets_amount;
+        try {
         if(homeRadioButton.isSelected()){
             type_match  = homeRadioButton.getText();
             tickets_amount = Integer.parseInt(amount.getText());
@@ -101,8 +104,11 @@ public class AddMatchesController {
             System.out.println(type_match);
             tickets_amount = 0;
         }
-        new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), date.getText(),
-                time.getText(), type_match, opponent.getText(), tickets_amount));
+            new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), date.getText(),
+                    time.getText(), type_match, opponent.getText(), tickets_amount));
+        } catch(NumberFormatException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }
     }
 
 }
