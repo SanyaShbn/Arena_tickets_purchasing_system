@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -21,13 +22,13 @@
                 <TextField fx:id="time" layoutX="134.0" layoutY="190.0" prefHeight="35.0" prefWidth="500.0" promptText="время" />
                 <Separator layoutY="64.0" prefHeight="18.0" prefWidth="772.0" />
                 <TextField fx:id="contents" layoutX="136.0" layoutY="240.0" prefHeight="214.0" prefWidth="500.0" promptText="содержание" />
-                <TextField fx:id="date" layoutX="134.0" layoutY="140.0" prefHeight="35.0" prefWidth="500.0" promptText="дата" />
                 <Button fx:id="submitChanges" layoutX="285.0" layoutY="487.0" mnemonicParsing="false" onAction="#addNews" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: #00BFFF;" text="Принять">
                     <font>
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
                 </Button>
-            <TextField fx:id="id" layoutX="134.0" layoutY="90.0" prefHeight="35.0" prefWidth="500.0" promptText="id" />
+                <TextField fx:id="id" layoutX="134.0" layoutY="90.0" prefHeight="35.0" prefWidth="500.0" promptText="id" />
+            <DatePicker fx:id="date" layoutX="134.0" layoutY="140.0" prefHeight="35.0" prefWidth="500.0" promptText="дата" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
