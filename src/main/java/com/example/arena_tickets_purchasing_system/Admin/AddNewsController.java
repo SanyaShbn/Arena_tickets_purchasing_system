@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
@@ -26,7 +27,7 @@ public class AddNewsController {
     private TextField id;
 
     @FXML
-    private TextField date;
+    private DatePicker date;
 
     @FXML
     private Button exitButton;
@@ -70,8 +71,9 @@ public class AddNewsController {
     @FXML
     private void addNews (ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), date.getText(),
+            new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
                     time.getText(), contents.getText()));
+            id.clear();date.cancelEdit();time.clear();contents.clear();
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
