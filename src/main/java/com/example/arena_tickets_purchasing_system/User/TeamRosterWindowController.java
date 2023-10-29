@@ -2,14 +2,18 @@ package com.example.arena_tickets_purchasing_system.User;
 
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,41 +50,41 @@ public class TeamRosterWindowController {
                 setFlag(result.getString(NATION), flag);
                 Text name = new Text();
                 name.setText("Имя - " + result.getString(PLAYER_NAME));
-                name.setLayoutX(15 + X);
-                name.setLayoutY(400 + Y);
+                name.setLayoutX(0);
+                name.setLayoutY(155);
                 Text role = new Text();
                 role.setText("Амплуа - " + result.getString(ROLE));
-                role.setLayoutX(15 + X);
-                role.setLayoutY(410 + Y);
+                role.setLayoutX(0);
+                role.setLayoutY(165);
                 Text numb = new Text();
                 numb.setText("Номер - " +result.getInt(JERSEY));
-                numb.setLayoutX(15 + X);
-                numb.setLayoutY(420 + Y);
+                numb.setLayoutX(0);
+                numb.setLayoutY(175);
                 Text age = new Text();
                 age.setText("Возраст - " + result.getInt(AGE));
-                age.setLayoutX(15 + X);
-                age.setLayoutY(430 + Y);
+                age.setLayoutX(0);
+                age.setLayoutY(185);
                 Text height = new Text();
-                height.setLayoutX(15 + X);
-                height.setLayoutY(440 + Y);
+                height.setLayoutX(0);
+                height.setLayoutY(195);
                 height.setText("Рост, см - " + result.getInt(HEIGHT));
                 Text weight = new Text();
-                weight.setLayoutX(15 + X);
-                weight.setLayoutY(450 + Y);
+                weight.setLayoutX(0);
+                weight.setLayoutY(205);
                 weight.setText("Вес, кг - " + result.getInt(WEIGHT));
                 Text team = new Text();
-                team.setLayoutX(15 + X);
-                team.setLayoutY(460 + Y);
+                team.setLayoutX(0);
+                team.setLayoutY(215);
                 team.setText("Сезонов в команде - " + result.getInt(TEAM));
                 Text league = new Text();
                 league.setText("Сезонов в лиге - " + result.getInt(LEAGUE));
-                league.setLayoutX(15 + X);
-                league.setLayoutY(470 + Y);
+                league.setLayoutX(0);
+                league.setLayoutY(225);
                 player_image.setFitWidth(140);
                 player_image.setFitHeight(140);
                 player_image.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\player_card.png"));
-                player_info.setPrefWidth(140);
-                player_info.setPrefHeight(140);
+                player_info.setPrefWidth(200);
+                player_info.setPrefHeight(250);
                 player_info.setLayoutX(15 + X);
                 player_info.setLayoutY(240+ Y);
                 X = X + 250;
@@ -88,9 +92,9 @@ public class TeamRosterWindowController {
                     Y = Y + 250;
                     X = 0;
                 }
-                player_info.getChildren().addAll(player_image, flag);
+                player_info.getChildren().addAll(player_image, flag, name, role , age, height, weight, numb, team, league);
 
-                MainPane.getChildren().addAll(player_info, name, role , age, height, weight, numb, team, league);
+                MainPane.getChildren().add(player_info);
             }
 
         } catch (SQLException e) {
@@ -127,5 +131,4 @@ public class TeamRosterWindowController {
         MainPane.getScene().getWindow().hide();
         new WindowsOpener("matches.fxml");
     }
-
 }
