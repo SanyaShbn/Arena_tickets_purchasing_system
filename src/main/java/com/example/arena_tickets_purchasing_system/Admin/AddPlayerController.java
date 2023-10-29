@@ -152,10 +152,15 @@ public class AddPlayerController {
     @FXML
     private void addNewPlayer (ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
+            if(Integer.parseInt(jerseyNumb.getText()) > 99 || Integer.parseInt(jerseyNumb.getText()) < 1){
+                throw new NumberFormatException();
+            }
             new DatabaseHandler().addNewPlayers(new AdminTeamRosterController.Player(name.getText(), role.getText(),
                     Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
                     Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
                     Integer.parseInt(seasonsInLeague.getText())));
+            name.clear();role.setText("амплуа");jerseyNumb.clear();country.setText("страна");age.clear();height.clear(); weight.clear();
+            seasonsInLeague.clear();seasonsInTeam.clear();
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
