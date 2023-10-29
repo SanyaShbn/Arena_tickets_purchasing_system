@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -27,7 +28,7 @@ public class AddMatchesController {
     private TextField amount;
 
     @FXML
-    private TextField date;
+    private DatePicker date;
 
     @FXML
     private Button exitButton;
@@ -104,8 +105,9 @@ public class AddMatchesController {
             System.out.println(type_match);
             tickets_amount = 0;
         }
-            new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), date.getText(),
+            new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
                     time.getText(), type_match, opponent.getText(), tickets_amount));
+            id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.clear();amount.clear();
         } catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
