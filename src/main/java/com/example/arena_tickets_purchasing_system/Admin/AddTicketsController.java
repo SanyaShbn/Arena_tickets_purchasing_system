@@ -128,6 +128,8 @@ public class AddTicketsController {
                     Integer.parseInt(vip.getText()), Integer.parseInt(secA.getText()), Integer.parseInt(secB.getText()), Integer.parseInt(secC.getText()),
                     Integer.parseInt(secD.getText()), Integer.parseInt(secE.getText()), Integer.parseInt(secF.getText()), Integer.parseInt(secG.getText()),
                     Integer.parseInt(secH.getText()), Integer.parseInt(secI.getText())));
+            id.setText("id");amount.clear();vip.clear();secA.clear();secB.clear();secC.clear();secD.clear();
+            secE.clear();secF.clear();secG.clear();secH.clear();secI.clear();
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
