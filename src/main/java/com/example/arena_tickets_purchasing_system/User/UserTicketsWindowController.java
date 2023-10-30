@@ -1,5 +1,9 @@
 package com.example.arena_tickets_purchasing_system.User;
 
+import com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController;
+import com.example.arena_tickets_purchasing_system.Admin.AdminTeamRosterController;
+import com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController;
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.animation.FadeTransition;
@@ -52,47 +56,16 @@ public class UserTicketsWindowController {
                 prStrMatch.setString(1, String.valueOf(result.getInt("id_Match")));
                 ResultSet result_matches = prStrMatch.executeQuery();
                 while(result_matches.next()){
-                    String sectors_info = "";
-                    if(result.getInt("Sector_VIP") != 0){
-                        sectors_info += "VIP_Сектор - " + result.getInt("Sector_VIP") + " ";
-                    }
-                    if(result.getInt("Sector_A") != 0){
-                        sectors_info += "Сектор A - " + result.getInt("Sector_A") + " ";
-                    }
-                    if(result.getInt("Sector_B") != 0){
-                        sectors_info += "Сектор B - " + result.getInt("Sector_B") + " ";
-                    }
-                    if(result.getInt("Sector_C") != 0){
-                        sectors_info += "Сектор C - " + result.getInt("Sector_C") + " ";
-                    }
-                    if(result.getInt("Sector_D") != 0){
-                        sectors_info += "Сектор D - " + result.getInt("Sector_D") + " ";
-                    }
-                    if(result.getInt("Sector_E") != 0){
-                        sectors_info += "Сектор E - " + result.getInt("Sector_E") + " ";
-                    }
-                    if(result.getInt("Sector_F") != 0){
-                        sectors_info += "Сектор F - " + result.getInt("Sector_F") + " ";
-                    }
-                    if(result.getInt("Sector_G") != 0){
-                        sectors_info += "Сектор G - " + result.getInt("Sector_G") + " ";
-                    }
-                    if(result.getInt("Sector_H") != 0){
-                        sectors_info += "Сектор H - " + result.getInt("Sector_H") + " ";
-                    }
-                    if(result.getInt("Sector_I") != 0){
-                        sectors_info += "Сектор I - " + result.getInt("Sector_I") + " ";
-                    }
-                    TextArea match_info = new TextArea();
-                    match_info.setPrefWidth(590);
-                    match_info.setPrefHeight(30);
-                    match_info.setLayoutX(478);
-                    match_info.setLayoutY(500 + Y);
-                    match_info.setText("Информация о билете:" + result_matches.getInt(MATCH_ID) + " "
-                            + result_matches.getString(MATCHES_DATE) + " " + result_matches.getString(MATCHES_TIME) + " " + result_matches.getString(OPP_TEAM)
-                    + " " + result_matches.getInt(TICKETS_AMOUNT) + " " + result_matches.getString(MATCH_TYPE) + "\n" + sectors_info + "Всего - " + result.getInt("Tickets_amount"));
-                    Y = Y + 50;
-                    MainPane.getChildren().add(match_info);
+                    AnchorPane tickets_view = (AnchorPane) setTicketsView(new AdminMatchesWindowController.Match(result_matches.getInt(MATCH_ID), result_matches.getString(MATCHES_DATE),
+                                    result_matches.getString(MATCHES_TIME), result_matches.getString(MATCH_TYPE), result_matches.getString(OPP_TEAM), result_matches.getInt(TICKETS_AMOUNT)),
+                            new AdminTicketsController.MatchTickets(result.getInt("id_Match"), result.getInt("Tickets_amount"), result.getInt("Sector_VIP"),
+                                    result.getInt("Sector_A"), result.getInt("Sector_B"), result.getInt("Sector_C"), result.getInt("Sector_D"),
+                                    result.getInt("Sector_E"), result.getInt("Sector_F"), result.getInt("Sector_G"), result.getInt("Sector_H"),
+                                    result.getInt("Sector_I")));
+                    tickets_view.setLayoutX(50);
+                    tickets_view.setLayoutY(215 + Y);
+                    Y = Y + 100;
+                    MainPane.getChildren().add(tickets_view);
                 }
             }
 
@@ -131,5 +104,19 @@ public class UserTicketsWindowController {
         MainPane.getScene().getWindow().hide();
         new WindowsOpener("user_roster.fxml");
     }
-
+    public Node setTicketsView (AdminMatchesWindowController.Match match, AdminTicketsController.MatchTickets tickets){
+        AnchorPane ticket_view;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("ticket_view.fxml"));
+        TicketsViewController controller = new TicketsViewController();
+        controller.setTickets(tickets);
+        controller.setMatch(match);
+        loader.setController(controller);
+        try {
+            ticket_view = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ticket_view;
+    }
 }
