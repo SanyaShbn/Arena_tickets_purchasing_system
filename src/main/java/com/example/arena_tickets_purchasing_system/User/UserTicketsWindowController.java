@@ -1,7 +1,6 @@
 package com.example.arena_tickets_purchasing_system.User;
 
 import com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController;
-import com.example.arena_tickets_purchasing_system.Admin.AdminTeamRosterController;
 import com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
@@ -11,18 +10,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import static com.example.arena_tickets_purchasing_system.Constant.*;
-import static com.example.arena_tickets_purchasing_system.Constant.CONTESTS;
 
 public class UserTicketsWindowController {
     @FXML
@@ -39,6 +37,7 @@ public class UserTicketsWindowController {
 
     @FXML
     private MenuItem TeamItem;
+
     private User User = new User().readUserFromFile();
     @FXML
     void initialize() {
@@ -65,6 +64,15 @@ public class UserTicketsWindowController {
                     tickets_view.setLayoutX(50);
                     tickets_view.setLayoutY(215 + Y);
                     Y = Y + 100;
+                    if((215 + Y) >= 800){
+                        Y = 0;
+                    }
+                    ImageView cancel_image = new ImageView("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\cross.png");
+                    cancel_image.setFitWidth(20);
+                    cancel_image.setFitHeight(20);
+                    MenuItem cancelItem = new MenuItem("Отменить покупку", cancel_image);
+                    ContextMenu contextMenu = new ContextMenu(cancelItem);
+                    tickets_view.setOnContextMenuRequested(e -> contextMenu.show(tickets_view, e.getScreenX(), e.getScreenY()));
                     MainPane.getChildren().add(tickets_view);
                 }
             }
