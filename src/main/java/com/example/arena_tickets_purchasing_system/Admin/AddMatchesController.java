@@ -8,10 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -43,7 +40,7 @@ public class AddMatchesController {
     private TextField id;
 
     @FXML
-    private TextField opponent;
+    private MenuButton opponent;
 
     @FXML
     private Button submitChanges;
@@ -107,10 +104,46 @@ public class AddMatchesController {
         }
             new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
                     time.getText(), type_match, opponent.getText(), tickets_amount));
-            id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.clear();amount.clear();
+            id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
         } catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
+    }
+    @FXML
+    private void setSPA (ActionEvent event) {
+        opponent.setText("Спартак");
+    }
+    @FXML
+    private void setSKA (ActionEvent event) {
+        opponent.setText("СКА");
+    }
+    @FXML
+    private void setCSKA (ActionEvent event) {
+        opponent.setText("ЦСКА");
+    }
+    @FXML
+    private void setDNM (ActionEvent event) {
+        opponent.setText("Динамо Мск");
+    }
+    @FXML
+    private void setLOK (ActionEvent event) {
+        opponent.setText("Локомотив");
+    }
+    @FXML
+    private void setAKB (ActionEvent event) {
+        opponent.setText("Ак барс");
+    }
+    @FXML
+    private void setAVG (ActionEvent event) {
+        opponent.setText("Авангард");
+    }
+    @FXML
+    private void setMMG (ActionEvent event) {
+        opponent.setText("Металлург");
+    }
+    @FXML
+    private void setAVT (ActionEvent event) {
+        opponent.setText("Автомобилист");
     }
 
 }
