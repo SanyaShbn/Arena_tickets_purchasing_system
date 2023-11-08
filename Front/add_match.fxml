@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -21,24 +23,144 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
-                <TextField fx:id="time" layoutX="134.0" layoutY="275.0" prefHeight="35.0" prefWidth="500.0" promptText="время" />
+                <TextField fx:id="time" layoutX="134.0" layoutY="270.0" prefHeight="35.0" prefWidth="500.0" promptText="время" />
                 <Separator layoutY="64.0" prefHeight="18.0" prefWidth="772.0" />
-                <TextField fx:id="opponent" layoutX="134.0" layoutY="325.0" prefHeight="35.0" prefWidth="500.0" promptText="соперник" />
-                <TextField fx:id="amount" layoutX="134.0" layoutY="423.0" prefHeight="35.0" prefWidth="500.0" promptText="количество билетов в наличии" />
-                <TextField fx:id="id" layoutX="134.0" layoutY="175.0" prefHeight="35.0" prefWidth="500.0" promptText="id" />
+                <TextField fx:id="amount" layoutX="134.0" layoutY="368.0" prefHeight="35.0" prefWidth="500.0" promptText="количество билетов в наличии" />
+                <TextField fx:id="id" layoutX="134.0" layoutY="120.0" prefHeight="35.0" prefWidth="500.0" promptText="id" />
                 <Button fx:id="submitChanges" layoutX="285.0" layoutY="487.0" mnemonicParsing="false" onAction="#addNewMatch" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: #00BFFF;" text="Принять">
                     <font>
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
                 </Button>
-                <RadioButton fx:id="homeRadioButton" layoutX="345.0" layoutY="383.0" mnemonicParsing="false" onAction="#homeRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Домашний" />
-                <RadioButton fx:id="awayRadioButton" layoutX="525.0" layoutY="383.0" mnemonicParsing="false" onAction="#awayRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Гостевой" />
-                <Text layoutX="134.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип матча" wrappingWidth="180.53668212890625">
+                <RadioButton fx:id="homeRadioButton" layoutX="345.0" layoutY="328.0" mnemonicParsing="false" onAction="#homeRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Домашний" />
+                <RadioButton fx:id="awayRadioButton" layoutX="525.0" layoutY="328.0" mnemonicParsing="false" onAction="#awayRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Гостевой" />
+                <Text layoutX="134.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип матча" wrappingWidth="180.53668212890625">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Text>
-            <DatePicker fx:id="date" layoutX="134.0" layoutY="225.0" prefHeight="35.0" prefWidth="500.0" promptText="дата" />
+                <DatePicker fx:id="date" layoutX="134.0" layoutY="220.0" prefHeight="35.0" prefWidth="500.0" promptText="дата" />
+                <MenuButton fx:id="opponent" layoutX="134.0" layoutY="170.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="соперник">
+                    <items>
+                        <MenuItem fx:id="spartak" mnemonicParsing="false" onAction="#setSPA">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/spartak.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="ska" mnemonicParsing="false" onAction="#setSKA">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="15.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/ska.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="cska" mnemonicParsing="false" onAction="#setCSKA">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/cska.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="dinamo" mnemonicParsing="false" onAction="#setDNM">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/dinamo.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="lokomotiv" mnemonicParsing="false" onAction="#setLOK">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/lokomotiv.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="akBars" mnemonicParsing="false" onAction="#setAKB">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/ak_bars.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="avangard" mnemonicParsing="false" onAction="#setAVG">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/avangard.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="metallurg" mnemonicParsing="false" onAction="#setMMG">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/metallurg.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="avto" mnemonicParsing="false" onAction="#setAVT">
+                            <graphic>
+                                <AnchorPane prefHeight="30.0" prefWidth="30.0">
+                                    <children>
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/avto.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </AnchorPane>
+                            </graphic>
+                        </MenuItem>
+                    </items>
+                </MenuButton>
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
@@ -48,7 +170,7 @@
                         <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/316186_hockey_sticks_icon.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="exitButton" layoutX="1354.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAdminMatches" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Выход">
+                <Button fx:id="exitButton" layoutX="1354.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAdminMatches" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Назад">
                     <font>
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
