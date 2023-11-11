@@ -41,6 +41,7 @@ public class UserTicketsWindowController {
     private MenuItem TeamItem;
 
     private User User = new User().readUserFromFile();
+    AnchorPane new_pane;
     @FXML
     void initialize() {
         updateWindow();
@@ -59,20 +60,41 @@ public class UserTicketsWindowController {
     }
     @FXML
     private void backToMainMenu (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("main_menu.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("main_menu.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewMatches (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("matches.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("matches.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewTeamRoster (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_roster.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("user_roster.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
     public Node setTicketsView (AdminMatchesWindowController.Match match, AdminTicketsController.MatchTickets tickets){
         AnchorPane ticket_view;
