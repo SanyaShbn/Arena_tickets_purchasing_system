@@ -37,6 +37,7 @@ public class TeamRosterWindowController {
     @FXML
     private MenuItem TicketsItem;
 
+    AnchorPane new_pane;
     @FXML
     void initialize() {
         String select = "SELECT * FROM " + PLAYERS_TABLE;
@@ -71,14 +72,29 @@ public class TeamRosterWindowController {
 
     @FXML
     private void backToMainMenu(ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("main_menu.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("main_menu.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewUserTickets(ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_tickets.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("user_tickets.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 
     private ImageView setFlag(String nationality, ImageView flag) {
@@ -113,8 +129,15 @@ public class TeamRosterWindowController {
 
     @FXML
     private void viewMatches(ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("matches.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("matches.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
     public Node setPlayerCard (AdminTeamRosterController.Player player){
         AnchorPane player_card;
