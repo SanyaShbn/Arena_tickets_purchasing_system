@@ -1,7 +1,9 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
+import com.example.arena_tickets_purchasing_system.User.PlayerCardController;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,14 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,6 +30,9 @@ import java.util.ResourceBundle;
 import static com.example.arena_tickets_purchasing_system.Constant.*;
 
 public class AdminTeamRosterController implements Initializable {
+
+    @FXML
+    private AnchorPane MainPane;
 
     @FXML
     private TableView<Player> table;
@@ -68,10 +73,17 @@ public class AdminTeamRosterController implements Initializable {
     private Button updateInfo;
 
     ObservableList<Player> list_of_players = FXCollections.observableArrayList();
+    AnchorPane new_pane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         passportName.setCellValueFactory(new PropertyValueFactory<>("name"));
         roleOfPlayer.setCellValueFactory(new PropertyValueFactory<>("role"));
         jerseyNumb.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -116,8 +128,15 @@ public class AdminTeamRosterController implements Initializable {
 
     @FXML
     private void addPlayer(ActionEvent event) {
-        addPlayer.getScene().getWindow().hide();
-        new WindowsOpener("add_player.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("add_player.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
@@ -142,8 +161,15 @@ public class AdminTeamRosterController implements Initializable {
 
     @FXML
     private void backToAdminHomePage (ActionEvent event) {
-        exitButton.getScene().getWindow().hide();
-        new WindowsOpener("admin_home_page.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
     private void updateInfo()
     {
@@ -169,7 +195,6 @@ public class AdminTeamRosterController implements Initializable {
         private final SimpleIntegerProperty weight;
         private final SimpleIntegerProperty seasonsTeam;
         private final SimpleIntegerProperty seasonsLeague;
-
         public Player(String player_name, String player_role, int player_numb, String nation, int player_age, int player_height,
         int player_weight, int season_team, int season_league) {
             this.name = new SimpleStringProperty(player_name);
@@ -231,6 +256,7 @@ public class AdminTeamRosterController implements Initializable {
             this.seasonsLeague.set(s_league);
         }
         public int getSeasonsLeague() {return seasonsLeague.get();}
+
     }
 }
 
