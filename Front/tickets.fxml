@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #0000FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController">
+<AnchorPane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #0000FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController">
     <children>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
             <children>
@@ -22,15 +22,15 @@
             <columns>
                 <TableColumn fx:id="idMatch" prefWidth="125.59997254610062" text="ID Матча" />
                 <TableColumn fx:id="amountTickets" prefWidth="203.2000274658203" text="Количество билетов в продаже" />
-            <TableColumn fx:id="sectorA" prefWidth="96.0" text="Сектор A" />
-            <TableColumn fx:id="sectorB" prefWidth="96.0" text="Сектор B" />
-            <TableColumn fx:id="sectorC" prefWidth="96.0" text="Сектор C" />
-            <TableColumn fx:id="sectorD" prefWidth="96.0" text="Сектор D" />
-            <TableColumn fx:id="sectorE" prefWidth="96.0" text="Сектор E" />
-            <TableColumn fx:id="sectorF" prefWidth="96.0" text="Сектор F" />
-            <TableColumn fx:id="sectorG" prefWidth="96.0" text="Сектор G" />
-            <TableColumn fx:id="sectorH" prefWidth="96.0" text="Сектор H" />
-            <TableColumn fx:id="sectorI" prefWidth="96.0" text="Сектор I" />
+                <TableColumn fx:id="sectorA" prefWidth="96.0" text="Сектор A" />
+                <TableColumn fx:id="sectorB" prefWidth="96.0" text="Сектор B" />
+                <TableColumn fx:id="sectorC" prefWidth="96.0" text="Сектор C" />
+                <TableColumn fx:id="sectorD" prefWidth="96.0" text="Сектор D" />
+                <TableColumn fx:id="sectorE" prefWidth="96.0" text="Сектор E" />
+                <TableColumn fx:id="sectorF" prefWidth="96.0" text="Сектор F" />
+                <TableColumn fx:id="sectorG" prefWidth="96.0" text="Сектор G" />
+                <TableColumn fx:id="sectorH" prefWidth="96.0" text="Сектор H" />
+                <TableColumn fx:id="sectorI" prefWidth="96.0" text="Сектор I" />
                 <TableColumn fx:id="vipSector" prefWidth="355.9999755859376" text="VIP-ложа " />
             </columns>
         </TableView>
