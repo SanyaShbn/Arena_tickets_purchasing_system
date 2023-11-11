@@ -2,6 +2,7 @@ package com.example.arena_tickets_purchasing_system.User;
 
 import com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController;
 import com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController;
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.Constant;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
@@ -69,6 +70,7 @@ public class MatchesWindowController implements Initializable {
     private MenuButton TypeMenuButton;
     @FXML
     private MenuButton OpponentMenuButton;
+    AnchorPane new_pane;
 
     ObservableList<AdminMatchesWindowController.Match> list_of_matches = FXCollections.observableArrayList();
     @Override
@@ -198,20 +200,42 @@ public class MatchesWindowController implements Initializable {
     }
     @FXML
     private void backToMainMenu (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("main_menu.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("main_menu.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewUserTickets (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_tickets.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("user_tickets.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewTeamRoster (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_roster.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("user_roster.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 
 }
