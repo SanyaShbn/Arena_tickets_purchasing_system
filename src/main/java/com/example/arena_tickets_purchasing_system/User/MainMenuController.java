@@ -1,5 +1,6 @@
 package com.example.arena_tickets_purchasing_system.User;
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.animation.FadeTransition;
@@ -44,6 +45,7 @@ public class MainMenuController {
     @FXML
     private MenuItem TicketsItem;
 
+    AnchorPane new_pane;
     @FXML
     void initialize() {
         String select = "SELECT * FROM " + NEWS_TABLE;
@@ -93,19 +95,40 @@ public class MainMenuController {
     }
     @FXML
     private void viewMatches (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("matches.fxml");
+        FXMLLoader matches_loader = new FXMLLoader();
+        matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("matches.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = matches_loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewUserTickets (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_tickets.fxml");
+        FXMLLoader user_tickets_loader = new FXMLLoader();
+        user_tickets_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("user_tickets.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = user_tickets_loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void viewTeamRoster (ActionEvent some_event) {
-        MainPane.getScene().getWindow().hide();
-        new WindowsOpener("user_roster.fxml");
+        FXMLLoader roster_loader = new FXMLLoader();
+        roster_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("user_roster.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = roster_loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
     }
 }
