@@ -1,7 +1,6 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
-
-import com.example.arena_tickets_purchasing_system.Config;
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,11 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.*;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -25,6 +27,9 @@ import java.util.ResourceBundle;
 import static com.example.arena_tickets_purchasing_system.Constant.*;
 
 public class AdminNewsController implements Initializable {
+
+    @FXML
+    private AnchorPane MainPane;
     @FXML
     private TableView<News> table;
     @FXML
@@ -44,10 +49,17 @@ public class AdminNewsController implements Initializable {
     @FXML
     private Button updateInfo;
     ObservableList<News> news_list = FXCollections.observableArrayList();
+    AnchorPane new_pane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateNews.setCellValueFactory(new PropertyValueFactory<>("date"));
         timeNews.setCellValueFactory(new PropertyValueFactory<>("time"));
@@ -81,8 +93,15 @@ public class AdminNewsController implements Initializable {
 
     @FXML
     private void addNews(ActionEvent event) {
-        addNews.getScene().getWindow().hide();
-        new WindowsOpener("add_news.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("add_news.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
@@ -106,8 +125,15 @@ public class AdminNewsController implements Initializable {
 
     @FXML
     private void backToAdminHomePage (ActionEvent event) {
-        exitButton.getScene().getWindow().hide();
-        new WindowsOpener("admin_home_page.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
     private void updateInfo()
     {
