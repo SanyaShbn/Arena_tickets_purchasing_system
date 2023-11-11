@@ -1,6 +1,7 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,12 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,13 +27,14 @@ import static com.example.arena_tickets_purchasing_system.Constant.*;
 
 public class AdminTicketsController implements Initializable {
 
+
+    @FXML
+    private AnchorPane MainPane;
     @FXML
     private TableView<MatchTickets> table;
 
-
     @FXML
     private TableColumn<MatchTickets, Integer> amountTickets;
-
 
     @FXML
     private TableColumn<MatchTickets, Integer> idMatch;
@@ -80,10 +83,17 @@ public class AdminTicketsController implements Initializable {
 
 
     ObservableList<MatchTickets> list_of_tickets = FXCollections.observableArrayList();
+    AnchorPane new_pane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         idMatch.setCellValueFactory(new PropertyValueFactory<>("id"));
         amountTickets.setCellValueFactory(new PropertyValueFactory<>("amount"));
         vipSector.setCellValueFactory(new PropertyValueFactory<>("vipSector"));
@@ -135,8 +145,15 @@ public class AdminTicketsController implements Initializable {
 
     @FXML
     private void addTickets(ActionEvent event) {
-        addTickets.getScene().getWindow().hide();
-        new WindowsOpener("add_admin_tickets.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("add_admin_tickets.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
@@ -166,8 +183,15 @@ public class AdminTicketsController implements Initializable {
 
     @FXML
     private void backToAdminHomePage (ActionEvent event) {
-        exitButton.getScene().getWindow().hide();
-        new WindowsOpener("admin_home_page.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
     private void updateInfo()
     {
@@ -213,7 +237,6 @@ public class AdminTicketsController implements Initializable {
             this.sectorH = new SimpleIntegerProperty(sector_H);
             this.sectorI = new SimpleIntegerProperty(sector_I);
         }
-
         public void setId(int id){
             this.id.set(id);
         }
@@ -291,8 +314,5 @@ public class AdminTicketsController implements Initializable {
             return sectorI.get();
         }
 
-
-
     }
 }
-
