@@ -1,36 +1,39 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
 
+import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.example.arena_tickets_purchasing_system.Constant.*;
 
 public class AdminMatchesWindowController implements Initializable {
 
+    @FXML
+    private AnchorPane MainPane;
     @FXML
     private TableView<Match> table;
 
@@ -62,11 +65,18 @@ public class AdminMatchesWindowController implements Initializable {
     @FXML
     private Button updateInfo;
 
+    AnchorPane new_pane;
+
     ObservableList<Match> list_of_matches = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         idMatch.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateMatch.setCellValueFactory(new PropertyValueFactory<>("date"));
         timeMatch.setCellValueFactory(new PropertyValueFactory<>("time"));
@@ -104,28 +114,35 @@ public class AdminMatchesWindowController implements Initializable {
 
     @FXML
     private void addMatch(ActionEvent event) {
-        addMatch.getScene().getWindow().hide();
-        new WindowsOpener("add_match.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("add_match.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
 
     @FXML
     private void delMatchFromTable(ActionEvent event) {
         try{
-        Match match = table.getSelectionModel().getSelectedItem();
-        String delete = "DELETE FROM " + MATCHES_TABLE + " WHERE idMatches = " + match.getId();
-        PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(delete);
-        prStr.executeUpdate();
-        //if(все успешно){
-        //AlertMaker.showNotification("Successful", "Movie Deleted",AlertMaker.image_movie_frame);
-        //updateInfo();
-        // }
-        updateInfo();
-        // else
-           //AlertMaker.showNotification("Error","Movie is already scheduled to run", AlertMaker.image_cross);
+            Match match = table.getSelectionModel().getSelectedItem();
+            String delete = "DELETE FROM " + MATCHES_TABLE + " WHERE idMatches = " + match.getId();
+            PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(delete);
+            prStr.executeUpdate();
+            //if(все успешно){
+            //AlertMaker.showNotification("Successful", "Movie Deleted",AlertMaker.image_movie_frame);
+            //updateInfo();
+            // }
+            updateInfo();
+            // else
+            //AlertMaker.showNotification("Error","Movie is already scheduled to run", AlertMaker.image_cross);
         }
         catch(Exception ex)
         {
-           //AlertMaker.showNotification("Error","Not Selected movie", AlertMaker.image_cross);
+            //AlertMaker.showNotification("Error","Not Selected movie", AlertMaker.image_cross);
         }
     }
     @FXML
@@ -135,8 +152,15 @@ public class AdminMatchesWindowController implements Initializable {
 
     @FXML
     private void backToAdminHomePage (ActionEvent event) {
-        exitButton.getScene().getWindow().hide();
-        new WindowsOpener("admin_home_page.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
+        try {
+            new_pane = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(new_pane);
     }
     private void updateInfo()
     {
@@ -150,6 +174,19 @@ public class AdminMatchesWindowController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    private void setNewPane(Node node) {
+        MainPane.getChildren().clear();
+        MainPane.getChildren().add(node);
+
+        FadeTransition ft = new FadeTransition(Duration.millis(1500));
+        ft.setNode(node);
+        ft.setFromValue(1);
+        ft.setToValue(1);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
+    }
+
 
     public static class Match{
 
@@ -210,4 +247,3 @@ public class AdminMatchesWindowController implements Initializable {
         }
     }
 }
-
