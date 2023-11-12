@@ -3,6 +3,7 @@ package com.example.arena_tickets_purchasing_system.Admin;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -106,16 +107,16 @@ public class AdminNewsController implements Initializable {
 
     @FXML
     private void delNewsFromTable(ActionEvent event) throws SQLException, ClassNotFoundException {
-
-        News news = table.getSelectionModel().getSelectedItem();
-        String delete = "DELETE FROM " + NEWS_TABLE + " WHERE idNews = " + news.getId();
-        PreparedStatement prStr = new DatabaseHandler().getDbConnection("news").prepareStatement(delete);
         try {
+            News news = table.getSelectionModel().getSelectedItem();
+            String delete = "DELETE FROM " + NEWS_TABLE + " WHERE idNews = " + news.getId();
+            PreparedStatement prStr = new DatabaseHandler().getDbConnection("news").prepareStatement(delete);
             prStr.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
+            updateInfo();
+        } catch (Exception e) {
+            new NotificationShower().showSimpleError("Ошибка!", "Выберите новостной пост для удаления!");
         }
-        updateInfo();
 
     }
     @FXML
