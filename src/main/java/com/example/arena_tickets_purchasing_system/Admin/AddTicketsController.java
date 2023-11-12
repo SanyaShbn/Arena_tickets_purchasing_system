@@ -72,6 +72,18 @@ public class AddTicketsController {
     @FXML
     void initialize(){
 
+        submitChanges.setOnMouseEntered(event ->{
+            submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        submitChanges.setOnMouseExited(event ->{
+            submitChanges.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         String select = "SELECT * FROM " + MATCHES_TABLE;
         try {
             PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(select);
