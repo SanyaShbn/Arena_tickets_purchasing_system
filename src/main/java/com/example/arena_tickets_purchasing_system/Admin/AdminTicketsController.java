@@ -4,6 +4,7 @@ package com.example.arena_tickets_purchasing_system.Admin;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -163,17 +164,13 @@ public class AdminTicketsController implements Initializable {
             String delete = "DELETE FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + tickets.getId();
             PreparedStatement prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(delete);
             prStr.executeUpdate();
-            //if(все успешно){
-            //AlertMaker.showNotification("Successful", "Movie Deleted",AlertMaker.image_movie_frame);
-            //updateInfo();
-            // }
+            new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
             updateInfo();
-            // else
-            //AlertMaker.showNotification("Error","Movie is already scheduled to run", AlertMaker.image_cross);
+
         }
         catch(Exception ex)
         {
-            //AlertMaker.showNotification("Error","Not Selected movie", AlertMaker.image_cross);
+            new NotificationShower().showSimpleError("Ошибка!", "Выберите билеты для удаления!");
         }
     }
     @FXML
