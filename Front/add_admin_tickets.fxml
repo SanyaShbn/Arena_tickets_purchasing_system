@@ -25,18 +25,18 @@
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
                 </Button>
-            <TextField fx:id="vip" layoutX="89.0" layoutY="222.0" prefHeight="50.0" prefWidth="234.0" promptText="VIP ложе" />
-            <TextField fx:id="amount" layoutX="89.0" layoutY="152.0" prefHeight="50.0" prefWidth="234.0" promptText="общее количество билетов в наличии" />
-            <TextField fx:id="secA" layoutX="89.0" layoutY="292.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор A" />
-            <TextField fx:id="secC" layoutX="89.0" layoutY="432.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор C" />
-            <TextField fx:id="secB" layoutX="89.0" layoutY="362.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор B" />
-            <TextField fx:id="secI" layoutX="450.0" layoutY="432.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор I" />
-            <TextField fx:id="secH" layoutX="450.0" layoutY="362.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор H" />
-            <TextField fx:id="secG" layoutX="450.0" layoutY="292.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор G" />
-            <TextField fx:id="secF" layoutX="450.0" layoutY="222.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор F" />
-            <TextField fx:id="secE" layoutX="450.0" layoutY="152.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор E" />
-            <TextField fx:id="secD" layoutX="450.0" layoutY="82.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор D" />
-            <MenuButton fx:id="id" layoutX="89.0" layoutY="85.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="Id" />
+                <TextField fx:id="vip" layoutX="89.0" layoutY="222.0" prefHeight="50.0" prefWidth="234.0" promptText="VIP ложе" />
+                <TextField fx:id="amount" layoutX="89.0" layoutY="152.0" prefHeight="50.0" prefWidth="234.0" promptText="общее количество билетов в наличии" />
+                <TextField fx:id="secA" layoutX="89.0" layoutY="292.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор A" />
+                <TextField fx:id="secC" layoutX="89.0" layoutY="432.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор C" />
+                <TextField fx:id="secB" layoutX="89.0" layoutY="362.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор B" />
+                <TextField fx:id="secI" layoutX="450.0" layoutY="432.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор I" />
+                <TextField fx:id="secH" layoutX="450.0" layoutY="362.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор H" />
+                <TextField fx:id="secG" layoutX="450.0" layoutY="292.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор G" />
+                <TextField fx:id="secF" layoutX="450.0" layoutY="222.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор F" />
+                <TextField fx:id="secE" layoutX="450.0" layoutY="152.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор E" />
+                <TextField fx:id="secD" layoutX="450.0" layoutY="82.0" prefHeight="50.0" prefWidth="234.0" promptText="сектор D" />
+                <MenuButton fx:id="id" layoutX="89.0" layoutY="85.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="Id" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
@@ -46,7 +46,7 @@
                         <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/316186_hockey_sticks_icon.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="exitButton" layoutX="1354.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAdminTickets" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Назад">
+                <Button fx:id="exitButton" layoutX="1354.0" layoutY="60.0" mnemonicParsing="false" onAction="#backToAdminTickets" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Назад">
                     <font>
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
