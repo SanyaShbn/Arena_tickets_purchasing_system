@@ -14,6 +14,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.format.DateTimeParseException;
 
 
 public class AddMatchesController {
@@ -52,6 +53,18 @@ public class AddMatchesController {
     AnchorPane back_to_admin_matches;
     @FXML
     void initialize(){
+        submitChanges.setOnMouseEntered(event ->{
+            submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        submitChanges.setOnMouseExited(event ->{
+            submitChanges.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         homeRadioButton.setSelected(true);
         FXMLLoader add_matches_loader = new FXMLLoader();
         add_matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
@@ -99,7 +112,6 @@ public class AddMatchesController {
         }
         else {
             type_match = awayRadioButton.getText();
-            System.out.println(type_match);
             tickets_amount = 0;
         }
             new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
