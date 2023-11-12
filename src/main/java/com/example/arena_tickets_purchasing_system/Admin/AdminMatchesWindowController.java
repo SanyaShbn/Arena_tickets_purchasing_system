@@ -4,6 +4,7 @@ package com.example.arena_tickets_purchasing_system.Admin;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -129,20 +130,18 @@ public class AdminMatchesWindowController implements Initializable {
     private void delMatchFromTable(ActionEvent event) {
         try{
             Match match = table.getSelectionModel().getSelectedItem();
-            String delete = "DELETE FROM " + MATCHES_TABLE + " WHERE idMatches = " + match.getId();
-            PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(delete);
+            String delete_match = "DELETE FROM " + MATCHES_TABLE + " WHERE idMatches = " + match.getId();
+            PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(delete_match);
+            String delete_ticket = "DELETE FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + match.getId();
+            PreparedStatement prStrDelTickets = new DatabaseHandler().getDbConnection( "tickets").prepareStatement(delete_ticket);
             prStr.executeUpdate();
-            //if(все успешно){
-            //AlertMaker.showNotification("Successful", "Movie Deleted",AlertMaker.image_movie_frame);
-            //updateInfo();
-            // }
+            prStrDelTickets.executeUpdate();
             updateInfo();
-            // else
-            //AlertMaker.showNotification("Error","Movie is already scheduled to run", AlertMaker.image_cross);
+            new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
         }
         catch(Exception ex)
         {
-            //AlertMaker.showNotification("Error","Not Selected movie", AlertMaker.image_cross);
+           new NotificationShower().showSimpleError("Ошибка!", "Выберите матч для удаления!");
         }
     }
     @FXML
