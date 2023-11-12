@@ -33,7 +33,7 @@
                 <Button fx:id="updateInfo" layoutX="320.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="36.0" prefWidth="100.0" text="Обновить" />
             </children>
         </AnchorPane>
-        <Button fx:id="exitButton" layoutX="1364.0" layoutY="24.0" mnemonicParsing="false" onAction="#backToAdminHomePage" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Главное меню">
+        <Button fx:id="exitButton" layoutX="1364.0" layoutY="52.0" mnemonicParsing="false" onAction="#backToAdminHomePage" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Главное меню">
             <font>
                 <Font name="Bodoni MT Black Italic" size="18.0" />
             </font>
