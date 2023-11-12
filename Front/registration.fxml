@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -29,5 +30,10 @@
             </font>
         </Text>
         <TextArea fx:id="PasswordField" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте надёжный пароль" />
+        <Hyperlink fx:id="ExitLink" layoutX="665.0" layoutY="529.0" onAction="#goToOpenWindowPage" prefHeight="35.0" prefWidth="220.0" text="Назад на страницу авторизации">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Hyperlink>
     </children>
 </AnchorPane>
