@@ -37,22 +37,6 @@ public class AddPlayerController {
     @FXML
     private MenuButton country;
     @FXML
-    private MenuItem belarus;
-    @FXML
-    private MenuItem canada;
-    @FXML
-    private MenuItem czech;
-    @FXML
-    private MenuItem finland;
-    @FXML
-    private MenuItem russia;
-    @FXML
-    private MenuItem slovakia;
-    @FXML
-    private MenuItem sweden;
-    @FXML
-    private MenuItem usa;
-    @FXML
     private MenuButton role;
     @FXML
     private TextField seasonsInLeague;
@@ -75,6 +59,18 @@ public class AddPlayerController {
     AnchorPane back_to_roster;
     @FXML
     void initialize(){
+        submitChanges.setOnMouseEntered(event ->{
+            submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        submitChanges.setOnMouseExited(event ->{
+            submitChanges.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         FXMLLoader add_players_loader = new FXMLLoader();
         add_players_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
         try {
@@ -132,6 +128,7 @@ public class AddPlayerController {
     private void setSloFlag (ActionEvent event) {
         country.setText("Словакия");
     }
+
     @FXML
     private void backToPreviousPane(Node node) {
         MainPane.getChildren().clear();
