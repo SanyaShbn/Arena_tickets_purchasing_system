@@ -3,6 +3,7 @@ package com.example.arena_tickets_purchasing_system.User;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.ButtonsSkin;
 import com.example.arena_tickets_purchasing_system.animations.Error_shaking;
 import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -29,15 +31,23 @@ public class OpeningWindowController {
     private Button SignInButton;
 
     @FXML
-    private Button SignUpButton;
-    @FXML
     private Hyperlink AdminLink;
     @FXML
     private AnchorPane MainPane;
 
+
+    @FXML
+    private Hyperlink SignUpLink;
+
     AnchorPane registration, main_page;
     @FXML
     public void initialize() {
+        SignInButton.setOnMouseEntered(event ->{
+            SignInButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
+        });
+        SignInButton.setOnMouseExited(event ->{
+            SignInButton.setStyle("-fx-background-color: #0000FF; -fx-border-color: #0000FF; -fx-text-fill: #FFFFFF");
+        });
         FXMLLoader registration_loader = new FXMLLoader();
         registration_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("registration.fxml"));
         FXMLLoader main_page_loader = new FXMLLoader();
@@ -48,6 +58,7 @@ public class OpeningWindowController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
     @FXML
     private void signInUser() throws SQLException, ClassNotFoundException {
@@ -104,6 +115,8 @@ public class OpeningWindowController {
             Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
             login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
+            LoginField.clear();
+            PasswordField.clear();
         }
 
     }
