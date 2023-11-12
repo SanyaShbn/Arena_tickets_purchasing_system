@@ -5,6 +5,7 @@ import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.User.PlayerCardController;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -147,11 +148,10 @@ public class AdminTeamRosterController implements Initializable {
         PreparedStatement prStr = null;
         prStr = new DatabaseHandler().getDbConnection("players").prepareStatement(delete);
         prStr.executeUpdate();
+        new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
         updateInfo();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            new NotificationShower().showSimpleError("Ошибка!", "Выберите игрока для удаления!");
         }
     }
     @FXML
