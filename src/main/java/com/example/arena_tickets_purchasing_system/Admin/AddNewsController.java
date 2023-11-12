@@ -42,6 +42,18 @@ public class AddNewsController {
     AnchorPane back_to_club_news;
     @FXML
     void initialize(){
+        submitChanges.setOnMouseEntered(event ->{
+            submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        submitChanges.setOnMouseExited(event ->{
+            submitChanges.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         FXMLLoader add_news_loader = new FXMLLoader();
         add_news_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
         try {
