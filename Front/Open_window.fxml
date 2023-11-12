@@ -17,11 +17,6 @@
                         <Font name="Bodoni MT Black Italic" size="64.0" />
                     </font>
                 </Text>
-                <Button fx:id="SignUpButton" layoutX="1262.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToRegistrationPage" prefHeight="64.0" prefWidth="254.0" style="-fx-background-color: #0000FF;" text="Регистрация" textFill="#fffefe">
-                    <font>
-                        <Font name="Bodoni MT Black" size="18.0" />
-                    </font>
-                </Button>
             </children>
         </AnchorPane>
         <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Логин" />
@@ -32,17 +27,18 @@
             </font>
         </Button>
         <Hyperlink fx:id="AdminLink" layoutX="661.0" layoutY="819.0" onAction="#goToAdminLogin" prefHeight="35.0" prefWidth="228.0" text="Войти как администратор">
-         <font>
-            <Font size="18.0" />
-         </font></Hyperlink>
-        <Text fill="#000bff" layoutX="581.0" layoutY="555.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Впервые используете приложение? Нажмите &quot;Регистрация&quot;">
-         <font>
-            <Font size="14.0" />
-         </font></Text>
+            <font>
+                <Font size="18.0" />
+            </font></Hyperlink>
         <Text fill="BLUE" layoutX="575.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Авторизация" textAlignment="CENTER">
             <font>
                 <Font name="System Italic" size="64.0" />
             </font>
         </Text>
+        <Hyperlink fx:id="SignUpLink" layoutX="486.0" layoutY="527.0" onAction="#goToRegistrationPage" prefHeight="35.0" prefWidth="577.0" text="Впервые используете приложение? Нажмите, чтобы перейти на страницу регистрации">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Hyperlink>
     </children>
 </AnchorPane>
