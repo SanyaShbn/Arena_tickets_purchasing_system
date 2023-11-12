@@ -47,7 +47,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/belarus.png" />
                                             </image>
@@ -60,7 +60,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Russia.png" />
                                             </image>
@@ -73,7 +73,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/canada.png" />
                                             </image>
@@ -86,7 +86,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Usa.png" />
                                             </image>
@@ -99,7 +99,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/finland.png" />
                                             </image>
@@ -112,7 +112,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Sweden.png" />
                                             </image>
@@ -125,7 +125,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Czech.png" />
                                             </image>
@@ -138,7 +138,7 @@
                             <graphic>
                                 <AnchorPane prefHeight="30.0" prefWidth="30.0">
                                     <children>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Slovakia.png" />
                                             </image>
@@ -158,7 +158,7 @@
                         <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/316186_hockey_sticks_icon.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="exitButton" layoutX="1354.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAdminMatches" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Назад">
+                <Button fx:id="exitButton" layoutX="1354.0" layoutY="60.0" mnemonicParsing="false" onAction="#backToAdminMatches" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Назад">
                     <font>
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
