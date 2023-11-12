@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -31,14 +32,23 @@ public class AdminLoginController {
     private Button SignInButton;
 
     @FXML
-    private Button SignUpButton;
+    private AnchorPane MainPane;
+    @FXML
+    private Hyperlink ExitLink;
 
     @FXML
-    private AnchorPane MainPane;
+    private Hyperlink SignUpLink;
 
-    AnchorPane registration, admin_home_page;
+
+    AnchorPane registration, admin_home_page, open_window;
     @FXML
     public void initialize() {
+        SignInButton.setOnMouseEntered(event ->{
+            SignInButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
+        });
+        SignInButton.setOnMouseExited(event ->{
+            SignInButton.setStyle("-fx-background-color: #0000FF; -fx-border-color: #0000FF; -fx-text-fill: #FFFFFF");
+        });
         FXMLLoader registration_loader = new FXMLLoader();
         FXMLLoader admin_home_page_loader = new FXMLLoader();
         registration_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_registration.fxml"));
@@ -82,6 +92,8 @@ public class AdminLoginController {
             Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
             login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
+            LoginField.clear();
+            PasswordField.clear();
         }
 
     }
@@ -109,5 +121,17 @@ public class AdminLoginController {
     @FXML
     private void goToAdminRegistrationPage (ActionEvent some_event) {;
        goToNewPane(registration);
+    }
+    @FXML
+    private void goBackToOpenWindow (ActionEvent some_event) {;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("Open_window.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            open_window = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(open_window);
     }
 }
