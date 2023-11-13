@@ -91,7 +91,10 @@ public class AddTicketsController {
             while (result.next()) {
                 String value = String.valueOf(result.getInt(MATCH_ID));
                 String tickets_amount = String.valueOf(result.getInt(TICKETS_AMOUNT));
-                if(result.getInt(TICKETS_AMOUNT) != 0) {
+                String select_tickets = "SELECT * FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + value;
+                PreparedStatement prStrTickets = new DatabaseHandler().getDbConnection( "tickets").prepareStatement(select_tickets);
+                ResultSet result_for_tickets = prStrTickets.executeQuery();
+                if((Integer.parseInt(tickets_amount)) != 0 && !result_for_tickets.next()) {
                     MenuItem ID = new MenuItem(value);
                     id.getItems().addAll(ID);
                     ID.setOnAction(event ->
@@ -136,12 +139,19 @@ public class AddTicketsController {
     @FXML
     private void addTickets (ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
-            new DatabaseHandler().addNewAdminTickets(new AdminTicketsController.MatchTickets(Integer.parseInt(id.getText()), Integer.parseInt(amount.getText()),
-                    Integer.parseInt(vip.getText()), Integer.parseInt(secA.getText()), Integer.parseInt(secB.getText()), Integer.parseInt(secC.getText()),
-                    Integer.parseInt(secD.getText()), Integer.parseInt(secE.getText()), Integer.parseInt(secF.getText()), Integer.parseInt(secG.getText()),
-                    Integer.parseInt(secH.getText()), Integer.parseInt(secI.getText())));
-            id.setText("id");amount.clear();vip.clear();secA.clear();secB.clear();secC.clear();secD.clear();
-            secE.clear();secF.clear();secG.clear();secH.clear();secI.clear();
+            if(Integer.parseInt(amount.getText()) != (Integer.parseInt(vip.getText()) + Integer.parseInt(secA.getText()) + Integer.parseInt(secB.getText()) + Integer.parseInt(secC.getText())
+            + Integer.parseInt(secD.getText()) + Integer.parseInt(secE.getText()) + Integer.parseInt(secF.getText()) + Integer.parseInt(secG.getText()) + Integer.parseInt(secH.getText())
+            + Integer.parseInt(secI.getText()))){
+                new NotificationShower().showWarning("Внимание!","Убедитесь, что сумма всех билетов на конкретные сектора равна общему количеству доступных билетов");
+            }
+            else {
+                new DatabaseHandler().addNewAdminTickets(new AdminTicketsController.MatchTickets(Integer.parseInt(id.getText()), Integer.parseInt(amount.getText()),
+                        Integer.parseInt(vip.getText()), Integer.parseInt(secA.getText()), Integer.parseInt(secB.getText()), Integer.parseInt(secC.getText()),
+                        Integer.parseInt(secD.getText()), Integer.parseInt(secE.getText()), Integer.parseInt(secF.getText()), Integer.parseInt(secG.getText()),
+                        Integer.parseInt(secH.getText()), Integer.parseInt(secI.getText())));
+                id.setText("id");amount.clear();vip.clear();secA.clear();secB.clear();secC.clear();secD.clear();
+                secE.clear();secF.clear();secG.clear();secH.clear();secI.clear();
+            }
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
