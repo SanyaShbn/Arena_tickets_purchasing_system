@@ -24,6 +24,19 @@
                                 <MenuItem fx:id="MatchesItem" mnemonicParsing="false" onAction="#viewMatches" text="Матчи" />
                                 <MenuItem fx:id="TeamItem" mnemonicParsing="false" onAction="#viewTeamRoster" text="Команда" />
                                 <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Мои билеты" />
+                                <MenuItem fx:id="ExitItem" mnemonicParsing="false" onAction="#backToOpeningWindow" text="Выход">
+                                    <graphic>
+                                        <AnchorPane prefHeight="20.0" prefWidth="20.0">
+                                            <children>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Exit.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </AnchorPane>
+                                    </graphic>
+                                </MenuItem>
                             </items>
                         </MenuButton>
                         <Text fill="#faf5f5" layoutX="616.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Главное меню">
