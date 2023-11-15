@@ -131,4 +131,16 @@ public class MainMenuController {
         }
         MainPane.getChildren().add(new_pane);
     }
+     @FXML
+    private void backToOpeningWindow (ActionEvent event) {
+        FXMLLoader open_window_loader = new FXMLLoader();
+        open_window_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("Open_window.fxml"));
+        MainPane.getChildren().clear();
+        try {
+            new_pane = open_window_loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainPane.getChildren().add(new_pane);
+    }
 }
