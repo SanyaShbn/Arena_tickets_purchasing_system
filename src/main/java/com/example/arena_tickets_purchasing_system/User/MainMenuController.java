@@ -1,5 +1,7 @@
 package com.example.arena_tickets_purchasing_system.User;
 
+import com.example.arena_tickets_purchasing_system.Admin.AdminNewsController;
+import com.example.arena_tickets_purchasing_system.Admin.AdminTeamRosterController;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
@@ -44,6 +46,8 @@ public class MainMenuController {
     private MenuItem TeamItem;
     @FXML
     private MenuItem TicketsItem;
+    @FXML
+    private MenuItem ExitItem;
 
     AnchorPane new_pane;
     @FXML
@@ -51,28 +55,19 @@ public class MainMenuController {
         String select = "SELECT * FROM " + NEWS_TABLE;
         PreparedStatement prStr = null;
         try {
-
             prStr = new DatabaseHandler().getDbConnection("news").prepareStatement(select);
             ResultSet result = prStr.executeQuery();
-            double Y = 0;
+            double Y = 450;
+            double X = 375;
             while (result.next()) {
-                Circle date_circle = new Circle(30, Color.AZURE);
-                Text date_time = new Text(result.getString(PUBLISHING_DATE) + "\n    " + result.getString(PUBLISHING_TIME));
-                date_time.setStyle("-fx-font-size: 10;");
-                date_circle.setLayoutX(335);date_circle.setLayoutY(480 + Y);
-                date_time.setLayoutX(310);date_time.setLayoutY(484 + Y);
-                AnchorPane news_area = new AnchorPane();
-                news_area.setPrefWidth(590);
-                news_area.setPrefHeight(60);
-                news_area.setLayoutX(300);
-                news_area.setLayoutY(450 + Y);
-                Text news = new Text(result.getString(CONTESTS));
-                news.setFont(Font.font("Bodoni MT Black"));
-                news.setStyle("-fx-font-size: 16;");news_area.setStyle("-fx-background-color: #FFFFFF;");
-                news.setLayoutX(400);
-                news.setLayoutY(480 + Y);
-                Y = Y + 70;
-                MainPane.getChildren().addAll(news_area, date_circle, date_time, news);
+                if(Y < 850) {
+                    AnchorPane news_post = (AnchorPane) setNewsPost(new AdminNewsController.News(result.getInt(NEWS_ID), result.getString(PUBLISHING_DATE),
+                            result.getString(PUBLISHING_TIME), result.getString(CONTESTS)));
+                    news_post.setLayoutX(X);
+                    news_post.setLayoutY(Y);
+                    Y = Y + 70;
+                    MainPane.getChildren().add(news_post);
+                }
             }
 
         } catch (SQLException e) {
@@ -131,7 +126,7 @@ public class MainMenuController {
         }
         MainPane.getChildren().add(new_pane);
     }
-     @FXML
+    @FXML
     private void backToOpeningWindow (ActionEvent event) {
         FXMLLoader open_window_loader = new FXMLLoader();
         open_window_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("Open_window.fxml"));
@@ -142,5 +137,19 @@ public class MainMenuController {
             throw new RuntimeException(e);
         }
         MainPane.getChildren().add(new_pane);
+    }
+    public Node setNewsPost (AdminNewsController.News news){
+        AnchorPane news_post;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("news_post.fxml"));
+        NewsPostController controller = new NewsPostController();
+        controller.setNewsPost(news);
+        loader.setController(controller);
+        try {
+            news_post = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return news_post;
     }
 }
