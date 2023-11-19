@@ -82,12 +82,13 @@ public class AddNewsController {
     }
     @FXML
     private void addNews (ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
+       try {
             new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
                     time.getText(), contents.getText()));
-            id.clear();date.cancelEdit();time.clear();contents.clear();
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }finally {
+            id.clear();date.cancelEdit();time.clear();contents.clear();
         }
     }
 }
