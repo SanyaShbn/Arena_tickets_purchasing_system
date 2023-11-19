@@ -6,6 +6,8 @@ import com.example.arena_tickets_purchasing_system.animations.NotificationShower
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 import static com.example.arena_tickets_purchasing_system.Constant.MATCHES_TABLE;
 
@@ -54,18 +56,20 @@ public class DatabaseHandler extends Config{
         return result;
     }
     public void signUpAdmins(Admin admin) throws SQLException, ClassNotFoundException {
+        String delete = "DELETE FROM " + Constant.ADMINS_TABLE;
         String insert = "INSERT INTO " + Constant.ADMINS_TABLE + "(" + Constant.ADMINS_LOGIN + "," +
                 Constant.ADMINS_PASSWORD + ")" + "VALUES(?,?)";
 
+        PreparedStatement prStrDelete = getDbConnection(dbNameForAdmins).prepareStatement(delete);
+        PreparedStatement prStrInsert = getDbConnection(dbNameForAdmins).prepareStatement(insert);
+        prStrInsert.setString(1, admin.admin_login);
+        prStrInsert.setString(2, admin.admin_password);
 
-        PreparedStatement prStr = getDbConnection(dbNameForAdmins).prepareStatement(insert);
-        prStr.setString(1, admin.getAdmin_login());
-        prStr.setString(2, admin.getAdmin_password());
-
-        prStr.executeUpdate();
+        prStrDelete.executeUpdate();
+        prStrInsert.executeUpdate();
     }
 
-    public ResultSet getAdmin(Admin admin){
+    public ResultSet getAdmin(String login, String password){
         ResultSet result = null;
 
         String select = "SELECT * FROM " + Constant.ADMINS_TABLE + " WHERE " + Constant.ADMINS_LOGIN + "=? AND " +
@@ -74,8 +78,8 @@ public class DatabaseHandler extends Config{
         PreparedStatement prStr = null;
         try {
             prStr = getDbConnection(dbNameForAdmins).prepareStatement(select);
-            prStr.setString(1, admin.getAdmin_login());
-            prStr.setString(2, admin.getAdmin_password());
+            prStr.setString(1, login);
+            prStr.setString(2, password);
 
             result = prStr.executeQuery();
         }
@@ -108,6 +112,8 @@ public class DatabaseHandler extends Config{
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }catch(SQLException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }catch(DateTimeParseException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }
 
