@@ -39,7 +39,7 @@
                 <MenuButton fx:id="id" layoutX="89.0" layoutY="85.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="Id" />
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
+        <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #f8f8ff;">
             <children>
                 <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="7.0">
                     <image>
