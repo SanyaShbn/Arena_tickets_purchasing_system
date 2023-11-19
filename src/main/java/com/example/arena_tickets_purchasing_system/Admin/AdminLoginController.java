@@ -1,6 +1,7 @@
 package com.example.arena_tickets_purchasing_system.Admin;
 
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
+import com.example.arena_tickets_purchasing_system.Constant;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import com.example.arena_tickets_purchasing_system.animations.Error_shaking;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -42,7 +44,15 @@ public class AdminLoginController {
 
     AnchorPane registration, admin_home_page, open_window;
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
+        String select = "SELECT * FROM " + Constant.ADMINS_TABLE;
+        PreparedStatement prStr = new DatabaseHandler().getDbConnection("admins").prepareStatement(select);
+        ResultSet result = prStr.executeQuery();
+
+        if(result.next()){
+            SignUpLink.setText("Изменить данные учётной записи");
+            SignUpLink.setLayoutX(650);
+        }
         SignInButton.setOnMouseEntered(event ->{
             SignInButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
         });
@@ -67,17 +77,12 @@ public class AdminLoginController {
         String login = LoginField.getText();
         String password = PasswordField.getText();
 
-        Admin admin = new Admin(login, password);
-
-        dbHandler.getAdmin(admin);
+        dbHandler.getAdmin(login, password);
         loginAdmin(login, password);
     }
     private void loginAdmin(String login, String password) throws SQLException {
         DatabaseHandler dbHandler = new DatabaseHandler();
-        Admin admin = new Admin();
-        admin.setAdmin_login(login);
-        admin.setAdmin_password(password);
-        ResultSet result = dbHandler.getAdmin(admin);
+        ResultSet result = dbHandler.getAdmin(login, password);
 
         int numb = 0;
 
