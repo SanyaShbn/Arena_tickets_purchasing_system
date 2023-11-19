@@ -46,10 +46,7 @@ public class AdminRegistrationController {
     }
     private void registerAdmin(String login, String password) throws SQLException, ClassNotFoundException {
         DatabaseHandler dbHandler = new DatabaseHandler();
-        Admin admin = new Admin();
-        admin.setAdmin_login(login);
-        admin.setAdmin_password(password);
-        ResultSet result = dbHandler.getAdmin(admin);
+        ResultSet result = dbHandler.getAdmin(login, password);
 
         int numb = 0;
 
@@ -60,12 +57,14 @@ public class AdminRegistrationController {
         if(numb > 0){
             Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
             login_and_password_shake.executeAnimation();
-            new NotificationShower().showSimpleError("Ошибка регистрации!", "Логин или пароль уже используются");
+            new NotificationShower().showSimpleError("Ошибка регистрации!", "Вы ввели свои предыдущие логин и пароль! Введите новые данные");
             LoginField.clear();
             PasswordField.clear();
         }
         else{
-            dbHandler.signUpAdmins(new Admin(login,password));
+            Admin new_admin = Admin.getInstance(login, password);
+            dbHandler.signUpAdmins(new_admin);
+            new NotificationShower().showSimpleNotification("Уведомление", "Вы успешно зарегестрированы");
             SignUpButton.getScene().getWindow().hide();
             WindowsOpener open_window = new WindowsOpener("admin_login.fxml");
 
