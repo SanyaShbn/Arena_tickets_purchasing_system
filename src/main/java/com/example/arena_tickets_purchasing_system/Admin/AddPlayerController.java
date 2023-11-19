@@ -156,10 +156,11 @@ public class AddPlayerController {
                     Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
                     Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
                     Integer.parseInt(seasonsInLeague.getText())));
-            name.clear();role.setText("амплуа");jerseyNumb.clear();country.setText("страна");age.clear();height.clear(); weight.clear();
-            seasonsInLeague.clear();seasonsInTeam.clear();
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }finally {
+            name.clear();role.setText("амплуа");jerseyNumb.clear();country.setText("страна");age.clear();height.clear(); weight.clear();
+            seasonsInLeague.clear();seasonsInTeam.clear();
         }
     }
 
