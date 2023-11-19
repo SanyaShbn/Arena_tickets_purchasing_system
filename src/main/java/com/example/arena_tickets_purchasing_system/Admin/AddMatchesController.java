@@ -119,6 +119,7 @@ public class AddMatchesController {
             id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
         } catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+            id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
         }
     }
     @FXML
