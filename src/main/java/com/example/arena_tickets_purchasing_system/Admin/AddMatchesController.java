@@ -116,9 +116,10 @@ public class AddMatchesController {
         }
             new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
                     time.getText(), type_match, opponent.getText(), tickets_amount));
-            id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
+        
         } catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }finally {
             id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
         }
     }
