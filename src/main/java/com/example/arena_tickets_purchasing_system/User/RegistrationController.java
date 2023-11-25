@@ -7,10 +7,9 @@ import com.example.arena_tickets_purchasing_system.animations.NotificationShower
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -23,7 +22,11 @@ public class RegistrationController {
     private TextArea LoginField;
 
     @FXML
-    private TextArea PasswordField;
+    private PasswordField PasswordField;
+    @FXML
+    private TextArea shownPassword;
+    @FXML
+    private ImageView eyeImage;
 
     @FXML
     private Button SignUpButton;
@@ -36,11 +39,24 @@ public class RegistrationController {
     AnchorPane new_pane;
     @FXML
     public void initialize() {
+        shownPassword.setVisible(false);
         SignUpButton.setOnMouseEntered(event -> {
             SignUpButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
         });
         SignUpButton.setOnMouseExited(event -> {
             SignUpButton.setStyle("-fx-background-color: #0000FF; -fx-border-color: #0000FF; -fx-text-fill: #FFFFFF");
+        });
+        eyeImage.setOnMousePressed(event ->{
+            shownPassword.setVisible(true);
+            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
+            shownPassword.setText(PasswordField.getText());
+            PasswordField.setVisible(false);
+        });
+        eyeImage.setOnMouseReleased(event ->{
+            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
+            PasswordField.setVisible(true);
+            shownPassword.clear();
+            shownPassword.setVisible(false);
         });
     }
     private void registerUser(String login, String password) throws SQLException, ClassNotFoundException {
@@ -65,6 +81,7 @@ public class RegistrationController {
 
         }
         else{
+            new NotificationShower().showSimpleNotification("Уведомление", "Вы успешно зарегестрированы");
             dbHandler.signUpUsers(new User(login,password));
             SignUpButton.getScene().getWindow().hide();
             new WindowsOpener("Open_window.fxml");
@@ -86,6 +103,8 @@ public class RegistrationController {
             }
         }
         else {
+            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка регистрации!", "Введите логин и пароль");
         }
     }
