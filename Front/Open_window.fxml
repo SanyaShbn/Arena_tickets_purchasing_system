@@ -27,10 +27,6 @@
                 <Font size="24.0" />
             </font>
         </Button>
-        <Hyperlink fx:id="AdminLink" layoutX="661.0" layoutY="819.0" onAction="#goToAdminLogin" prefHeight="35.0" prefWidth="228.0" text="Войти как администратор">
-            <font>
-                <Font size="18.0" />
-            </font></Hyperlink>
         <Text fill="BLUE" layoutX="575.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Авторизация" textAlignment="CENTER">
             <font>
                 <Font name="System Italic" size="64.0" />
