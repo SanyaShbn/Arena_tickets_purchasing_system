@@ -196,7 +196,17 @@ public class MatchesWindowController implements Initializable {
     @FXML
     private void bookTickets(ActionEvent event) {
        AdminMatchesWindowController.Match match = table.getSelectionModel().getSelectedItem();
-       new WindowsOpener("booking.fxml", match);
+        if(match == null){
+            new NotificationShower().showSimpleError("Ошибка покупки!", "Выберите матч, билеты на который хотели бы приобрести");
+        }else
+        if(match.getType().equals("Гостевой")){
+            new NotificationShower().showWarning("Внимание!", "Выбранный матч является гостевым. Вы не можете приобрести билет в нашем городе");
+        }else if(match.getAmount() == 0){
+            new NotificationShower().showWarning("Внимание!", "На данный матч все билеты уже раскуплены");
+        }
+        else{
+            new WindowsOpener("booking.fxml", match);
+        }
     }
     @FXML
     private void backToMainMenu (ActionEvent some_event) {
