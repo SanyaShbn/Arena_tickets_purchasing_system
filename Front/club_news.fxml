@@ -28,9 +28,9 @@
         </TableView>
         <AnchorPane layoutY="207.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <Button fx:id="addNews" layoutX="40.0" layoutY="17.0" mnemonicParsing="false" onAction="#addNews" prefHeight="36.0" prefWidth="100.0" text="Добавить" />
-                <Button fx:id="delNews" layoutX="180.0" layoutY="17.0" mnemonicParsing="false" onAction="#delNewsFromTable" prefHeight="36.0" prefWidth="100.0" text="Удалить" />
-                <Button fx:id="updateInfo" layoutX="320.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="36.0" prefWidth="100.0" text="Обновить" />
+                <Button fx:id="addNews" layoutX="40.0" layoutY="17.0" mnemonicParsing="false" onAction="#addNews" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #00BFFF;" text="Добавить" />
+                <Button fx:id="delNews" layoutX="180.0" layoutY="17.0" mnemonicParsing="false" onAction="#delNewsFromTable" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #00BFFF;" text="Удалить" />
+                <Button fx:id="updateInfo" layoutX="320.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #00BFFF;" text="Обновить" />
             </children>
         </AnchorPane>
         <Button fx:id="exitButton" layoutX="1364.0" layoutY="52.0" mnemonicParsing="false" onAction="#backToAdminHomePage" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #00BFFF;" text="Главное меню">
