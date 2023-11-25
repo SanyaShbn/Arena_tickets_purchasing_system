@@ -3,14 +3,13 @@ package com.example.arena_tickets_purchasing_system.User;
 import com.example.arena_tickets_purchasing_system.*;
 import com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController;
 import com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -20,6 +19,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
+
 import static com.example.arena_tickets_purchasing_system.Constant.*;
 
 public class UserTicketsWindowController {
@@ -147,54 +148,61 @@ public class UserTicketsWindowController {
                         cancel_image.setFitHeight(20);
                         MenuItem cancelItem = new MenuItem("Отменить покупку", cancel_image);
                         cancelItem.setOnAction(event -> {
-                            String delete = "DELETE FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers =? AND id_Match =?";
-                            String update_matches = "UPDATE " + Constant.MATCHES_TABLE + " SET Tickets_Amount =?" + " WHERE idMatches =?";
-                            String update_tickets = "UPDATE " + Constant.ADMIN_TICKETS_TABLE + " SET Tickets_amount =?, VIP =?, Sector_A =?, Sector_B =?, Sector_C =?, Sector_D =?," +
-                                    " Sector_E =?, Sector_F =?, Sector_G =?, Sector_H =?, Sector_I =? WHERE id_Match =?";
-                            PreparedStatement prStrDelete;
-                            PreparedStatement prStrUpdateMatches;
-                            PreparedStatement prStrUpdateTickets;
-                            try {
-                                PreparedStatement prStrTickets;
-                                prStrTickets = new DatabaseHandler().getDbConnection("tickets").prepareStatement(tickets_select);
-                                prStrTickets.setString(1, String.valueOf(user_tickets.getId()));
-                                ResultSet result_tickets = prStrTickets.executeQuery();
-                                if (result_tickets.next()) {
-                                    AdminTicketsController.MatchTickets tickets = new AdminTicketsController.MatchTickets(result_tickets.getInt("id_Match"), result_tickets.getInt("Tickets_amount"), result_tickets.getInt("VIP"),
-                                            result_tickets.getInt("Sector_A"), result_tickets.getInt("Sector_B"), result_tickets.getInt("Sector_C"), result_tickets.getInt("Sector_D"),
-                                            result_tickets.getInt("Sector_E"), result_tickets.getInt("Sector_F"), result_tickets.getInt("Sector_G"), result_tickets.getInt("Sector_H"),
-                                            result_tickets.getInt("Sector_I"));
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setHeaderText("Внимание!");
+                            alert.setContentText("Вы уверены, что хотите отменить покупку?");
+                            Optional<ButtonType> confirm = alert.showAndWait();
+                            if(confirm.get() == ButtonType.OK) {
+                                String delete = "DELETE FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers =? AND id_Match =?";
+                                String update_matches = "UPDATE " + Constant.MATCHES_TABLE + " SET Tickets_Amount =?" + " WHERE idMatches =?";
+                                String update_tickets = "UPDATE " + Constant.ADMIN_TICKETS_TABLE + " SET Tickets_amount =?, VIP =?, Sector_A =?, Sector_B =?, Sector_C =?, Sector_D =?," +
+                                        " Sector_E =?, Sector_F =?, Sector_G =?, Sector_H =?, Sector_I =? WHERE id_Match =?";
+                                PreparedStatement prStrDelete;
+                                PreparedStatement prStrUpdateMatches;
+                                PreparedStatement prStrUpdateTickets;
+                                try {
+                                    PreparedStatement prStrTickets;
+                                    prStrTickets = new DatabaseHandler().getDbConnection("tickets").prepareStatement(tickets_select);
+                                    prStrTickets.setString(1, String.valueOf(user_tickets.getId()));
+                                    ResultSet result_tickets = prStrTickets.executeQuery();
+                                    if (result_tickets.next()) {
+                                        AdminTicketsController.MatchTickets tickets = new AdminTicketsController.MatchTickets(result_tickets.getInt("id_Match"), result_tickets.getInt("Tickets_amount"), result_tickets.getInt("VIP"),
+                                                result_tickets.getInt("Sector_A"), result_tickets.getInt("Sector_B"), result_tickets.getInt("Sector_C"), result_tickets.getInt("Sector_D"),
+                                                result_tickets.getInt("Sector_E"), result_tickets.getInt("Sector_F"), result_tickets.getInt("Sector_G"), result_tickets.getInt("Sector_H"),
+                                                result_tickets.getInt("Sector_I"));
 
-                                    prStrDelete = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(delete);
-                                    prStrUpdateMatches = new DatabaseHandler().getDbConnection("matches").prepareStatement(update_matches);
-                                    prStrUpdateTickets = new DatabaseHandler().getDbConnection("tickets").prepareStatement(update_tickets);
+                                        prStrDelete = new DatabaseHandler().getDbConnection("users_tickets").prepareStatement(delete);
+                                        prStrUpdateMatches = new DatabaseHandler().getDbConnection("matches").prepareStatement(update_matches);
+                                        prStrUpdateTickets = new DatabaseHandler().getDbConnection("tickets").prepareStatement(update_tickets);
 
-                                    prStrDelete.setString(1, User.getUser_login());
-                                    prStrDelete.setString(2, String.valueOf(user_tickets.getId()));
-                                    prStrUpdateMatches.setString(1, String.valueOf(match.getAmount() + user_tickets.getAmount()));
-                                    prStrUpdateMatches.setString(2, String.valueOf(user_tickets.getId()));
-                                    prStrUpdateTickets.setString(1, String.valueOf(tickets.getAmount() + user_tickets.getAmount()));
-                                    prStrUpdateTickets.setString(2, String.valueOf(tickets.getVipSector() + user_tickets.getVipSector()));
-                                    prStrUpdateTickets.setString(3, String.valueOf(tickets.getSectorA() + user_tickets.getSectorA()));
-                                    prStrUpdateTickets.setString(4, String.valueOf(tickets.getSectorB() + user_tickets.getSectorB()));
-                                    prStrUpdateTickets.setString(5, String.valueOf(tickets.getSectorC() + user_tickets.getSectorC()));
-                                    prStrUpdateTickets.setString(6, String.valueOf(tickets.getSectorD() + user_tickets.getSectorD()));
-                                    prStrUpdateTickets.setString(7, String.valueOf(tickets.getSectorE() + user_tickets.getSectorE()));
-                                    prStrUpdateTickets.setString(8, String.valueOf(tickets.getSectorF() + user_tickets.getSectorF()));
-                                    prStrUpdateTickets.setString(9, String.valueOf(tickets.getSectorG() + user_tickets.getSectorG()));
-                                    prStrUpdateTickets.setString(10, String.valueOf(tickets.getSectorH() + user_tickets.getSectorH()));
-                                    prStrUpdateTickets.setString(11, String.valueOf(tickets.getSectorI() + user_tickets.getSectorI()));
-                                    prStrUpdateTickets.setString(12, String.valueOf(user_tickets.getId()));
+                                        prStrDelete.setString(1, User.getUser_login());
+                                        prStrDelete.setString(2, String.valueOf(user_tickets.getId()));
+                                        prStrUpdateMatches.setString(1, String.valueOf(match.getAmount() + user_tickets.getAmount()));
+                                        prStrUpdateMatches.setString(2, String.valueOf(user_tickets.getId()));
+                                        prStrUpdateTickets.setString(1, String.valueOf(tickets.getAmount() + user_tickets.getAmount()));
+                                        prStrUpdateTickets.setString(2, String.valueOf(tickets.getVipSector() + user_tickets.getVipSector()));
+                                        prStrUpdateTickets.setString(3, String.valueOf(tickets.getSectorA() + user_tickets.getSectorA()));
+                                        prStrUpdateTickets.setString(4, String.valueOf(tickets.getSectorB() + user_tickets.getSectorB()));
+                                        prStrUpdateTickets.setString(5, String.valueOf(tickets.getSectorC() + user_tickets.getSectorC()));
+                                        prStrUpdateTickets.setString(6, String.valueOf(tickets.getSectorD() + user_tickets.getSectorD()));
+                                        prStrUpdateTickets.setString(7, String.valueOf(tickets.getSectorE() + user_tickets.getSectorE()));
+                                        prStrUpdateTickets.setString(8, String.valueOf(tickets.getSectorF() + user_tickets.getSectorF()));
+                                        prStrUpdateTickets.setString(9, String.valueOf(tickets.getSectorG() + user_tickets.getSectorG()));
+                                        prStrUpdateTickets.setString(10, String.valueOf(tickets.getSectorH() + user_tickets.getSectorH()));
+                                        prStrUpdateTickets.setString(11, String.valueOf(tickets.getSectorI() + user_tickets.getSectorI()));
+                                        prStrUpdateTickets.setString(12, String.valueOf(user_tickets.getId()));
 
-                                    prStrDelete.executeUpdate();
-                                    prStrUpdateMatches.executeUpdate();
-                                    prStrUpdateTickets.executeUpdate();
-                            }} catch(SQLException e){
-                                throw new RuntimeException(e);
-                            } catch(ClassNotFoundException e){
-                                throw new RuntimeException(e);
+                                        prStrDelete.executeUpdate();
+                                        prStrUpdateMatches.executeUpdate();
+                                        prStrUpdateTickets.executeUpdate();
+                                    }
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                } catch (ClassNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                updateWindow();
                             }
-                            updateWindow();
                         });
                         ContextMenu contextMenu = new ContextMenu(cancelItem);
                         tickets_view.setOnContextMenuRequested(e -> contextMenu.show(tickets_view, e.getScreenX(), e.getScreenY()));
