@@ -13,58 +13,58 @@
     <children>
         <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
             <children>
-                <MenuButton fx:id="MenuButton" layoutX="1436.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #00BFFF;" text="Меню" textAlignment="CENTER">
-               <items>
-                  <MenuItem fx:id="MainMenuItem" mnemonicParsing="false" onAction="#backToMainMenu" text="Главная" />
-                  <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Мои билеты" />
-                  <MenuItem fx:id="TeamItem" mnemonicParsing="false" onAction="#viewTeamRoster" text="Команда" />
-               </items></MenuButton>
-            <Text fill="#faf5f5" layoutX="658.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Календарь">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Text>
+                <MenuButton fx:id="MenuButton" layoutX="1425.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #00BFFF;" text="Меню" textAlignment="CENTER">
+                    <items>
+                        <MenuItem fx:id="MainMenuItem" mnemonicParsing="false" onAction="#backToMainMenu" text="Главная" />
+                        <MenuItem fx:id="TicketsItem" mnemonicParsing="false" onAction="#viewUserTickets" text="Мои билеты" />
+                        <MenuItem fx:id="TeamItem" mnemonicParsing="false" onAction="#viewTeamRoster" text="Команда" />
+                    </items></MenuButton>
+                <Text fill="#faf5f5" layoutX="658.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Календарь">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Text>
             </children>
         </AnchorPane>
-      <TableView fx:id="table" layoutY="286.0" prefHeight="600.0" prefWidth="1550.0">
-         <columns>
-            <TableColumn fx:id="idMatch" prefWidth="125.59997254610062" text="ID Матча" />
-            <TableColumn fx:id="dateMatch" prefWidth="270.0" text="Дата матча" />
-            <TableColumn fx:id="timeMatch" prefWidth="270.0" text="Время матча" />
-            <TableColumn fx:id="opponentTeam" prefWidth="313.5999755859375" text="Команда-соперник" />
-            <TableColumn fx:id="amountTickets" prefWidth="285.60003662109375" text="Количество билетов в продаже" />
-            <TableColumn fx:id="typeMatch" prefWidth="283.2000732421875" text="Тип матча" />
-         </columns>
-      </TableView>
-      <AnchorPane layoutY="215.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
-         <children>
-            <Button fx:id="bookTickets" layoutX="175.0" layoutY="17.0" mnemonicParsing="false" onAction="#bookTickets" prefHeight="35.0" prefWidth="110.0" text="Заказать билеты" />
-            <Button fx:id="updateTable" layoutX="325.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="35.0" prefWidth="110.0" text="Обновить" />
-            <MenuButton fx:id="filterMatches" layoutX="25.0" layoutY="17.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" text="Фильтр">
-               <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <MenuButton fx:id="DateMenuButton" mnemonicParsing="false" text="Дата" />
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <MenuButton fx:id="OpponentMenuButton" mnemonicParsing="false" text="Соперник" />
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <MenuButton fx:id="TypeMenuButton" mnemonicParsing="false" text="Тип матча">
-                          <items>
-                              <MenuItem mnemonicParsing="false" onAction="#filterByTypeHome" text="Домашний" />
-                              <MenuItem mnemonicParsing="false" onAction="#filterByTypeGuest" text="Гостевой" />
-                          </items>
-                        </MenuButton>
-                     </graphic>
-                  </MenuItem>
-               </items>
-            </MenuButton>
-         </children>
-      </AnchorPane>
+        <TableView fx:id="table" layoutY="286.0" prefHeight="600.0" prefWidth="1550.0">
+            <columns>
+                <TableColumn fx:id="idMatch" prefWidth="125.59997254610062" text="ID Матча" />
+                <TableColumn fx:id="dateMatch" prefWidth="270.0" text="Дата матча" />
+                <TableColumn fx:id="timeMatch" prefWidth="270.0" text="Время матча" />
+                <TableColumn fx:id="opponentTeam" prefWidth="313.5999755859375" text="Команда-соперник" />
+                <TableColumn fx:id="amountTickets" prefWidth="285.60003662109375" text="Количество билетов в продаже" />
+                <TableColumn fx:id="typeMatch" prefWidth="283.2000732421875" text="Тип матча" />
+            </columns>
+        </TableView>
+        <AnchorPane layoutY="215.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Button fx:id="bookTickets" layoutX="175.0" layoutY="17.0" mnemonicParsing="false" onAction="#bookTickets" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #00BFFF;" text="Заказать билеты" />
+                <Button fx:id="updateTable" layoutX="325.0" layoutY="17.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #00BFFF;" text="Обновить" />
+                <MenuButton fx:id="filterMatches" layoutX="25.0" layoutY="17.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #00BFFF;" text="Фильтр">
+                    <items>
+                        <MenuItem mnemonicParsing="false">
+                            <graphic>
+                                <MenuButton fx:id="DateMenuButton" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="Дата" />
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                            <graphic>
+                                <MenuButton fx:id="OpponentMenuButton" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="Соперник" />
+                            </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                            <graphic>
+                                <MenuButton fx:id="TypeMenuButton" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="Тип матча">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#filterByTypeHome" text="Домашний" />
+                                        <MenuItem mnemonicParsing="false" onAction="#filterByTypeGuest" text="Гостевой" />
+                                    </items>
+                                </MenuButton>
+                            </graphic>
+                        </MenuItem>
+                    </items>
+                </MenuButton>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>
