@@ -61,9 +61,7 @@ public class RegistrationController {
     }
     private void registerUser(String login, String password) throws SQLException, ClassNotFoundException {
         DatabaseHandler dbHandler = new DatabaseHandler();
-        User user = new User();
-        user.setUser_login(login);
-        user.setUser_password(password);
+        User user = new User(login, password);
         ResultSet result = dbHandler.getUser(user);
 
         int numb = 0;
@@ -81,10 +79,20 @@ public class RegistrationController {
 
         }
         else{
-            new NotificationShower().showSimpleNotification("Уведомление", "Вы успешно зарегестрированы");
-            dbHandler.signUpUsers(new User(login,password));
-            SignUpButton.getScene().getWindow().hide();
-            new WindowsOpener("Open_window.fxml");
+            ResultSet check_admin = dbHandler.getAdmin(login, password);
+            if(check_admin.next()){
+                Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                login_and_password_shake.executeAnimation();
+                new NotificationShower().showSimpleError("Ошибка регистрации!", "Логин или пароль уже используются");
+                LoginField.clear();
+                PasswordField.clear();
+            }
+            else {
+                new NotificationShower().showSimpleNotification("Уведомление", "Вы успешно зарегестрированы");
+                dbHandler.signUpUsers(new User(login, password));
+                SignUpButton.getScene().getWindow().hide();
+                new WindowsOpener("Open_window.fxml");
+            }
 
         }
 
