@@ -12,9 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -23,6 +21,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.example.arena_tickets_purchasing_system.Constant.*;
@@ -60,6 +59,24 @@ public class AdminNewsController implements Initializable {
         });
         exitButton.setOnMouseExited(event ->{
             exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        addNews.setOnMouseEntered(event ->{
+            addNews.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        addNews.setOnMouseExited(event ->{
+            addNews.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        delNews.setOnMouseEntered(event ->{
+            delNews.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        delNews.setOnMouseExited(event ->{
+            delNews.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        updateInfo.setOnMouseEntered(event ->{
+            updateInfo.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        updateInfo.setOnMouseExited(event ->{
+            updateInfo.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
         });
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateNews.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -109,11 +126,18 @@ public class AdminNewsController implements Initializable {
     private void delNewsFromTable(ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
             News news = table.getSelectionModel().getSelectedItem();
-            String delete = "DELETE FROM " + NEWS_TABLE + " WHERE idNews = " + news.getId();
-            PreparedStatement prStr = new DatabaseHandler().getDbConnection("news").prepareStatement(delete);
-            prStr.executeUpdate();
-            new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
-            updateInfo();
+            if(news == null){throw new RuntimeException();}
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Внимание!");
+            alert.setContentText("Вы уверены, что хотите удалить выбранный новостной пост из базы данных?");
+            Optional<ButtonType> confirm = alert.showAndWait();
+            if(confirm.get() == ButtonType.OK) {
+                String delete = "DELETE FROM " + NEWS_TABLE + " WHERE idNews = " + news.getId();
+                PreparedStatement prStr = new DatabaseHandler().getDbConnection("news").prepareStatement(delete);
+                prStr.executeUpdate();
+                new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
+                updateInfo();
+            }
         } catch (Exception e) {
             new NotificationShower().showSimpleError("Ошибка!", "Выберите новостной пост для удаления!");
         }
