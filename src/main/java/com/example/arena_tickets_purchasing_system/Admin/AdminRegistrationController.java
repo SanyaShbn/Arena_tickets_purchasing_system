@@ -2,16 +2,14 @@ package com.example.arena_tickets_purchasing_system.Admin;
 
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
+import com.example.arena_tickets_purchasing_system.User.User;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import com.example.arena_tickets_purchasing_system.animations.Error_shaking;
 import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class AdminRegistrationController {
 
@@ -84,11 +83,37 @@ public class AdminRegistrationController {
             PasswordField.clear();
         }
         else{
-            Admin new_admin = Admin.getInstance(login, password);
-            dbHandler.signUpAdmins(new_admin);
-            new NotificationShower().showSimpleNotification("Уведомление", "Вы успешно зарегестрированы");
-            SignUpButton.getScene().getWindow().hide();
-            WindowsOpener open_window = new WindowsOpener("admin_login.fxml");
+            User user = new User(login, password);
+            ResultSet result_users = dbHandler.getUser(user);
+            if(result_users.next()){
+                Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                login_and_password_shake.executeAnimation();
+                new NotificationShower().showSimpleError("Ошибка регистрации!", "Данная учётная запись уже занята одним из пользователей!");
+                LoginField.clear();
+                PasswordField.clear();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Внимание!");
+                alert.setContentText("Вы уверены, что хотите окончательно изменить ваши предыдущие логин и пароль?");
+                Optional<ButtonType> confirm = alert.showAndWait();
+                if(confirm.get() == ButtonType.OK) {
+                    Admin new_admin = Admin.getInstance(login, password);
+                    dbHandler.signUpAdmins(new_admin);
+                    new NotificationShower().showSimpleNotification("Уведомление", "Данные аккаунта успешно изменены");
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
+                    MainPane.getChildren().clear();
+                    try {
+                        new_pane = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    MainPane.getChildren().add(new_pane);
+                }
+                else{LoginField.clear();
+                    PasswordField.clear();}
+            }
 
         }
 
@@ -113,9 +138,9 @@ public class AdminRegistrationController {
         }
     }
     @FXML
-    private void goToAdminLoginPage (ActionEvent some_event) {
+    private void goToAdminHomePage(ActionEvent some_event) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_login.fxml"));
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
         MainPane.getChildren().clear();
         try {
             new_pane = loader.load();
