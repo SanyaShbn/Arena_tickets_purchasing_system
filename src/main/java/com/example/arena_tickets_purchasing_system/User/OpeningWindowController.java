@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -34,19 +36,35 @@ public class OpeningWindowController {
     private Hyperlink AdminLink;
     @FXML
     private AnchorPane MainPane;
-
+    @FXML
+    private TextArea ShownPassword;
 
     @FXML
     private Hyperlink SignUpLink;
 
+    @FXML
+    private ImageView eyeImage;
     AnchorPane registration, main_page;
     @FXML
     public void initialize() {
+        ShownPassword.setVisible(false);
         SignInButton.setOnMouseEntered(event ->{
             SignInButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
         });
         SignInButton.setOnMouseExited(event ->{
             SignInButton.setStyle("-fx-background-color: #0000FF; -fx-border-color: #0000FF; -fx-text-fill: #FFFFFF");
+        });
+        eyeImage.setOnMousePressed(event ->{
+            ShownPassword.setVisible(true);
+           eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
+           ShownPassword.setText(PasswordField.getText());
+           PasswordField.setVisible(false);
+        });
+        eyeImage.setOnMouseReleased(event ->{
+            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
+            PasswordField.setVisible(true);
+            ShownPassword.clear();
+            ShownPassword.setVisible(false);
         });
         FXMLLoader registration_loader = new FXMLLoader();
         registration_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("registration.fxml"));
@@ -61,16 +79,23 @@ public class OpeningWindowController {
 
     }
     @FXML
-    private void signInUser() throws SQLException, ClassNotFoundException {
-        DatabaseHandler dbHandler = new DatabaseHandler();
+    private void signInUser() throws SQLException{
+        if(LoginField.getText().isEmpty() || PasswordField.getText().isEmpty()){
+            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            login_and_password_shake.executeAnimation();
+            new NotificationShower().showSimpleError("Ошибка входа!", "Введите логин и пароль!");
+        }
+        else {
+            DatabaseHandler dbHandler = new DatabaseHandler();
 
-        String login = LoginField.getText();
-        String password = PasswordField.getText();
+            String login = LoginField.getText();
+            String password = PasswordField.getText();
 
-        User user = new User(login, password);
+            User user = new User(login, password);
 
-        dbHandler.getUser(user);
-        loginUser(login, password);
+            dbHandler.getUser(user);
+            loginUser(login, password);
+        }
     }
 
     @FXML
@@ -103,15 +128,14 @@ public class OpeningWindowController {
 
         int numb = 0;
 
-        while(result.next()){
+        while (result.next()) {
             numb++;
         }
 
-        if(numb >= 1){
+        if (numb >= 1) {
             user.writeUserIntoFile(user);
             goToNewPane(main_page);
-        }
-        else{
+        } else {
             Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
             login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
