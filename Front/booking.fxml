@@ -35,7 +35,7 @@
             </image>
         </ImageView>
         <TextField fx:id="allTickets" layoutX="151.0" layoutY="169.0" prefHeight="35.0" prefWidth="128.0" />
-        <MenuButton fx:id="SectorsMenuButton" layoutX="49.0" layoutY="174.0" mnemonicParsing="false" text="Сектор">
+        <MenuButton fx:id="SectorsMenuButton" layoutX="49.0" layoutY="174.0" mnemonicParsing="false" style="-fx-background-color: #00BFFF;" text="Сектор">
             <items>
                 <MenuItem fx:id="SectorVIP" mnemonicParsing="false" onAction="#setVIPSector" text="VIP" />
                 <MenuItem fx:id="SectorA" mnemonicParsing="false" onAction="#setSectorA" text="A" />
