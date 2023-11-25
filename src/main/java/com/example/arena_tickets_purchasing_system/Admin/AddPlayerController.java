@@ -150,13 +150,41 @@ public class AddPlayerController {
     private void addNewPlayer (ActionEvent event) throws SQLException, ClassNotFoundException {
         try {
             if(Integer.parseInt(jerseyNumb.getText()) > 99 || Integer.parseInt(jerseyNumb.getText()) < 1){
-                throw new NumberFormatException();
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода номера игрового джерси!");
             }
-            new DatabaseHandler().addNewPlayers(new AdminTeamRosterController.Player(name.getText(), role.getText(),
-                    Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
-                    Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
-                    Integer.parseInt(seasonsInLeague.getText())));
+            else if(role.getText().equals("амплуа") || country.getText().equals("страна")){
+                new NotificationShower().showWarning("Внимание!","Выберите амплуа игрока и его национальность!");
+            }else if(Integer.parseInt(age.getText()) < 18 ||  Integer.parseInt(age.getText()) > 40){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода возраста!");
+            }else if(Integer.parseInt(height.getText()) < 150 ||  Integer.parseInt(height.getText()) > 210){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода роста игрока!");
+            }else if(Integer.parseInt(weight.getText()) < 60 ||  Integer.parseInt(weight.getText()) > 120){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода веса игрока!");
+            }
+            else if(Integer.parseInt(seasonsInTeam.getText()) < 1 ||  Integer.parseInt(seasonsInTeam.getText()) > 15){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода количества сезонов, сыгранных игроком за команду!");
+            }
+            else if(Integer.parseInt(seasonsInLeague.getText()) < 1 ||  Integer.parseInt(seasonsInLeague.getText()) > 15 || Integer.parseInt(seasonsInLeague.getText()) < Integer.parseInt(seasonsInTeam.getText())){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода количества сезонов, сыгранных игроком в лиге!");
+            }
+            else {
+                boolean final_check = true;
+                for(char letter: name.getText().toCharArray()){
+                    if(Character.isDigit(letter)){
+                        new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода ФИО!");
+                        final_check = false;break;
+                    }
+                }
+                if(final_check) {
+                    new DatabaseHandler().addNewPlayers(new AdminTeamRosterController.Player(name.getText(), role.getText(),
+                            Integer.parseInt(jerseyNumb.getText()), country.getText(), Integer.parseInt(age.getText()),
+                            Integer.parseInt(height.getText()), Integer.parseInt(weight.getText()), Integer.parseInt(seasonsInTeam.getText()),
+                            Integer.parseInt(seasonsInLeague.getText())));
+                }
+            }
         }catch(NumberFormatException e){
+            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
+        }catch(RuntimeException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }finally {
             name.clear();role.setText("амплуа");jerseyNumb.clear();country.setText("страна");age.clear();height.clear(); weight.clear();
