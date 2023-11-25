@@ -15,9 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
@@ -27,6 +25,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.example.arena_tickets_purchasing_system.Constant.*;
@@ -77,6 +76,24 @@ public class AdminMatchesWindowController implements Initializable {
         });
         exitButton.setOnMouseExited(event ->{
             exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        addMatch.setOnMouseEntered(event ->{
+            addMatch.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        addMatch.setOnMouseExited(event ->{
+            addMatch.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        delMatch.setOnMouseEntered(event ->{
+            delMatch.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        delMatch.setOnMouseExited(event ->{
+            delMatch.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        updateInfo.setOnMouseEntered(event ->{
+            updateInfo.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        updateInfo.setOnMouseExited(event ->{
+            updateInfo.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
         });
         idMatch.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateMatch.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -130,14 +147,21 @@ public class AdminMatchesWindowController implements Initializable {
     private void delMatchFromTable(ActionEvent event) {
         try{
             Match match = table.getSelectionModel().getSelectedItem();
-            String delete_match = "DELETE FROM " + MATCHES_TABLE + " WHERE idMatches = " + match.getId();
-            PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(delete_match);
-            String delete_ticket = "DELETE FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + match.getId();
-            PreparedStatement prStrDelTickets = new DatabaseHandler().getDbConnection( "tickets").prepareStatement(delete_ticket);
-            prStr.executeUpdate();
-            prStrDelTickets.executeUpdate();
-            updateInfo();
-            new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
+            if(match == null){throw new RuntimeException();}
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Внимание!");
+            alert.setContentText("Вы уверены, что хотите удалить выбранный матч из базы данных?");
+            Optional<ButtonType> confirm = alert.showAndWait();
+            if(confirm.get() == ButtonType.OK) {
+                String delete_match = "DELETE FROM " + MATCHES_TABLE + " WHERE idMatches = " + match.getId();
+                PreparedStatement prStr = new DatabaseHandler().getDbConnection("matches").prepareStatement(delete_match);
+                String delete_ticket = "DELETE FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + match.getId();
+                PreparedStatement prStrDelTickets = new DatabaseHandler().getDbConnection("tickets").prepareStatement(delete_ticket);
+                prStr.executeUpdate();
+                prStrDelTickets.executeUpdate();
+                updateInfo();
+                new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
+            }
         }
         catch(Exception ex)
         {
