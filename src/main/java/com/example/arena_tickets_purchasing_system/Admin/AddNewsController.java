@@ -82,9 +82,25 @@ public class AddNewsController {
     }
     @FXML
     private void addNews (ActionEvent event) throws SQLException, ClassNotFoundException {
-       try {
-            new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
-                    time.getText(), contents.getText()));
+        try {
+            if(date.getValue() == null){
+                new NotificationShower().showWarning("Внимание!","Выберите дату публикации!");
+            }
+            else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(".")){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени публикации!");
+            }else {
+                boolean final_check = true;
+                for(char letter: time.getText().toCharArray()){
+                    if(Character.isAlphabetic(letter)){
+                        new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени публикации!");
+                        final_check = false;break;
+                    }
+                }
+                if(final_check) {
+                    new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
+                            time.getText(), contents.getText()));
+                }
+            }
         }catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }finally {
