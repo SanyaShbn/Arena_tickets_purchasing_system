@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -41,10 +43,28 @@ public class AdminLoginController {
     @FXML
     private Hyperlink SignUpLink;
 
+    @FXML
+    private TextArea ShownPassword;
+    @FXML
+    private ImageView eyeImage;
+
 
     AnchorPane registration, admin_home_page, open_window;
     @FXML
     public void initialize() throws SQLException, ClassNotFoundException {
+        ShownPassword.setVisible(false);
+        eyeImage.setOnMousePressed(event ->{
+            ShownPassword.setVisible(true);
+            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
+            ShownPassword.setText(PasswordField.getText());
+            PasswordField.setVisible(false);
+        });
+        eyeImage.setOnMouseReleased(event ->{
+            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
+            PasswordField.setVisible(true);
+            ShownPassword.clear();
+            ShownPassword.setVisible(false);
+        });
         String select = "SELECT * FROM " + Constant.ADMINS_TABLE;
         PreparedStatement prStr = new DatabaseHandler().getDbConnection("admins").prepareStatement(select);
         ResultSet result = prStr.executeQuery();
@@ -72,28 +92,32 @@ public class AdminLoginController {
     }
     @FXML
     private void signInAdmin() throws SQLException, ClassNotFoundException {
-        DatabaseHandler dbHandler = new DatabaseHandler();
+        if(LoginField.getText().isEmpty() || PasswordField.getText().isEmpty()){
+            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            login_and_password_shake.executeAnimation();
+            new NotificationShower().showSimpleError("Ошибка входа!", "Введите логин и пароль!");
+        }
+        else {
+            DatabaseHandler dbHandler = new DatabaseHandler();
 
-        String login = LoginField.getText();
-        String password = PasswordField.getText();
+            String login = LoginField.getText();
+            String password = PasswordField.getText();
 
-        dbHandler.getAdmin(login, password);
-        loginAdmin(login, password);
+            dbHandler.getAdmin(login, password);
+            loginAdmin(login, password);
+        }
     }
     private void loginAdmin(String login, String password) throws SQLException {
         DatabaseHandler dbHandler = new DatabaseHandler();
         ResultSet result = dbHandler.getAdmin(login, password);
-
         int numb = 0;
-
-        while(result.next()){
+        while (result.next()) {
             numb++;
         }
 
-        if(numb >= 1){
+        if (numb >= 1) {
             goToNewPane(admin_home_page);
-        }
-        else{
+        } else {
             Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
             login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
