@@ -21,24 +21,24 @@
                 </Text>
             </children>
         </AnchorPane>
-        <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте логин" />
-        <Button fx:id="SignUpButton" layoutX="595.0" layoutY="627.0" mnemonicParsing="false" onAction="#registrationOfAdmin" prefHeight="85.0" prefWidth="358.0" style="-fx-background-color: #0000FF;" text="Зарегестрироваться" textFill="#f4eeee">
+        <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте новый логин" />
+        <Button fx:id="SignUpButton" layoutX="566.0" layoutY="627.0" mnemonicParsing="false" onAction="#registrationOfAdmin" prefHeight="53.0" prefWidth="415.0" style="-fx-background-color: #0000FF;" text="Изменить данные учётной записи" textFill="#f4eeee">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Text fill="BLUE" layoutX="581.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Регистрация" textAlignment="CENTER">
+        <Text fill="BLUE" layoutX="279.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Редактирование учётной записи" textAlignment="CENTER">
             <font>
                 <Font name="System Italic" size="64.0" />
             </font>
         </Text>
         <TextArea fx:id="shownPassword" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" />
-        <Hyperlink fx:id="ExitLink" layoutX="610.0" layoutY="541.0" onAction="#goToAdminLoginPage" prefHeight="35.0" prefWidth="328.0" text="Назад на страницу авторизации администратора">
+        <Hyperlink fx:id="ExitLink" layoutX="641.0" layoutY="540.0" onAction="#goToAdminHomePage" prefHeight="35.0" prefWidth="267.0" text="Назад в главное меню администратора">
             <font>
                 <Font size="14.0" />
             </font>
         </Hyperlink>
-        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте пароль" />
+        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте новый пароль" />
         <ImageView fx:id="eyeImage" fitHeight="26.0" fitWidth="54.0" layoutX="1080.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/eye.png" />
