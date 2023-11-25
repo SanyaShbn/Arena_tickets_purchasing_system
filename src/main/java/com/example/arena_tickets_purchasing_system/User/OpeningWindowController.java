@@ -33,8 +33,6 @@ public class OpeningWindowController {
     private Button SignInButton;
 
     @FXML
-    private Hyperlink AdminLink;
-    @FXML
     private AnchorPane MainPane;
     @FXML
     private TextArea ShownPassword;
@@ -44,7 +42,7 @@ public class OpeningWindowController {
 
     @FXML
     private ImageView eyeImage;
-    AnchorPane registration, main_page;
+    AnchorPane registration, main_page, admin_main_page;
     @FXML
     public void initialize() {
         ShownPassword.setVisible(false);
@@ -136,22 +134,33 @@ public class OpeningWindowController {
             user.writeUserIntoFile(user);
             goToNewPane(main_page);
         } else {
-            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
-            login_and_password_shake.executeAnimation();
-            new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
-            LoginField.clear();
-            PasswordField.clear();
+            ResultSet result_admin = dbHandler.getAdmin(login, password);
+            if(result_admin.next()){
+                new NotificationShower().showSimpleNotification("Добро пожаловать","Выполнен вход в качестве администратора");
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_home_page.fxml"));
+                MainPane.getChildren().clear();
+                try {
+                    admin_main_page = loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                MainPane.getChildren().clear();
+                MainPane.getChildren().add(admin_main_page);
+            }
+            else {
+                Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                login_and_password_shake.executeAnimation();
+                new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
+                LoginField.clear();
+                PasswordField.clear();
+            }
         }
 
     }
     @FXML
     private void goToRegistrationPage (ActionEvent some_event) {
         goToNewPane(registration);
-    }
-    @FXML
-    private void goToAdminLogin (ActionEvent some_event) {
-        AdminLink.getScene().getWindow().hide();
-        WindowsOpener registration_window = new WindowsOpener("admin_login.fxml");
     }
 
 }
