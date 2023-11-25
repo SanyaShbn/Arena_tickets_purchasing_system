@@ -163,7 +163,7 @@
                 </MenuButton>
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #f8f8ff;">
+        <AnchorPane prefHeight="166.0" prefWidth="1550.0" style="-fx-background-color: #000000;">
             <children>
                 <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="7.0">
                     <image>
