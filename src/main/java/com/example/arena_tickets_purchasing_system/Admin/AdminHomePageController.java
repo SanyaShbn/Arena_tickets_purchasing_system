@@ -2,6 +2,7 @@ package com.example.arena_tickets_purchasing_system.Admin;
 
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.ButtonsSkin;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,8 +23,6 @@ public class AdminHomePageController {
     public static String name;
 
     @FXML
-    private Label AdminId;
-    @FXML
     private AnchorPane MainPane;
     @FXML
     private Button Matches;
@@ -36,68 +35,70 @@ public class AdminHomePageController {
 
     @FXML
     private Button Tickets;
+
     @FXML
     private Button exitButton;
 
 
-    AnchorPane match, news_page ,team_roster, tickets_page, exit;
+    @FXML
+    private Button changeAcc;
+
+
+    AnchorPane new_pane;
 
     @FXML
     public void initialize() {
-        AdminId.setText(name);
-        FXMLLoader matches_loader = new FXMLLoader();
-        FXMLLoader tickets_loader = new FXMLLoader();
-        FXMLLoader team = new FXMLLoader();
-        FXMLLoader club_news = new FXMLLoader();
-        FXMLLoader exit_loader = new FXMLLoader();
-        matches_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("admin_matches.fxml"));
-        tickets_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("tickets.fxml"));
-        team.setLocation(ArenaTicketsPurchasingSystem.class.getResource("roster.fxml"));
-        club_news.setLocation(ArenaTicketsPurchasingSystem.class.getResource("club_news.fxml"));
-        exit_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("Open_window.fxml"));
+        Matches.setSkin(new ButtonsSkin(Matches));
+        Roster.setSkin(new ButtonsSkin(Roster));
+        Show.setSkin(new ButtonsSkin(Show));
+        Tickets.setSkin(new ButtonsSkin(Tickets));
+        changeAcc.setSkin(new ButtonsSkin(changeAcc));
+        exitButton.setOnMouseEntered(event ->{
+            exitButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        exitButton.setOnMouseExited(event ->{
+            exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+
+    }
+
+    @FXML
+    private void viewEditedMatches(ActionEvent some_event) {
+        setNewPane("admin_matches.fxml");
+    }
+
+    @FXML
+    private void viewAdminTickets(ActionEvent some_event) {
+        setNewPane("tickets.fxml");
+    }
+
+    @FXML
+    private void teamRoster(ActionEvent some_event) {
+        setNewPane("roster.fxml");
+    }
+
+    @FXML
+    private void newsShow(ActionEvent some_event) {setNewPane("club_news.fxml");}
+
+    private void setNewPane (String file_name) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource(file_name));
+        MainPane.getChildren().clear();
         try {
-            match = matches_loader.load();
-            tickets_page = tickets_loader.load();
-            team_roster = team.load();
-            news_page = club_news.load();
-            exit = exit_loader.load();
+            new_pane = loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        MainPane.getChildren().add(new_pane);
+    }
+    @FXML
+    private void backToOpeningWindow(ActionEvent event) {
+        setNewPane("Open_window.fxml");
     }
 
     @FXML
-    private void viewEditedMatches (ActionEvent some_event) {
-        setNewPane(match);
-    }
-
-    @FXML
-    private void viewAdminTickets (ActionEvent some_event) {
-        setNewPane(tickets_page);
-    }
-
-    @FXML
-    private void teamRoster (ActionEvent some_event) {
-        setNewPane(team_roster);
-    }
-
-    @FXML
-    private void newsShow (ActionEvent some_event) {setNewPane(news_page);}
-    private void setNewPane(Node node) {
-        MainPane.getChildren().clear();
-        MainPane.getChildren().add(node);
-
-        FadeTransition ft = new FadeTransition(Duration.millis(1500));
-        ft.setNode(node);
-        ft.setFromValue(1);
-        ft.setToValue(1);
-        ft.setCycleCount(1);
-        ft.setAutoReverse(false);
-        ft.play();
-    }
-    @FXML
-    private void backToOpeningWindow (ActionEvent event) {
-        setNewPane(exit);
+    private void editAdminAccount(ActionEvent event) {
+        setNewPane("admin_registration.fxml");
     }
 }
 
