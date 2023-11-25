@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -20,7 +22,6 @@
             </children>
         </AnchorPane>
         <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Логин" />
-        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Пароль" />
         <Button fx:id="SignInButton" layoutX="654.0" layoutY="730.0" mnemonicParsing="false" onAction="#signInAdmin" prefHeight="75.0" prefWidth="241.0" style="-fx-background-color: #0000FF;" text="Войти" textFill="#f4eeee">
             <font>
                 <Font size="24.0" />
@@ -41,5 +42,12 @@
                 <Font size="14.0" />
             </font>
         </Hyperlink>
+        <TextArea fx:id="ShownPassword" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" />
+        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Пароль" />
+        <ImageView fx:id="eyeImage" fitHeight="26.0" fitWidth="54.0" layoutX="1080.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/eye.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>
