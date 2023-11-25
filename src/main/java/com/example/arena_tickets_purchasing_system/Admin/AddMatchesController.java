@@ -114,9 +114,30 @@ public class AddMatchesController {
             type_match = awayRadioButton.getText();
             tickets_amount = 0;
         }
-            new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
-                    time.getText(), type_match, opponent.getText(), tickets_amount));
-        
+            if(date.getValue() == null){
+                new NotificationShower().showWarning("Внимание!","Выберите дату матча!");
+            }
+            else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(".")){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени матча!");
+            }
+            else if(Integer.parseInt(amount.getText()) < 0 || Integer.parseInt(amount.getText()) > 15000){
+                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода количества билетов на матч!");
+            }
+            else if(opponent.getText().equals("соперник")){
+                new NotificationShower().showWarning("Внимание!","Выберите соперника!");
+            }else {
+                boolean final_check = true;
+                for(char letter: time.getText().toCharArray()){
+                    if(Character.isAlphabetic(letter)){
+                        new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени матча!");
+                        final_check = false;break;
+                    }
+                }
+                if(final_check) {
+                    new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
+                            time.getText(), type_match, opponent.getText(), tickets_amount));
+                }
+            }
         } catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }finally {
