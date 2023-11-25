@@ -12,9 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -23,6 +21,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import static com.example.arena_tickets_purchasing_system.Constant.*;
 
@@ -95,6 +94,24 @@ public class AdminTicketsController implements Initializable {
         exitButton.setOnMouseExited(event ->{
             exitButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
         });
+        addTickets.setOnMouseEntered(event ->{
+            addTickets.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        addTickets.setOnMouseExited(event ->{
+            addTickets.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        delInfo.setOnMouseEntered(event ->{
+            delInfo.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        delInfo.setOnMouseExited(event ->{
+            delInfo.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        updateInfo.setOnMouseEntered(event ->{
+            updateInfo.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        updateInfo.setOnMouseExited(event ->{
+            updateInfo.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         idMatch.setCellValueFactory(new PropertyValueFactory<>("id"));
         amountTickets.setCellValueFactory(new PropertyValueFactory<>("amount"));
         vipSector.setCellValueFactory(new PropertyValueFactory<>("vipSector"));
@@ -161,12 +178,18 @@ public class AdminTicketsController implements Initializable {
     private void delTicketsFromTable(ActionEvent event) {
         try{
             MatchTickets tickets = table.getSelectionModel().getSelectedItem();
-            String delete = "DELETE FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + tickets.getId();
-            PreparedStatement prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(delete);
-            prStr.executeUpdate();
-            new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
-            updateInfo();
-
+            if(tickets == null){throw new RuntimeException();}
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Внимание!");
+            alert.setContentText("Вы уверены, что хотите удалить выбранные билеты из базы данных?");
+            Optional<ButtonType> confirm = alert.showAndWait();
+            if(confirm.get() == ButtonType.OK) {
+                String delete = "DELETE FROM " + ADMIN_TICKETS_TABLE + " WHERE id_Match = " + tickets.getId();
+                PreparedStatement prStr = new DatabaseHandler().getDbConnection("tickets").prepareStatement(delete);
+                prStr.executeUpdate();
+                new NotificationShower().showSimpleNotification("Уведомление", "Запись успешно удалена из базы данных");
+                updateInfo();
+            }
         }
         catch(Exception ex)
         {
