@@ -6,6 +6,7 @@ import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.Constant;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
+import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,7 +55,7 @@ public class MatchesWindowController implements Initializable {
     @FXML
     private Button bookTickets;
     @FXML
-    private Button updateInfo;
+    private Button updateTable;
     @FXML
     private MenuButton MenuButton;
     @FXML
@@ -73,9 +74,45 @@ public class MatchesWindowController implements Initializable {
     AnchorPane new_pane;
 
     ObservableList<AdminMatchesWindowController.Match> list_of_matches = FXCollections.observableArrayList();
+    ObservableList<AdminMatchesWindowController.Match> filtered_list = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<AdminMatchesWindowController.Match> filtered_list = FXCollections.observableArrayList();
+        bookTickets.setOnMouseExited(event ->{
+            bookTickets.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        bookTickets.setOnMouseEntered(event ->{
+            bookTickets.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        filterMatches.setOnMouseEntered(event ->{
+            filterMatches.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        filterMatches.setOnMouseExited(event ->{
+            filterMatches.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        updateTable.setOnMouseEntered(event ->{
+            updateTable.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        updateTable.setOnMouseExited(event ->{
+            updateTable.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        DateMenuButton.setOnMouseEntered(event ->{
+            DateMenuButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        DateMenuButton.setOnMouseExited(event ->{
+           DateMenuButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        OpponentMenuButton.setOnMouseEntered(event ->{
+           OpponentMenuButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        OpponentMenuButton.setOnMouseExited(event ->{
+           OpponentMenuButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        TypeMenuButton.setOnMouseEntered(event ->{
+            TypeMenuButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        TypeMenuButton.setOnMouseExited(event ->{
+            TypeMenuButton.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         String select = "SELECT * FROM " + MATCHES_TABLE;
         try {
             PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(select);
@@ -90,12 +127,16 @@ public class MatchesWindowController implements Initializable {
                 if(flag_date == false){
                     DateMenuButton.getItems().addAll(sorted_dates);
                     sorted_dates.setOnAction(event -> {
-                        filtered_list.clear();
-                        for (AdminMatchesWindowController.Match match : list_of_matches) {
-                            if (match.getDate().equals(sorted_dates.getText())) {
-                                filtered_list.add(match);
+                        int i = 0;
+                       while(i < filtered_list.size()) {
+                            if (!filtered_list.get(i).getDate().equals(sorted_dates.getText())) {
+                                filtered_list.remove(filtered_list.get(i));
                             }
+                            else{i++;}
                         }
+                       if(filtered_list.isEmpty()){
+                           new NotificationShower().showSimpleNotification("Уведомление","Подходящих матчей не найдено");
+                       }
                         table.setItems(filtered_list);
                     });
                 }
@@ -105,11 +146,15 @@ public class MatchesWindowController implements Initializable {
                 if(flag_opponents == false) {
                     OpponentMenuButton.getItems().addAll(sorted_opponents);
                     sorted_opponents.setOnAction(event -> {
-                        filtered_list.clear();
-                        for(AdminMatchesWindowController.Match match : list_of_matches){
-                            if(match.getOpponent().equals(sorted_opponents.getText())){
-                                filtered_list.add(match);
+                        int i = 0;
+                        while(i < filtered_list.size()) {
+                            if (!filtered_list.get(i).getOpponent().equals(sorted_opponents.getText())) {
+                                filtered_list.remove(filtered_list.get(i));
                             }
+                            else{i++;}
+                        }
+                        if(filtered_list.isEmpty()){
+                            new NotificationShower().showSimpleNotification("Уведомление","Подходящих матчей не найдено");
                         }
                         table.setItems(filtered_list);
                     });
@@ -149,6 +194,7 @@ public class MatchesWindowController implements Initializable {
                 int tickets = result.getInt(TICKETS_AMOUNT);
                 String type = result.getString(MATCH_TYPE);
                 list_of_matches.add(new AdminMatchesWindowController.Match(ID, date, time, type, opponent, tickets));
+                filtered_list.add(new AdminMatchesWindowController.Match(ID, date, time, type, opponent, tickets));
             }
         } catch (SQLException e) {
             new RuntimeException(e);
@@ -157,23 +203,31 @@ public class MatchesWindowController implements Initializable {
     }
     @FXML
     private void filterByTypeHome(ActionEvent event) {
-        ObservableList<AdminMatchesWindowController.Match> filtered_by_type = FXCollections.observableArrayList();
-        for(AdminMatchesWindowController.Match match : list_of_matches){
-            if(match.getType().equals("Домашний")){
-               filtered_by_type.add(match);
+        int i = 0;
+        while(i < filtered_list.size()){
+            if(!filtered_list.get(i).getType().equals("Домашний")){
+                filtered_list.remove(filtered_list.get(i));
             }
+            else{i++;}
         }
-        table.setItems(filtered_by_type);
+        if(filtered_list.isEmpty()){
+            new NotificationShower().showSimpleNotification("Уведомление","Подходящих матчей не найдено");
+        }
+        table.setItems(filtered_list);
     }
     @FXML
     private void filterByTypeGuest(ActionEvent event) {
-        ObservableList<AdminMatchesWindowController.Match> filtered_by_type = FXCollections.observableArrayList();
-        for(AdminMatchesWindowController.Match match : list_of_matches){
-            if(match.getType().equals("Гостевой")){
-                filtered_by_type.add(match);
+        int i = 0;
+        while(i < filtered_list.size()){
+            if(!filtered_list.get(i).getType().equals("Гостевой")){
+                filtered_list.remove(filtered_list.get(i));
             }
+            else{i++;}
         }
-        table.setItems(filtered_by_type);
+        if(filtered_list.isEmpty()){
+            new NotificationShower().showSimpleNotification("Уведомление","Подходящих матчей не найдено");
+        }
+        table.setItems(filtered_list);
     }
     @FXML
     private void updateTable(ActionEvent event) {
@@ -184,6 +238,7 @@ public class MatchesWindowController implements Initializable {
     {
         table.getItems().clear();
         list_of_matches.clear();
+        filtered_list.clear();
         try {
             loadFromDataBase();
         } catch (SQLException e) {
@@ -195,7 +250,7 @@ public class MatchesWindowController implements Initializable {
 
     @FXML
     private void bookTickets(ActionEvent event) {
-       AdminMatchesWindowController.Match match = table.getSelectionModel().getSelectedItem();
+        AdminMatchesWindowController.Match match = table.getSelectionModel().getSelectedItem();
         if(match == null){
             new NotificationShower().showSimpleError("Ошибка покупки!", "Выберите матч, билеты на который хотели бы приобрести");
         }else
@@ -207,6 +262,7 @@ public class MatchesWindowController implements Initializable {
         else{
             new WindowsOpener("booking.fxml", match);
         }
+
     }
     @FXML
     private void backToMainMenu (ActionEvent some_event) {
