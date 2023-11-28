@@ -11,9 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -55,6 +59,30 @@ public class TeamRosterWindowController {
                         result.getInt(HEIGHT), result.getInt(WEIGHT), result.getInt(TEAM), result.getInt(LEAGUE)));
                 player_card.setLayoutX(X);
                 player_card.setLayoutY(Y);
+                player_card.setOnMouseEntered(event -> {
+                    player_card.setLayoutY(player_card.getLayoutY() - 25);
+                });
+                player_card.setOnMouseExited(event -> {
+                    player_card.setLayoutY(player_card.getLayoutY() + 25);
+                });
+                AnchorPane enlarged_player_card = (AnchorPane) setEnlargedPlayerCard(new AdminTeamRosterController.Player(result.getString(PLAYER_NAME),
+                        result.getString(ROLE), result.getInt(JERSEY), result.getString(NATION), result.getInt(AGE),
+                        result.getInt(HEIGHT), result.getInt(WEIGHT), result.getInt(TEAM), result.getInt(LEAGUE)));
+                player_card.setOnMousePressed(event ->{
+                    enlarged_player_card.setLayoutX(500);
+                    enlarged_player_card.setLayoutY(300);
+                    DropShadow dropShadow = new DropShadow();
+                    dropShadow.setRadius(900);
+                    dropShadow.setOffsetY(50);
+                    dropShadow.setOffsetX(50);
+                    enlarged_player_card.setEffect(dropShadow);
+                    player_card.setVisible(false);
+                    MainPane.getChildren().add(enlarged_player_card);
+                });
+                player_card.setOnMouseReleased(event ->{
+                    player_card.setVisible(true);
+                    MainPane.getChildren().remove(enlarged_player_card);
+                });
                 X = X + 250;
                 if (player_card.getLayoutX() > 1100) {
                     Y = Y + 220;
@@ -143,6 +171,20 @@ public class TeamRosterWindowController {
         AnchorPane player_card;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("player_card.fxml"));
+        PlayerCardController controller = new PlayerCardController();
+        controller.setPlayer(player);
+        loader.setController(controller);
+        try {
+            player_card = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return player_card;
+    }
+    public Node setEnlargedPlayerCard (AdminTeamRosterController.Player player){
+        AnchorPane player_card;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("enlarged_player_card.fxml"));
         PlayerCardController controller = new PlayerCardController();
         controller.setPlayer(player);
         loader.setController(controller);
