@@ -86,6 +86,9 @@ public class AddNewsController {
             if(date.getValue() == null){
                 new NotificationShower().showWarning("Внимание!","Выберите дату публикации!");
             }
+            else if(date.getValue().isBefore(LocalDate.now())){
+                new NotificationShower().showWarning("Внимание!","Выберите корректную дату публикации!");
+            }
             else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(".")){
                 new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени публикации!");
             }else {
