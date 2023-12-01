@@ -117,6 +117,9 @@ public class AddMatchesController {
             if(date.getValue() == null){
                 new NotificationShower().showWarning("Внимание!","Выберите дату матча!");
             }
+            else if(date.getValue().isBefore(LocalDate.now())){
+                new NotificationShower().showWarning("Внимание!","Выберите корректную дату матча!");
+            }
             else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(".")){
                 new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени матча!");
             }
