@@ -39,6 +39,7 @@ public class RegistrationController {
     AnchorPane new_pane;
     @FXML
     public void initialize() {
+        SignUpButton.setDefaultButton(true);
         shownPassword.setVisible(false);
         SignUpButton.setOnMouseEntered(event -> {
             SignUpButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
