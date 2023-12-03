@@ -28,12 +28,12 @@
         </AnchorPane>
         <TableView fx:id="table" layoutY="286.0" prefHeight="600.0" prefWidth="1550.0">
             <columns>
-                <TableColumn fx:id="idMatch" prefWidth="125.59997254610062" text="ID Матча" />
-                <TableColumn fx:id="dateMatch" prefWidth="270.0" text="Дата матча" />
-                <TableColumn fx:id="timeMatch" prefWidth="270.0" text="Время матча" />
-                <TableColumn fx:id="opponentTeam" prefWidth="313.5999755859375" text="Команда-соперник" />
-                <TableColumn fx:id="amountTickets" prefWidth="285.60003662109375" text="Количество билетов в продаже" />
-                <TableColumn fx:id="typeMatch" prefWidth="283.2000732421875" text="Тип матча" />
+                <TableColumn fx:id="idMatch" minWidth="0.0" prefWidth="0.0" text="ID Матча" />
+                <TableColumn fx:id="dateMatch" prefWidth="310.0" text="Дата матча" />
+                <TableColumn fx:id="timeMatch" prefWidth="310.0" text="Время матча" />
+                <TableColumn fx:id="opponentTeam" prefWidth="310.0" text="Команда-соперник" />
+                <TableColumn fx:id="amountTickets" prefWidth="310.0" text="Количество билетов в продаже" />
+                <TableColumn fx:id="typeMatch" prefWidth="310.0" text="Тип матча" />
             </columns>
         </TableView>
         <AnchorPane layoutY="215.0" prefHeight="70.0" prefWidth="465.0" style="-fx-background-color: #FFFFFF;">
