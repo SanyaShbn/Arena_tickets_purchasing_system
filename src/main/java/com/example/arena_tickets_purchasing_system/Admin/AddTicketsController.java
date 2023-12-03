@@ -71,7 +71,7 @@ public class AddTicketsController {
     AnchorPane back_to_admin_tickets;
     @FXML
     void initialize(){
-
+        submitChanges.setDefaultButton(true);
         submitChanges.setOnMouseEntered(event ->{
             submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
         });
