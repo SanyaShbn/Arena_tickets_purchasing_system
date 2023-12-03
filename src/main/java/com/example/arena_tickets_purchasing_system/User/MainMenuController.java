@@ -25,6 +25,9 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.example.arena_tickets_purchasing_system.Constant.*;
 import static com.example.arena_tickets_purchasing_system.Constant.CONTESTS;
@@ -61,12 +64,16 @@ public class MainMenuController {
             double X = 375;
             while (result.next()) {
                 if(Y < 850) {
-                    AnchorPane news_post = (AnchorPane) setNewsPost(new AdminNewsController.News(result.getInt(NEWS_ID), result.getString(PUBLISHING_DATE),
-                            result.getString(PUBLISHING_TIME), result.getString(CONTESTS)));
-                    news_post.setLayoutX(X);
-                    news_post.setLayoutY(Y);
-                    Y = Y + 70;
-                    MainPane.getChildren().add(news_post);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate date = LocalDate.parse(result.getString(PUBLISHING_DATE), formatter);
+                    if(date.isEqual(LocalDate.now()) || date.isBefore(LocalDate.now()) ) {
+                        AnchorPane news_post = (AnchorPane) setNewsPost(new AdminNewsController.News(result.getInt(NEWS_ID), result.getString(PUBLISHING_DATE),
+                                result.getString(PUBLISHING_TIME), result.getString(CONTESTS)));
+                        news_post.setLayoutX(X);
+                        news_post.setLayoutY(Y);
+                        Y = Y + 70;
+                        MainPane.getChildren().add(news_post);
+                    }
                 }
             }
 
