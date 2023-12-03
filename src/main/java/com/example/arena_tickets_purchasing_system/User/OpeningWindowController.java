@@ -45,6 +45,7 @@ public class OpeningWindowController {
     AnchorPane registration, main_page, admin_main_page;
     @FXML
     public void initialize() {
+        SignInButton.setDefaultButton(true);
         ShownPassword.setVisible(false);
         SignInButton.setOnMouseEntered(event ->{
             SignInButton.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #0000FF; -fx-text-fill: #0000FF");
