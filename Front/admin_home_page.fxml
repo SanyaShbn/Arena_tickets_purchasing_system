@@ -61,7 +61,7 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <ImageView fitHeight="745.0" fitWidth="1013.0" layoutX="460.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="745.0" fitWidth="1013.0" layoutX="460.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/Admin_home_page_background.png" />
             </image>
