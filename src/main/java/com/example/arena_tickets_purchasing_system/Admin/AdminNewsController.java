@@ -2,7 +2,6 @@ package com.example.arena_tickets_purchasing_system.Admin;
 
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
-import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,6 +20,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -183,6 +184,12 @@ public class AdminNewsController implements Initializable {
         public News(int id, String date, String time, String contents) {
 
             this.id = new SimpleIntegerProperty(id);
+            this.date = new SimpleStringProperty(date);
+            this.time = new SimpleStringProperty(time);
+            this.contents = new SimpleStringProperty(contents);
+        }
+        public News(String date, String time, String contents) {
+            id = null;
             this.date = new SimpleStringProperty(date);
             this.time = new SimpleStringProperty(time);
             this.contents = new SimpleStringProperty(contents);
