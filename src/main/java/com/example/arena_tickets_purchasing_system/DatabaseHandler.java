@@ -92,18 +92,16 @@ public class DatabaseHandler extends Config{
     }
 
     public void addNewMatches(AdminMatchesWindowController.Match match) throws ClassNotFoundException{
-        String insert = "INSERT INTO " + Constant.MATCHES_TABLE + "(" + Constant.MATCH_ID + "," +
-                Constant.MATCHES_DATE + "," + Constant.MATCHES_TIME + "," + Constant.OPP_TEAM + "," + Constant.TICKETS_AMOUNT +
-        "," + Constant.MATCH_TYPE +  ")" + "VALUES(?,?,?,?,?,?)";
+        String insert = "INSERT INTO " + Constant.MATCHES_TABLE + "(" + Constant.MATCHES_DATE + "," + Constant.MATCHES_TIME + "," + Constant.OPP_TEAM + "," + Constant.TICKETS_AMOUNT +
+        "," + Constant.MATCH_TYPE +  ")" + "VALUES(?,?,?,?,?)";
 
         try {
             PreparedStatement prStr = getDbConnection(dbNameForMatches).prepareStatement(insert);
-            prStr.setInt(1, match.getId());
-            prStr.setString(2, match.getDate());
-            prStr.setString(3, match.getTime());
-            prStr.setString(4, match.getOpponent());
-            prStr.setInt(5, match.getAmount());
-            prStr.setString(6, match.getType());
+            prStr.setString(1, match.getDate());
+            prStr.setString(2, match.getTime());
+            prStr.setString(3, match.getOpponent());
+            prStr.setInt(4, match.getAmount());
+            prStr.setString(5, match.getType());
 
             prStr.executeUpdate();
             new NotificationShower().showSimpleNotification("Уведомление","Матч успешно добавлен в базу данных");
@@ -175,16 +173,14 @@ public class DatabaseHandler extends Config{
     }
 
     public void addNews(AdminNewsController.News news) throws ClassNotFoundException{
-        String insert = "INSERT INTO " + Constant.NEWS_TABLE + "(" + Constant.NEWS_ID + "," +
-                Constant.PUBLISHING_DATE + "," + Constant.PUBLISHING_TIME + "," + Constant.CONTESTS +  ")"
-                + "VALUES(?,?,?,?)";
+        String insert = "INSERT INTO " + Constant.NEWS_TABLE + "(" + Constant.PUBLISHING_DATE + "," + Constant.PUBLISHING_TIME + "," + Constant.CONTESTS +  ")"
+                + "VALUES(?,?,?)";
 
         try{
         PreparedStatement prStr = getDbConnection(dbNameForNews).prepareStatement(insert);
-        prStr.setInt(1, news.getId());
-        prStr.setString(2, news.getDate());
-        prStr.setString(3, news.getTime());
-        prStr.setString(4, news.getContents());
+        prStr.setString(1, news.getDate());
+        prStr.setString(2, news.getTime());
+        prStr.setString(3, news.getContents());
 
         prStr.executeUpdate();
             new NotificationShower().showSimpleNotification("Уведомление","Новостной пост добавлен в базу данных");
