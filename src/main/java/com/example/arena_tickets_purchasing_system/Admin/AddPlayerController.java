@@ -59,6 +59,7 @@ public class AddPlayerController {
     AnchorPane back_to_roster;
     @FXML
     void initialize(){
+        submitChanges.setDefaultButton(true);
         submitChanges.setOnMouseEntered(event ->{
             submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
         });
