@@ -25,6 +25,9 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -116,8 +119,10 @@ public class AdminMatchesWindowController implements Initializable {
         ResultSet result = prStr.executeQuery();
         try {
             while (result.next()) {
+                DateTimeFormatter dtfInput = DateTimeFormatter.ofPattern("u-M-d", Locale.ENGLISH);
+                DateTimeFormatter dtfOutput = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH);
                 int ID = result.getInt(MATCH_ID);
-                String  date = result.getString(MATCHES_DATE);
+                String date = LocalDate.parse(result.getString(MATCHES_DATE), dtfInput).format(dtfOutput).toUpperCase() + " " + result.getString(MATCHES_DATE);
                 String time = result.getString(MATCHES_TIME);
                 String opponent = result.getString(OPP_TEAM);
                 int tickets = result.getInt(TICKETS_AMOUNT);
@@ -222,6 +227,14 @@ public class AdminMatchesWindowController implements Initializable {
 
         public Match(int id_of_match, String match_date, String match_time, String match_type, String opponent, int tickets_amount) {
             this.id = new SimpleIntegerProperty(id_of_match);
+            this.date = new SimpleStringProperty(match_date);
+            this.time = new SimpleStringProperty(match_time);
+            this.type = new SimpleStringProperty (match_type);
+            this.amount = new SimpleIntegerProperty(tickets_amount);
+            this.opponent = new SimpleStringProperty(opponent);
+        }
+        public Match(String match_date, String match_time, String match_type, String opponent, int tickets_amount) {
+            this.id = null;
             this.date = new SimpleStringProperty(match_date);
             this.time = new SimpleStringProperty(match_time);
             this.type = new SimpleStringProperty (match_type);
