@@ -15,6 +15,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 public class AddNewsController {
 
@@ -23,11 +25,6 @@ public class AddNewsController {
 
     @FXML
     private TextField contents;
-    @FXML
-    private TextField id;
-
-    @FXML
-    private DatePicker date;
 
     @FXML
     private Button exitButton;
@@ -35,13 +32,11 @@ public class AddNewsController {
     @FXML
     private Button submitChanges;
 
-    @FXML
-    private TextField time;
-
 
     AnchorPane back_to_club_news;
     @FXML
     void initialize(){
+        submitChanges.setDefaultButton(true);
         submitChanges.setOnMouseEntered(event ->{
             submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
         });
@@ -81,34 +76,24 @@ public class AddNewsController {
         backToPreviousPane(back_to_club_news);
     }
     @FXML
-    private void addNews (ActionEvent event) throws SQLException, ClassNotFoundException {
-        try {
-            if(date.getValue() == null){
-                new NotificationShower().showWarning("Внимание!","Выберите дату публикации!");
-            }
-            else if(date.getValue().isBefore(LocalDate.now())){
-                new NotificationShower().showWarning("Внимание!","Выберите корректную дату публикации!");
-            }
-            else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(".")){
-                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени публикации!");
-            }else {
-                boolean final_check = true;
-                for(char letter: time.getText().toCharArray()){
-                    if(Character.isAlphabetic(letter)){
-                        new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени публикации!");
-                        final_check = false;break;
-                    }
-                }
-                if(final_check) {
-                    new DatabaseHandler().addNews(new AdminNewsController.News(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
-                            time.getText(), contents.getText()));
-                }
-            }
-        }catch(NumberFormatException e){
-            new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
-        }finally {
-            id.clear();date.cancelEdit();time.clear();contents.clear();
+    private void addNews (ActionEvent event) throws ClassNotFoundException {
+        boolean check = false;
+        String alphabet = "abcdefghijklmnopqrstuvwxwz";
+        for(char letter : contents.getText().toCharArray()){
+           for(char english_letter : alphabet.toCharArray()){
+               if(letter == english_letter){
+                   check = true; break;
+               }
+           }
         }
+        if(!check) {
+           new DatabaseHandler().addNews(new AdminNewsController.News(String.valueOf(LocalDate.now()),
+                   String.valueOf(Calendar.getInstance().getTime()).substring(11, 16), contents.getText()));
+        }
+        else {
+            new NotificationShower().showWarning("Внимание!","Содержание должно быть написано на русском языке!");
+        }
+        contents.clear();
     }
 }
 
