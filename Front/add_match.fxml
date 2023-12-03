@@ -23,24 +23,23 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
-                <TextField fx:id="time" layoutX="134.0" layoutY="270.0" prefHeight="35.0" prefWidth="500.0" promptText="время" />
+                <TextField fx:id="time" layoutX="134.0" layoutY="265.0" prefHeight="35.0" prefWidth="500.0" promptText="время" />
                 <Separator layoutY="64.0" prefHeight="18.0" prefWidth="772.0" />
-                <TextField fx:id="amount" layoutX="134.0" layoutY="368.0" prefHeight="35.0" prefWidth="500.0" promptText="количество билетов в наличии" />
-                <TextField fx:id="id" layoutX="134.0" layoutY="120.0" prefHeight="35.0" prefWidth="500.0" promptText="id" />
+                <TextField fx:id="amount" layoutX="134.0" layoutY="380.0" prefHeight="35.0" prefWidth="500.0" promptText="количество билетов в наличии" />
                 <Button fx:id="submitChanges" layoutX="285.0" layoutY="487.0" mnemonicParsing="false" onAction="#addNewMatch" prefHeight="59.0" prefWidth="198.0" style="-fx-background-color: #00BFFF;" text="Принять">
                     <font>
                         <Font name="Bodoni MT Black Italic" size="18.0" />
                     </font>
                 </Button>
-                <RadioButton fx:id="homeRadioButton" layoutX="345.0" layoutY="328.0" mnemonicParsing="false" onAction="#homeRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Домашний" />
-                <RadioButton fx:id="awayRadioButton" layoutX="525.0" layoutY="328.0" mnemonicParsing="false" onAction="#awayRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Гостевой" />
-                <Text layoutX="134.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип матча" wrappingWidth="180.53668212890625">
+                <RadioButton fx:id="homeRadioButton" layoutX="345.0" layoutY="330.0" mnemonicParsing="false" onAction="#homeRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Домашний" />
+                <RadioButton fx:id="awayRadioButton" layoutX="525.0" layoutY="330.0" mnemonicParsing="false" onAction="#awayRadioButtonAction" prefHeight="18.0" prefWidth="86.0" text="Гостевой" />
+                <Text layoutX="134.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип матча" wrappingWidth="180.53668212890625">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Text>
-                <DatePicker fx:id="date" layoutX="134.0" layoutY="220.0" prefHeight="35.0" prefWidth="500.0" promptText="дата" />
-                <MenuButton fx:id="opponent" layoutX="134.0" layoutY="170.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="соперник">
+                <DatePicker fx:id="date" layoutX="134.0" layoutY="200.0" prefHeight="35.0" prefWidth="500.0" promptText="дата" />
+                <MenuButton fx:id="opponent" layoutX="134.0" layoutY="135.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" text="соперник">
                     <items>
                         <MenuItem fx:id="spartak" mnemonicParsing="false" onAction="#setSPA">
                             <graphic>
