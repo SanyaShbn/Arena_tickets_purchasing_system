@@ -13,8 +13,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import static com.example.arena_tickets_purchasing_system.Constant.*;
+import static com.example.arena_tickets_purchasing_system.Constant.MATCH_TYPE;
 
 
 public class AddMatchesController {
@@ -37,8 +47,6 @@ public class AddMatchesController {
     @FXML
     private RadioButton homeRadioButton;
 
-    @FXML
-    private TextField id;
 
     @FXML
     private MenuButton opponent;
@@ -53,6 +61,7 @@ public class AddMatchesController {
     AnchorPane back_to_admin_matches;
     @FXML
     void initialize(){
+        submitChanges.setDefaultButton(true);
         submitChanges.setOnMouseEntered(event ->{
             submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
         });
@@ -104,7 +113,20 @@ public class AddMatchesController {
     }
     @FXML
     private void addNewMatch (ActionEvent event) throws SQLException, ClassNotFoundException {
-        String type_match; int tickets_amount;
+        ArrayList<String> dates_list = new ArrayList<>();
+        String select = "SELECT * FROM " + MATCHES_TABLE;
+        PreparedStatement prStr = new DatabaseHandler().getDbConnection( "matches").prepareStatement(select);
+        ResultSet result = prStr.executeQuery();
+        try {
+            while (result.next()) {
+                String date = result.getString(MATCHES_DATE);
+                dates_list.add(date);
+            }
+        } catch (SQLException e) {
+            new RuntimeException(e);
+        }
+
+        String type_match; int tickets_amount; boolean check = false;
         try {
         if(homeRadioButton.isSelected()){
             type_match  = homeRadioButton.getText();
@@ -114,17 +136,27 @@ public class AddMatchesController {
             type_match = awayRadioButton.getText();
             tickets_amount = 0;
         }
+        for(String dates : dates_list){
+            if(String.valueOf(date.getValue()).equals(dates)){
+                check = true; break;
+            }
+        }
             if(date.getValue() == null){
                 new NotificationShower().showWarning("Внимание!","Выберите дату матча!");
             }
             else if(date.getValue().isBefore(LocalDate.now())){
                 new NotificationShower().showWarning("Внимание!","Выберите корректную дату матча!");
             }
-            else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(".")){
+            else if(check){
+                new NotificationShower().showWarning("Внимание!","В этот день уже есть игра! Выберите корректную дату матча");
+            }
+            else if(time.getText().length() != 5 || !String.valueOf(time.getText().toCharArray()[2]).equals(":")
+                    || (Integer.parseInt(String.valueOf(time.getText().toCharArray()[3])) > 5)
+                    || (Integer.parseInt(String.valueOf(time.getText().toCharArray()[0])) > 2)){
                 new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода времени матча!");
             }
-            else if(Integer.parseInt(amount.getText()) < 0 || Integer.parseInt(amount.getText()) > 15000){
-                new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода количества билетов на матч!");
+            else if(tickets_amount < 0 || tickets_amount > 15000) {
+                new NotificationShower().showWarning("Внимание!", "Проверьте корректность ввода количества билетов на матч!");
             }
             else if(opponent.getText().equals("соперник")){
                 new NotificationShower().showWarning("Внимание!","Выберите соперника!");
@@ -137,14 +169,14 @@ public class AddMatchesController {
                     }
                 }
                 if(final_check) {
-                    new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(Integer.parseInt(id.getText()), String.valueOf(date.getValue()),
+                    new DatabaseHandler().addNewMatches(new AdminMatchesWindowController.Match(String.valueOf(date.getValue()),
                             time.getText(), type_match, opponent.getText(), tickets_amount));
                 }
             }
         } catch(NumberFormatException e){
             new NotificationShower().showWarning("Внимание!","Проверьте корректность ввода данных");
         }finally {
-            id.clear();date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
+           date.cancelEdit();time.clear();homeRadioButton.setSelected(true);amount.setVisible(true);awayRadioButton.setSelected(false);opponent.setText("соперник");amount.clear();
         }
     }
     @FXML
