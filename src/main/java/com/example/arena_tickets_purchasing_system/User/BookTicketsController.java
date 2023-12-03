@@ -86,6 +86,19 @@ public class BookTicketsController {
             0, 0,0 , 0, 0, 0, 0,0);
     @FXML
     void initialize() {
+        submitChanges.setDefaultButton(true);
+        submitChanges.setOnMouseEntered(event ->{
+            submitChanges.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        submitChanges.setOnMouseExited(event ->{
+            submitChanges.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
+        Exit.setOnMouseEntered(event ->{
+            Exit.setStyle("-fx-background-color: #FFFFFF; -fx-border-color: #00BFFF; -fx-text-fill: #00BFFF");
+        });
+        Exit.setOnMouseExited(event ->{
+            Exit.setStyle("-fx-background-color: #00BFFF; -fx-border-color: #00BFFF; -fx-text-fill: #000000");
+        });
         OppLabel.setText(Match.getOpponent());
         TypeLabel.setText(Match.getType());
         TimeLabel.setText(Match.getTime());
@@ -139,6 +152,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getVipSector()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorA (ActionEvent some_event) {
@@ -157,6 +171,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorA()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorB (ActionEvent some_event) {
@@ -175,6 +190,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorB()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorC (ActionEvent some_event) {
@@ -193,6 +209,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorC()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorD (ActionEvent some_event) {
@@ -211,6 +228,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorD()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorE (ActionEvent some_event) {
@@ -229,6 +247,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorE()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorF (ActionEvent some_event) {
@@ -247,6 +266,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorF()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorG (ActionEvent some_event) {
@@ -265,6 +285,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorG()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorH (ActionEvent some_event) {
@@ -283,6 +304,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorH()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void setSectorI (ActionEvent some_event) {
@@ -301,6 +323,7 @@ public class BookTicketsController {
             throw new RuntimeException(e);
         }
         allTickets.setText(String.valueOf(Ticket.getSectorI()));
+        allTickets.setEditable(false);
     }
     @FXML
     private void submitChanges (ActionEvent some_event) {
@@ -310,6 +333,7 @@ public class BookTicketsController {
             String column_name = "Sector_" + SectorsMenuButton.getText();
             if (Integer.parseInt(users_tickets) > Integer.parseInt(allTickets.getText()) || users_tickets.equals("0")) {
                 new NotificationShower().showSimpleError("Внимание!", "Вы ввели недопустимое количество билетов для покупки");
+                amountToBuy.clear();
             }
             else {
                     String select = "SELECT * FROM " + Constant.USERS_TICKETS_TABLE + " WHERE LoginUsers =?";
@@ -367,6 +391,7 @@ public class BookTicketsController {
             }
         } catch (NumberFormatException e) {
         new NotificationShower().showSimpleError("Внимание!", "Вы ввели недопустимое количество билетов для покупки");
+            amountToBuy.clear();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
