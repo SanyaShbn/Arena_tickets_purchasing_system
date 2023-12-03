@@ -1,9 +1,7 @@
 package com.example.arena_tickets_purchasing_system.User;
 
 import com.example.arena_tickets_purchasing_system.Admin.AdminMatchesWindowController;
-import com.example.arena_tickets_purchasing_system.Admin.AdminTicketsController;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
-import com.example.arena_tickets_purchasing_system.Constant;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import com.example.arena_tickets_purchasing_system.animations.NotificationShower;
@@ -22,6 +20,9 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static com.example.arena_tickets_purchasing_system.Constant.*;
@@ -129,7 +130,7 @@ public class MatchesWindowController implements Initializable {
                     sorted_dates.setOnAction(event -> {
                         int i = 0;
                        while(i < filtered_list.size()) {
-                            if (!filtered_list.get(i).getDate().equals(sorted_dates.getText())) {
+                            if (!filtered_list.get(i).getDate().substring(4).equals(sorted_dates.getText())) {
                                 filtered_list.remove(filtered_list.get(i));
                             }
                             else{i++;}
@@ -187,8 +188,10 @@ public class MatchesWindowController implements Initializable {
         ResultSet result = prStr.executeQuery();
         try {
             while (result.next()) {
+                DateTimeFormatter dtfInput = DateTimeFormatter.ofPattern("u-M-d", Locale.ENGLISH);
+                DateTimeFormatter dtfOutput = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH);
                 int ID = result.getInt(MATCH_ID);
-                String  date = result.getString(MATCHES_DATE);
+                String date = LocalDate.parse(result.getString(MATCHES_DATE), dtfInput).format(dtfOutput).toUpperCase() + " " + result.getString(MATCHES_DATE);
                 String time = result.getString(MATCHES_TIME);
                 String opponent = result.getString(OPP_TEAM);
                 int tickets = result.getInt(TICKETS_AMOUNT);
