@@ -48,16 +48,20 @@ public class RegistrationController {
             SignUpButton.setStyle("-fx-background-color: #0000FF; -fx-border-color: #0000FF; -fx-text-fill: #FFFFFF");
         });
         eyeImage.setOnMousePressed(event ->{
-            shownPassword.setVisible(true);
-            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
-            shownPassword.setText(PasswordField.getText());
-            PasswordField.setVisible(false);
-        });
-        eyeImage.setOnMouseReleased(event ->{
-            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
-            PasswordField.setVisible(true);
-            shownPassword.clear();
-            shownPassword.setVisible(false);
+            if(!shownPassword.isVisible()) {
+                shownPassword.setVisible(true);
+                eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
+                shownPassword.setText(PasswordField.getText());
+                PasswordField.setVisible(false);
+                PasswordField.clear();
+            }
+            else{
+                shownPassword.setVisible(false);
+                eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
+                PasswordField.setText(shownPassword.getText());
+                PasswordField.setVisible(true);
+                shownPassword.clear();
+            }
         });
     }
     private void registerUser(String login, String password) throws SQLException, ClassNotFoundException {
@@ -72,27 +76,52 @@ public class RegistrationController {
         }
 
         if(numb > 0){
-            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            Error_shaking login_and_password_shake;
+            if(PasswordField.isVisible()) {
+                login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            }
+            else{
+                login_and_password_shake = new Error_shaking(LoginField, shownPassword);
+            }
+            Error_shaking image_shaking = new Error_shaking(eyeImage);
+            image_shaking.executeSingleAnimation();
             login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка регистрации!", "Логин или пароль уже используются");
             LoginField.clear();
             PasswordField.clear();
+            shownPassword.clear();
 
         }
         else{
             ResultSet check_admin = dbHandler.getAdmin(login, password);
             if(check_admin.next()){
-                Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                Error_shaking login_and_password_shake;
+                if(PasswordField.isVisible()) {
+                    login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                }
+                else{
+                    login_and_password_shake = new Error_shaking(LoginField, shownPassword);
+                }
+                Error_shaking image_shaking = new Error_shaking(eyeImage);
+                image_shaking.executeSingleAnimation();
                 login_and_password_shake.executeAnimation();
                 new NotificationShower().showSimpleError("Ошибка регистрации!", "Логин или пароль уже используются");
                 LoginField.clear();
                 PasswordField.clear();
+                shownPassword.clear();
             }
             else {
                 new NotificationShower().showSimpleNotification("Уведомление", "Вы успешно зарегестрированы");
                 dbHandler.signUpUsers(new User(login, password));
-                SignUpButton.getScene().getWindow().hide();
-                new WindowsOpener("Open_window.fxml");
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("Open_window.fxml"));
+                MainPane.getChildren().clear();
+                try {
+                    new_pane = loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                MainPane.getChildren().add(new_pane);
             }
 
         }
@@ -100,21 +129,36 @@ public class RegistrationController {
     }
     @FXML
     private void registrationOfUser (ActionEvent some_event) {
-        String login = LoginField.getText().trim();
-        String password = PasswordField.getText().trim();
-        if(!LoginField.getText().isEmpty() && !PasswordField.getText().isEmpty()){
+        if(LoginField.getText().isEmpty() || (PasswordField.isVisible() && PasswordField.getText().isEmpty())
+                || (shownPassword.isVisible() && shownPassword.getText().isEmpty())){
+            Error_shaking login_and_password_shake;
+            if(PasswordField.isVisible()) {
+                login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            }
+            else{
+                login_and_password_shake = new Error_shaking(LoginField, shownPassword);
+            }
+            Error_shaking image_shaking = new Error_shaking(eyeImage);
+            image_shaking.executeSingleAnimation();
+            login_and_password_shake.executeAnimation();
+            new NotificationShower().showSimpleError("Ошибка регистрации!", "Введите логин и пароль");
+            PasswordField.clear();shownPassword.clear();LoginField.clear();
+        }
+        else {
             try {
+                String login = LoginField.getText().trim();
+                String password;
+                if(PasswordField.isVisible()){
+                    password = PasswordField.getText().trim();
+                }else{
+                    password = shownPassword.getText().trim();
+                }
                 registerUser(login, password);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
-            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
-            login_and_password_shake.executeAnimation();
-            new NotificationShower().showSimpleError("Ошибка регистрации!", "Введите логин и пароль");
         }
     }
 
