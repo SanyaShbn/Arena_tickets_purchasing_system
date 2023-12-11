@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,7 +22,7 @@
                 </Text>
             </children>
         </AnchorPane>
-        <TextArea fx:id="LoginField" layoutX="435.0" layoutY="388.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте новый логин" />
+        <TextArea fx:id="LoginField" layoutX="435.0" layoutY="352.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте новый логин" />
         <Button fx:id="SignUpButton" layoutX="566.0" layoutY="627.0" mnemonicParsing="false" onAction="#registrationOfAdmin" prefHeight="53.0" prefWidth="415.0" style="-fx-background-color: #0000FF;" text="Изменить данные учётной записи" textFill="#f4eeee">
             <font>
                 <Font size="24.0" />
@@ -32,17 +33,26 @@
                 <Font name="System Italic" size="64.0" />
             </font>
         </Text>
-        <TextArea fx:id="shownPassword" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" />
+        <TextArea fx:id="shownPassword" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Введите новый пароль" />
         <Hyperlink fx:id="ExitLink" layoutX="641.0" layoutY="540.0" onAction="#goToAdminHomePage" prefHeight="35.0" prefWidth="267.0" text="Назад в главное меню администратора">
             <font>
                 <Font size="14.0" />
             </font>
         </Hyperlink>
-        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Придумайте новый пароль" />
+        <PasswordField fx:id="PasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="468.0" prefHeight="40.0" prefWidth="680.0" promptText="Введите новый пароль" />
         <ImageView fx:id="eyeImage" fitHeight="26.0" fitWidth="54.0" layoutX="1080.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/eye.png" />
             </image>
         </ImageView>
+        <TextArea fx:id="shownCurrentPassword" layoutX="435.0" layoutY="410.0" prefHeight="40.0" prefWidth="680.0" promptText="Введите текущий пароль" />
+        <PasswordField fx:id="CurrentPasswordField" alignment="TOP_LEFT" layoutX="435.0" layoutY="410.0" prefHeight="40.0" prefWidth="680.0" promptText="Введите текущий пароль" />
+        <ImageView fx:id="eyeImage1" fitHeight="26.0" fitWidth="54.0" layoutX="1080.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../src/main/java/com/example/arena_tickets_purchasing_system/Images/eye.png" />
+            </image>
+        </ImageView>
+      <RadioButton fx:id="changeLogin" layoutX="1159.0" layoutY="421.0" mnemonicParsing="false" onAction="#changeLoginAction" text="Изменить логин" />
+      <RadioButton fx:id="changePassword" layoutX="1288.0" layoutY="421.0" mnemonicParsing="false" onAction="#changePasswordAction" text="Изменить пароль" />
     </children>
 </AnchorPane>
