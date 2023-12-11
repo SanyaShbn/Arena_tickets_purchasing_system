@@ -1,5 +1,6 @@
 package com.example.arena_tickets_purchasing_system.User;
 import com.example.arena_tickets_purchasing_system.ArenaTicketsPurchasingSystem;
+import com.example.arena_tickets_purchasing_system.Constant;
 import com.example.arena_tickets_purchasing_system.DatabaseHandler;
 import com.example.arena_tickets_purchasing_system.WindowsOpener;
 import com.example.arena_tickets_purchasing_system.animations.Error_shaking;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -66,16 +68,18 @@ public class RegistrationController {
     }
     private void registerUser(String login, String password) throws SQLException, ClassNotFoundException {
         DatabaseHandler dbHandler = new DatabaseHandler();
-        User user = new User(login, password);
-        ResultSet result = dbHandler.getUser(user);
-
-        int numb = 0;
-
-        while(result.next()){
-            numb++;
+        boolean check = false;
+        String select_users = "SELECT * FROM " + Constant.USERS_TABLE;
+        PreparedStatement prStrUsers = dbHandler.getDbConnection("users").prepareStatement(select_users);
+        ResultSet result_users = prStrUsers.executeQuery();
+        while (result_users.next()){
+            if (login.equals(result_users.getString("User_login"))
+                    || password.equals(result_users.getString("User_password"))) {
+                check = true;
+                break;
+            }
         }
-
-        if(numb > 0){
+        if (check) {
             Error_shaking login_and_password_shake;
             if(PasswordField.isVisible()) {
                 login_and_password_shake = new Error_shaking(LoginField, PasswordField);
