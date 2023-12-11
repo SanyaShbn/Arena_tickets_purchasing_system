@@ -54,16 +54,20 @@ public class OpeningWindowController {
             SignInButton.setStyle("-fx-background-color: #0000FF; -fx-border-color: #0000FF; -fx-text-fill: #FFFFFF");
         });
         eyeImage.setOnMousePressed(event ->{
-            ShownPassword.setVisible(true);
-           eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
-           ShownPassword.setText(PasswordField.getText());
-           PasswordField.setVisible(false);
-        });
-        eyeImage.setOnMouseReleased(event ->{
-            eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
-            PasswordField.setVisible(true);
-            ShownPassword.clear();
-            ShownPassword.setVisible(false);
+           if(!ShownPassword.isVisible()) {
+               ShownPassword.setVisible(true);
+               eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye_crossed.png"));
+               ShownPassword.setText(PasswordField.getText());
+               PasswordField.setVisible(false);
+               PasswordField.clear();
+           }
+           else{
+               ShownPassword.setVisible(false);
+               eyeImage.setImage(new Image("D:\\Уник\\Arena_tickets_purchasing_system\\src\\main\\java\\com\\example\\arena_tickets_purchasing_system\\Images\\eye.png"));
+               PasswordField.setText(ShownPassword.getText());
+               PasswordField.setVisible(true);
+               ShownPassword.clear();
+           }
         });
         FXMLLoader registration_loader = new FXMLLoader();
         registration_loader.setLocation(ArenaTicketsPurchasingSystem.class.getResource("registration.fxml"));
@@ -79,24 +83,37 @@ public class OpeningWindowController {
     }
     @FXML
     private void signInUser() throws SQLException{
-        if(LoginField.getText().isEmpty() || PasswordField.getText().isEmpty()){
-            Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+        if(LoginField.getText().isEmpty() || (PasswordField.isVisible() && PasswordField.getText().isEmpty())
+        || (ShownPassword.isVisible() && ShownPassword.getText().isEmpty())){
+            Error_shaking login_and_password_shake;
+            if(PasswordField.isVisible()) {
+               login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+            }
+            else{
+                login_and_password_shake = new Error_shaking(LoginField, ShownPassword);
+            }
+            Error_shaking image_shaking = new Error_shaking(eyeImage);
+            image_shaking.executeSingleAnimation();
             login_and_password_shake.executeAnimation();
             new NotificationShower().showSimpleError("Ошибка входа!", "Введите логин и пароль!");
+            PasswordField.clear();ShownPassword.clear();LoginField.clear();
         }
         else {
             DatabaseHandler dbHandler = new DatabaseHandler();
 
             String login = LoginField.getText();
-            String password = PasswordField.getText();
-
+            String password;
+            if(PasswordField.isVisible()) {
+                password = PasswordField.getText();
+            }else{
+                password = ShownPassword.getText();
+            }
             User user = new User(login, password);
 
             dbHandler.getUser(user);
             loginUser(login, password);
         }
     }
-
     @FXML
     private void goToNewPane(Node node) {
         MainPane.getChildren().clear();
@@ -150,11 +167,20 @@ public class OpeningWindowController {
                 MainPane.getChildren().add(admin_main_page);
             }
             else {
-                Error_shaking login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                Error_shaking login_and_password_shake;
+                if(PasswordField.isVisible()) {
+                    login_and_password_shake = new Error_shaking(LoginField, PasswordField);
+                }
+                else{
+                    login_and_password_shake = new Error_shaking(LoginField, ShownPassword);
+                }
+                Error_shaking image_shaking = new Error_shaking(eyeImage);
+                image_shaking.executeSingleAnimation();
                 login_and_password_shake.executeAnimation();
                 new NotificationShower().showSimpleError("Ошибка входа!", "Неверный логин или пароль");
                 LoginField.clear();
                 PasswordField.clear();
+                ShownPassword.clear();
             }
         }
 
